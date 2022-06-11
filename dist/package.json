@@ -1,0 +1,17 @@
+{
+  "name": "github-actions-typing",
+  "version": "unspecified",
+  "private": true,
+  "workspaces": [
+    "packages/github-actions-typing",
+    "packages/github-actions-typing-test",
+    "packages_imported/kotlin/1.7.0",
+    "packages_imported/kotlin-test-js-runner/1.7.0"
+  ],
+  "resolutions": {},
+  "devDependencies": {},
+  "dependencies": {},
+  "peerDependencies": {},
+  "optionalDependencies": {},
+  "bundledDependencies": []
+}

@@ -1,0 +1,16 @@
+{
+  "version": "9",
+  "items": {
+    "91ad9de498cfa4f6c415a71b317605c0": {
+      "src": "/home/piotr/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib-js/1.7.0/554446425fc3e360edc626fdd1d5bbab7ec72bb5/kotlin-stdlib-js-1.7.0.jar",
+      "target": "kotlin/1.7.0"
+    },
+    "0289541566f726c115c6ac6448f2cd5b": {
+      "src": "/home/piotr/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib-common/1.7.0/51736992f422993a1e741051bdf3c12801bc1ca1/kotlin-stdlib-common-1.7.0.jar"
+    },
+    "895195c673d7ea83de5af201c50e8279": {
+      "src": "/home/piotr/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-test-js-runner/1.7.0/c776694bcd8ec38ab942d5ca1d896ca805c9541f/kotlin-test-js-runner-1.7.0.jar",
+      "target": "kotlin-test-js-runner/1.7.0"
+    }
+  }
+}

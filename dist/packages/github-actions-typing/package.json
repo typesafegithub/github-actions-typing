@@ -1,0 +1,12 @@
+{
+  "name": "github-actions-typing",
+  "version": "0.0.0-unspecified",
+  "main": "kotlin/github-actions-typing.js",
+  "devDependencies": {
+    "source-map-support": "0.5.21"
+  },
+  "dependencies": {},
+  "peerDependencies": {},
+  "optionalDependencies": {},
+  "bundledDependencies": []
+}

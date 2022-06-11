@@ -1,0 +1,14 @@
+{
+  "name": "github-actions-typing-test",
+  "version": "0.0.0-unspecified",
+  "main": "kotlin/github-actions-typing-test.js",
+  "devDependencies": {
+    "mocha": "9.2.1",
+    "source-map-support": "0.5.21",
+    "format-util": "1.0.5"
+  },
+  "dependencies": {},
+  "peerDependencies": {},
+  "optionalDependencies": {},
+  "bundledDependencies": []
+}
