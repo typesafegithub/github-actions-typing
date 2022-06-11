@@ -1,6 +1,6 @@
-name: 'GitHub Actions Typing'
-description: 'Bring type-safety to your GitHub actions' API! '
-author: 'Piotr Krzemiński'
+name: GitHub Actions Typing
+description: Bring type-safety to your GitHub actions' API!
+author: Piotr Krzemiński
 inputs:
   milliseconds: # change this
     required: true
