@@ -1,0 +1,11 @@
+{
+  "name": "kotlinx-serialization-kotlinx-serialization-core-js-legacy",
+  "version": "1.3.2",
+  "customFields": {},
+  "main": "kotlinx-serialization-kotlinx-serialization-core-js-legacy.js",
+  "devDependencies": {},
+  "dependencies": {},
+  "peerDependencies": {},
+  "optionalDependencies": {},
+  "bundledDependencies": []
+}
