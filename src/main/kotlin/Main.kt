@@ -1,3 +1,5 @@
 fun main() {
-    println("Hello from Node!")
+    println("Action's manifest:")
+    val manifest = readActionManifest()
+    println(manifest)
 }
