@@ -1,6 +1,6 @@
+import com.charleskorn.kaml.Yaml
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.decodeFromString
-import net.mamoe.yamlkt.Yaml
 
 @Serializable
 data class Manifest(
@@ -25,5 +25,11 @@ data class Output(
     val type: String? = null,
 )
 
+private val myYaml = Yaml(
+    configuration = Yaml.default.configuration.copy(
+        strictMode = false,
+    )
+)
+
 fun parseManifest(manifestString: String): Manifest =
-    Yaml.decodeFromString(manifestString)
+    myYaml.decodeFromString(manifestString)

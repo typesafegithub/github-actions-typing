@@ -1,5 +1,5 @@
 plugins {
-    kotlin("js") version "1.7.0"
+    kotlin("jvm") version "1.7.0"
     kotlin("plugin.serialization") version "1.7.0"
 }
 
@@ -7,12 +7,6 @@ repositories {
     mavenCentral()
 }
 
-kotlin {
-    js {
-        nodejs()
-    }
-}
-
 dependencies {
-    implementation("net.mamoe.yamlkt:yamlkt:0.12.0")
+    implementation("com.charleskorn.kaml:kaml:0.45.0")
 }
