@@ -7,5 +7,5 @@ inputs:
     description: 'input description here'
     default: 'default value if applicable'
 runs:
-  using: 'node16'
-  main: 'dist/packages/github-actions-typing/kotlin/github-actions-typing.js'
+  using: 'docker'
+  image: 'Dockerfile'
