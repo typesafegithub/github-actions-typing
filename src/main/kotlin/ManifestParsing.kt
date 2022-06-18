@@ -4,15 +4,9 @@ import kotlinx.serialization.decodeFromString
 
 @Serializable
 data class Manifest(
-    val typing: Typing? = null,
+    val typing: String? = null,
     val inputs: Map<String, Input> = emptyMap(),
     val outputs: Map<String, Output> = emptyMap(),
-)
-
-@Serializable
-data class Typing(
-    val specification: String? = null,
-    val version: String? = null,
 )
 
 @Serializable
