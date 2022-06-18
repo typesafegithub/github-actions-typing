@@ -1,11 +1,13 @@
 name: GitHub Actions Typing
 description: Bring type-safety to your GitHub actions' API!
 author: Piotr Krzemiński
+typingSpec: krzema12/github-actions-typing@v0.1
 inputs:
   milliseconds: # change this
     required: true
     description: 'input description here'
     default: 'default value if applicable'
+    type: integer
 runs:
   using: 'docker'
   image: 'Dockerfile'

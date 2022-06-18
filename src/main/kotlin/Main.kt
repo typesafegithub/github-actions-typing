@@ -8,6 +8,9 @@ fun main() {
     }
 
     val parsedManifest = parseManifest(manifest)
-    println("========================")
+    println("Parsed manifest:")
     println(parsedManifest)
+
+    val validationResult = parsedManifest.validate()
+    println(validationResult)
 }
