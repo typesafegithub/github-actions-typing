@@ -46,7 +46,7 @@ In your action's `action.yml`:
   state which kind of typings your actions adheres to. At the time of writing this, no standard has emerged yet. This
   attribute is there to be able to tell the specs apart in the future, for example if GitHub publishes a first-party way
   to specify types.
-- specify types for your action's inputs and outputs. Details on how to do it will be documented properly soon.
+- specify types for your action's inputs and outputs. See _"Available types"_ section below.
 
 Finally, create a workflow in your actions' repository that will simply call this action to validate the types:
 
@@ -64,4 +64,62 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: krzema12/github-actions-typing@v0
+```
+
+## Available types
+
+### String
+
+A text value.
+
+Example:
+
+```yaml
+...
+inputs:
+  name:
+    type: string
+    ...
+```
+
+### Boolean
+
+Can be `true` or `false`.
+
+Example:
+
+```yaml
+...
+inputs:
+  verbose:
+    type: boolean
+    ...
+```
+
+### Integer
+
+A number without a fractional component.
+
+Example:
+
+```yaml
+...
+inputs:
+  retries:
+    type: integer
+    ...
+```
+
+### Float
+
+A number with a fractional component.
+
+Example:
+
+```yaml
+...
+inputs:
+  threshold:
+    type: float
+    ...
 ```
