@@ -34,3 +34,12 @@ jobs:
         uses: gradle/gradle-build-action@v2
         with:
           arguments: build
+  "validate-types":
+    runs-on: "ubuntu-latest"
+    needs:
+      - "check_yaml_consistency"
+    steps:
+      - id: step-0
+        uses: actions/checkout@v3
+      - id: step-1
+        uses: krzema12/github-actions-typing@v0

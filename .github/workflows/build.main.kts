@@ -1,6 +1,7 @@
 #!/usr/bin/env kotlin
 @file:DependsOn("it.krzeminski:github-actions-kotlin-dsl:0.19.0")
 
+import it.krzeminski.githubactions.actions.CustomAction
 import it.krzeminski.githubactions.actions.actions.CheckoutV3
 import it.krzeminski.githubactions.actions.gradle.GradleBuildActionV2
 import it.krzeminski.githubactions.domain.RunnerType
@@ -23,5 +24,18 @@ workflow(
     ) {
         uses(CheckoutV3())
         uses(GradleBuildActionV2(arguments = "build"))
+    }
+
+    job(
+        id = "validate-types",
+        runsOn = RunnerType.UbuntuLatest,
+    ) {
+        uses(CheckoutV3())
+        uses(
+            CustomAction(
+                "krzema12", "github-actions-typing", "v0",
+                inputs = emptyMap(),
+            )
+        )
     }
 }.writeToFile()
