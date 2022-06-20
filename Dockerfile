@@ -10,4 +10,4 @@ RUN mkdir /app
 COPY --from=build /src/dist/github-actions-typing/lib/*.jar /app/
 WORKDIR /app
 
-ENTRYPOINT ["java", "-cp", "/app/*", "MainKt"]
+ENTRYPOINT ["java", "-cp", "/app/*", "it.krzeminski.githubactionstyping.MainKt"]
