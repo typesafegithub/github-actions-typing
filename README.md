@@ -46,16 +46,16 @@ Create a workflow in your actions' repository that will simply call this action:
 name: Validate action typings
 
 on:
-    push: [main]
-    pull_request:
-    workflow_dispatch:
+  push: [main]
+  pull_request:
+  workflow_dispatch:
 
 jobs:
-    validate-typings:
-        runs-on: "ubuntu-latest"
-        steps:
-        - uses: actions/checkout@v3
-        - uses: krzema12/github-actions-typing@v0
-          with:
-            verbose: true
+  validate-typings:
+    runs-on: "ubuntu-latest"
+    steps:
+      - uses: actions/checkout@v3
+      - uses: krzema12/github-actions-typing@v0
+        with:
+          verbose: true
 ```
