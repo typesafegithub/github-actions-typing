@@ -3,7 +3,9 @@ package it.krzeminski.githubactionstyping
 import it.krzeminski.githubactionstyping.parsing.parseManifest
 import it.krzeminski.githubactionstyping.parsing.readActionManifest
 import it.krzeminski.githubactionstyping.reporting.toPlaintextReport
+import it.krzeminski.githubactionstyping.validation.ItemValidationResult
 import it.krzeminski.githubactionstyping.validation.validate
+import kotlin.system.exitProcess
 
 fun main() {
     println("Action's manifest:")
@@ -21,4 +23,8 @@ fun main() {
     println()
 
     println(validationResult.toPlaintextReport())
+
+    if (validationResult.overallResult is ItemValidationResult.Invalid) {
+        exitProcess(1)
+    }
 }
