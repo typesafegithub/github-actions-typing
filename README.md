@@ -56,6 +56,4 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: krzema12/github-actions-typing@v0
-        with:
-          verbose: true
 ```
