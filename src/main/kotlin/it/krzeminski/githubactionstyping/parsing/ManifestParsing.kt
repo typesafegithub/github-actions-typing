@@ -1,3 +1,5 @@
+package it.krzeminski.githubactionstyping.parsing
+
 import com.charleskorn.kaml.Yaml
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.decodeFromString

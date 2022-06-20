@@ -1,3 +1,8 @@
+package it.krzeminski.githubactionstyping.validation
+
+import it.krzeminski.githubactionstyping.parsing.ApiItem
+import it.krzeminski.githubactionstyping.parsing.Manifest
+
 const val expectedTypingSpec = "krzema12/github-actions-typing@v0.1"
 
 fun Manifest.validate(): ActionValidationResult {

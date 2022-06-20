@@ -1,3 +1,5 @@
+package it.krzeminski.githubactionstyping.parsing
+
 import java.io.File
 
 fun readActionManifest(): String? =

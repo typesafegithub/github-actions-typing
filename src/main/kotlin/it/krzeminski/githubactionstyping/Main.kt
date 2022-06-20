@@ -1,3 +1,9 @@
+package it.krzeminski.githubactionstyping
+
+import it.krzeminski.githubactionstyping.parsing.parseManifest
+import it.krzeminski.githubactionstyping.parsing.readActionManifest
+import it.krzeminski.githubactionstyping.validation.validate
+
 fun main() {
     println("Action's manifest:")
     val manifest = readActionManifest()
