@@ -4,13 +4,17 @@
 import it.krzeminski.githubactions.actions.actions.CheckoutV3
 import it.krzeminski.githubactions.actions.gradle.GradleBuildActionV2
 import it.krzeminski.githubactions.domain.RunnerType
+import it.krzeminski.githubactions.domain.triggers.PullRequest
 import it.krzeminski.githubactions.domain.triggers.Push
 import it.krzeminski.githubactions.dsl.workflow
 import it.krzeminski.githubactions.yaml.writeToFile
 
 workflow(
     name = "Build",
-    on = listOf(Push(branchesIgnore = listOf("main"))),
+    on = listOf(
+        Push(branches = listOf("main")),
+        PullRequest(),
+    ),
     sourceFile = __FILE__.toPath(),
 ) {
     job(

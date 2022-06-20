@@ -6,8 +6,9 @@ name: Build
 
 on:
   push:
-    branches-ignore:
+    branches:
       - 'main'
+  pull_request:
 
 jobs:
   "check_yaml_consistency":
