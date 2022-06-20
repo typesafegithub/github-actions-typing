@@ -9,7 +9,8 @@ fun Manifest.validate(): ActionValidationResult {
     if (this.typingSpec == null || this.typingSpec != expectedTypingSpec) {
         return ActionValidationResult(
             overallResult = ItemValidationResult.Invalid(
-                "Set top-level 'typingSpec' attribute to '$expectedTypingSpec'")
+                "Set top-level 'typingSpec' attribute to '$expectedTypingSpec', was: ${typingSpec?.let { "'$it'" }}"
+            )
         )
     }
 
@@ -25,7 +26,7 @@ fun Manifest.validate(): ActionValidationResult {
     )
 }
 
-fun ApiItem.validate(): ItemValidationResult {
+private fun ApiItem.validate(): ItemValidationResult {
     if (this.type == null) {
         return ItemValidationResult.Invalid("Type must be specified. Use 'type' attribute.")
     }
