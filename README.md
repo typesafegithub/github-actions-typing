@@ -40,6 +40,14 @@ This action, once used within a workflow, will fail the workflow run and produce
 
 # Usage
 
+In your action's `action.yml`:
+
+- add top-level attribute: `typingSpec: krzema12/github-actions-typing@v0.1`. Thanks to this, you as the actions' author
+  state which kind of typings your actions adheres to. At the time of writing this, no standard has emerged yet. This
+  attribute is there to be able to tell the specs apart in the future, for example if GitHub publishes a first-party way
+  to specify types.
+- specify types for your action's inputs and outputs. Details on how to do it will be documented properly soon.
+
 Create a workflow in your actions' repository that will simply call this action:
 
 ```yaml
