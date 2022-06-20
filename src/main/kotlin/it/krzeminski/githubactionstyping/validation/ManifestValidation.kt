@@ -30,7 +30,14 @@ private fun ApiItem.validate(): ItemValidationResult {
     if (this.type == null) {
         return ItemValidationResult.Invalid("Type must be specified. Use 'type' attribute.")
     }
-    return ItemValidationResult.Valid
+
+    return when (this.type) {
+        "string" -> ItemValidationResult.Valid
+        "boolean" -> ItemValidationResult.Valid
+        "integer" -> ItemValidationResult.Valid
+        "float" -> ItemValidationResult.Valid
+        else -> ItemValidationResult.Invalid("Unknown type: '${this.type}'.")
+    }
 }
 
 data class ActionValidationResult(
