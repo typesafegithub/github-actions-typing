@@ -47,21 +47,19 @@ In your action's `action.yml`:
   attribute is there to be able to tell the specs apart in the future, for example if GitHub publishes a first-party way
   to specify types.
 - specify types for your action's inputs and outputs. Details on how to do it will be documented properly soon.
+- create a workflow in your actions' repository that will simply call this action:
+   ```yaml
+   name: Validate action typings
 
-Create a workflow in your actions' repository that will simply call this action:
+   on:
+     push: [main]
+     pull_request:
+     workflow_dispatch:
 
-```yaml
-name: Validate action typings
-
-on:
-  push: [main]
-  pull_request:
-  workflow_dispatch:
-
-jobs:
-  validate-typings:
-    runs-on: "ubuntu-latest"
-    steps:
-      - uses: actions/checkout@v3
-      - uses: krzema12/github-actions-typing@v0
-```
+   jobs:
+     validate-typings:
+       runs-on: "ubuntu-latest"
+       steps:
+         - uses: actions/checkout@v3
+         - uses: krzema12/github-actions-typing@v0
+   ```
