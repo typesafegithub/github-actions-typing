@@ -123,3 +123,20 @@ inputs:
     type: float
     ...
 ```
+
+### Enum
+
+Multiple possible values.
+
+Example:
+```yaml
+...
+inputs:
+  permissions:
+    type: enum
+    allowedValues:
+      - user
+      - admin
+      - guest
+    ...
+```

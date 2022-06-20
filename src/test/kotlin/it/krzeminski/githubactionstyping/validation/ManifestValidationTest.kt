@@ -33,6 +33,27 @@ class ManifestValidationTest : FunSpec({
                 ),
             )
         }
+
+        test("enum type") {
+            // given
+            val manifest = Manifest(
+                typingSpec = expectedTypingSpec,
+                inputs = mapOf(
+                    "enum-input" to ApiItem(type = "enum", allowedValues = listOf("foo", "bar", "baz")),
+                ),
+            )
+
+            // when
+            val result = manifest.validate()
+
+            // then
+            result shouldBe ActionValidationResult(
+                overallResult = ItemValidationResult.Valid,
+                inputs = mapOf(
+                    "enum-input" to ItemValidationResult.Valid,
+                ),
+            )
+        }
     }
 
     context("failure cases") {
@@ -129,6 +150,75 @@ class ManifestValidationTest : FunSpec({
                     "some-input" to ItemValidationResult.Invalid(
                         message = "Unknown type: 'for-sure-unknown-type'."
                     ),
+                ),
+            )
+        }
+
+        test("primitive types with 'allowedValues' attribute") {
+            // given
+            val manifest = Manifest(
+                typingSpec = expectedTypingSpec,
+                inputs = mapOf(
+                    "string-input" to ApiItem(type = "string", allowedValues = listOf("foo", "bar")),
+                    "boolean-input" to ApiItem(type = "boolean", allowedValues = listOf("foo", "bar")),
+                    "integer-input" to ApiItem(type = "integer", allowedValues = listOf("foo", "bar")),
+                    "float-input" to ApiItem(type = "float", allowedValues = listOf("foo", "bar")),
+                ),
+            )
+
+            // when
+            val result = manifest.validate()
+
+            // then
+            result shouldBe ActionValidationResult(
+                overallResult = ItemValidationResult.Invalid("Some typing is invalid."),
+                inputs = mapOf(
+                    "string-input" to ItemValidationResult.Invalid("'allowedValues' is not allowed for this type."),
+                    "boolean-input" to ItemValidationResult.Invalid("'allowedValues' is not allowed for this type."),
+                    "integer-input" to ItemValidationResult.Invalid("'allowedValues' is not allowed for this type."),
+                    "float-input" to ItemValidationResult.Invalid("'allowedValues' is not allowed for this type."),
+                ),
+            )
+        }
+
+        test("enum type without 'allowedValues' attribute") {
+            // given
+            val manifest = Manifest(
+                typingSpec = expectedTypingSpec,
+                inputs = mapOf(
+                    "enum-input" to ApiItem(type = "enum", allowedValues = null),
+                ),
+            )
+
+            // when
+            val result = manifest.validate()
+
+            // then
+            result shouldBe ActionValidationResult(
+                overallResult = ItemValidationResult.Invalid("Some typing is invalid."),
+                inputs = mapOf(
+                    "enum-input" to ItemValidationResult.Invalid("Allowed values must be specified."),
+                ),
+            )
+        }
+
+        test("enum type with just one allowed value") {
+            // given
+            val manifest = Manifest(
+                typingSpec = expectedTypingSpec,
+                inputs = mapOf(
+                    "enum-input" to ApiItem(type = "enum", allowedValues = listOf("foo")),
+                ),
+            )
+
+            // when
+            val result = manifest.validate()
+
+            // then
+            result shouldBe ActionValidationResult(
+                overallResult = ItemValidationResult.Invalid("Some typing is invalid."),
+                inputs = mapOf(
+                    "enum-input" to ItemValidationResult.Invalid("There must be at least two allowed values."),
                 ),
             )
         }

@@ -14,6 +14,7 @@ data class Manifest(
 @Serializable
 data class ApiItem(
     val type: String? = null,
+    val allowedValues: List<String>? = null,
 )
 
 private val myYaml = Yaml(
