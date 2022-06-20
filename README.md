@@ -1,4 +1,4 @@
-# Work in progress! Not ready for usage.
+# Work in progress! Not ready to use.
 
 ---
 
