@@ -124,6 +124,24 @@ inputs:
     ...
 ```
 
+### List
+
+A sequence of values.
+
+Because string is used as a data type for passing inputs to actions, a separator string has to be
+specified as well. This is usually a new line or a comma.
+
+Example:
+
+```yaml
+...
+inputs:
+  input-files:
+    type: list
+    separator: ','
+  ...
+```
+
 ### Enum
 
 Multiple possible values.

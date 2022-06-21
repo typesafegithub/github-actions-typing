@@ -6,6 +6,7 @@ import it.krzeminski.githubactionstyping.validation.types.validateBoolean
 import it.krzeminski.githubactionstyping.validation.types.validateEnum
 import it.krzeminski.githubactionstyping.validation.types.validateFloat
 import it.krzeminski.githubactionstyping.validation.types.validateInteger
+import it.krzeminski.githubactionstyping.validation.types.validateList
 import it.krzeminski.githubactionstyping.validation.types.validateString
 
 const val expectedTypingSpec = "krzema12/github-actions-typing@v0.1"
@@ -41,6 +42,7 @@ private fun ApiItem.validate(): ItemValidationResult {
         "boolean" -> this.validateBoolean()
         "integer" -> this.validateInteger()
         "float" -> this.validateFloat()
+        "list" -> this.validateList()
         "enum" -> this.validateEnum()
         else -> ItemValidationResult.Invalid("Unknown type: '${this.type}'.")
     }

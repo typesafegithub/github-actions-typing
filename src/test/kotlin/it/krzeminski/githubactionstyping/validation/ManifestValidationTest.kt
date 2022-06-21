@@ -54,6 +54,27 @@ class ManifestValidationTest : FunSpec({
                 ),
             )
         }
+
+        test("list type") {
+            // given
+            val manifest = Manifest(
+                typingSpec = expectedTypingSpec,
+                inputs = mapOf(
+                    "list-input" to ApiItem(type = "list", separator = "\n"),
+                ),
+            )
+
+            // when
+            val result = manifest.validate()
+
+            // then
+            result shouldBe ActionValidationResult(
+                overallResult = ItemValidationResult.Valid,
+                inputs = mapOf(
+                    "list-input" to ItemValidationResult.Valid,
+                ),
+            )
+        }
     }
 
     context("failure cases") {
@@ -181,6 +202,54 @@ class ManifestValidationTest : FunSpec({
             )
         }
 
+        test("primitive types with 'separator' attribute") {
+            // given
+            val manifest = Manifest(
+                typingSpec = expectedTypingSpec,
+                inputs = mapOf(
+                    "string-input" to ApiItem(type = "string", separator = ","),
+                    "boolean-input" to ApiItem(type = "boolean", separator = ","),
+                    "integer-input" to ApiItem(type = "integer", separator = ","),
+                    "float-input" to ApiItem(type = "float", separator = ","),
+                ),
+            )
+
+            // when
+            val result = manifest.validate()
+
+            // then
+            result shouldBe ActionValidationResult(
+                overallResult = ItemValidationResult.Invalid("Some typing is invalid."),
+                inputs = mapOf(
+                    "string-input" to ItemValidationResult.Invalid("'separator' is not allowed for this type."),
+                    "boolean-input" to ItemValidationResult.Invalid("'separator' is not allowed for this type."),
+                    "integer-input" to ItemValidationResult.Invalid("'separator' is not allowed for this type."),
+                    "float-input" to ItemValidationResult.Invalid("'separator' is not allowed for this type."),
+                ),
+            )
+        }
+
+        test("enum type with 'separator' attribute") {
+            // given
+            val manifest = Manifest(
+                typingSpec = expectedTypingSpec,
+                inputs = mapOf(
+                    "enum-input" to ApiItem(type = "enum", allowedValues = listOf("foo", "bar", "baz"), separator = ","),
+                ),
+            )
+
+            // when
+            val result = manifest.validate()
+
+            // then
+            result shouldBe ActionValidationResult(
+                overallResult = ItemValidationResult.Invalid("Some typing is invalid."),
+                inputs = mapOf(
+                    "enum-input" to ItemValidationResult.Invalid("'separator' is not allowed for this type."),
+                ),
+            )
+        }
+
         test("enum type without 'allowedValues' attribute") {
             // given
             val manifest = Manifest(
@@ -219,6 +288,48 @@ class ManifestValidationTest : FunSpec({
                 overallResult = ItemValidationResult.Invalid("Some typing is invalid."),
                 inputs = mapOf(
                     "enum-input" to ItemValidationResult.Invalid("There must be at least two allowed values."),
+                ),
+            )
+        }
+
+        test("list type without 'separator' attribute") {
+            // given
+            val manifest = Manifest(
+                typingSpec = expectedTypingSpec,
+                inputs = mapOf(
+                    "list-input" to ApiItem(type = "list"),
+                ),
+            )
+
+            // when
+            val result = manifest.validate()
+
+            // then
+            result shouldBe ActionValidationResult(
+                overallResult = ItemValidationResult.Invalid("Some typing is invalid."),
+                inputs = mapOf(
+                    "list-input" to ItemValidationResult.Invalid("Separator must be specified."),
+                ),
+            )
+        }
+
+        test("list type with 'allowedValues' attribute") {
+            // given
+            val manifest = Manifest(
+                typingSpec = expectedTypingSpec,
+                inputs = mapOf(
+                    "list-input" to ApiItem(type = "list", separator = "\n", allowedValues = listOf("foo", "bar")),
+                ),
+            )
+
+            // when
+            val result = manifest.validate()
+
+            // then
+            result shouldBe ActionValidationResult(
+                overallResult = ItemValidationResult.Invalid("Some typing is invalid."),
+                inputs = mapOf(
+                    "list-input" to ItemValidationResult.Invalid("'allowedValues' is not allowed for this type."),
                 ),
             )
         }
