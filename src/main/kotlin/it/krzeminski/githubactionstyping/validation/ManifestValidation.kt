@@ -2,7 +2,11 @@ package it.krzeminski.githubactionstyping.validation
 
 import it.krzeminski.githubactionstyping.parsing.ApiItem
 import it.krzeminski.githubactionstyping.parsing.Manifest
+import it.krzeminski.githubactionstyping.validation.types.validateBoolean
 import it.krzeminski.githubactionstyping.validation.types.validateEnum
+import it.krzeminski.githubactionstyping.validation.types.validateFloat
+import it.krzeminski.githubactionstyping.validation.types.validateInteger
+import it.krzeminski.githubactionstyping.validation.types.validateString
 
 const val expectedTypingSpec = "krzema12/github-actions-typing@v0.1"
 
@@ -33,10 +37,10 @@ private fun ApiItem.validate(): ItemValidationResult {
     }
 
     return when (this.type) {
-        "string" -> if (this.allowedValues == null) ItemValidationResult.Valid else ItemValidationResult.Invalid("'allowedValues' is not allowed for this type.")
-        "boolean" -> if (this.allowedValues == null) ItemValidationResult.Valid else ItemValidationResult.Invalid("'allowedValues' is not allowed for this type.")
-        "integer" -> if (this.allowedValues == null) ItemValidationResult.Valid else ItemValidationResult.Invalid("'allowedValues' is not allowed for this type.")
-        "float" -> if (this.allowedValues == null) ItemValidationResult.Valid else ItemValidationResult.Invalid("'allowedValues' is not allowed for this type.")
+        "string" -> this.validateString()
+        "boolean" -> this.validateBoolean()
+        "integer" -> this.validateInteger()
+        "float" -> this.validateFloat()
         "enum" -> this.validateEnum()
         else -> ItemValidationResult.Invalid("Unknown type: '${this.type}'.")
     }
