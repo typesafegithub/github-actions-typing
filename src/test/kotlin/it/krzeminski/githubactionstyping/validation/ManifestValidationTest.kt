@@ -60,7 +60,34 @@ class ManifestValidationTest : FunSpec({
             val manifest = Manifest(
                 typingSpec = expectedTypingSpec,
                 inputs = mapOf(
-                    "list-input" to ApiItem(type = "list", separator = "\n"),
+                    "list-of-strings-input" to ApiItem(
+                        type = "list",
+                        separator = "\n",
+                        listItem = ApiItem(type = "string"),
+                    ),
+                    "list-of-booleans-input" to ApiItem(
+                        type = "list",
+                        separator = "\n",
+                        listItem = ApiItem(type = "boolean"),
+                    ),
+                    "list-of-integers-input" to ApiItem(
+                        type = "list",
+                        separator = "\n",
+                        listItem = ApiItem(type = "integer"),
+                    ),
+                    "list-of-floats-input" to ApiItem(
+                        type = "list",
+                        separator = "\n",
+                        listItem = ApiItem(type = "float"),
+                    ),
+                    "list-of-enums-input" to ApiItem(
+                        type = "list",
+                        separator = "\n",
+                        listItem = ApiItem(
+                            type = "enum",
+                            allowedValues = listOf("foo", "bar")
+                        ),
+                    ),
                 ),
             )
 
@@ -71,7 +98,11 @@ class ManifestValidationTest : FunSpec({
             result shouldBe ActionValidationResult(
                 overallResult = ItemValidationResult.Valid,
                 inputs = mapOf(
-                    "list-input" to ItemValidationResult.Valid,
+                    "list-of-strings-input" to ItemValidationResult.Valid,
+                    "list-of-booleans-input" to ItemValidationResult.Valid,
+                    "list-of-integers-input" to ItemValidationResult.Valid,
+                    "list-of-floats-input" to ItemValidationResult.Valid,
+                    "list-of-enums-input" to ItemValidationResult.Valid,
                 ),
             )
         }
@@ -229,6 +260,39 @@ class ManifestValidationTest : FunSpec({
             )
         }
 
+        test("non-list types with 'listItem' attribute") {
+            // given
+            val manifest = Manifest(
+                typingSpec = expectedTypingSpec,
+                inputs = mapOf(
+                    "string-input" to ApiItem(type = "string", listItem = ApiItem(type = "string")),
+                    "boolean-input" to ApiItem(type = "boolean", listItem = ApiItem(type = "string")),
+                    "integer-input" to ApiItem(type = "integer", listItem = ApiItem(type = "string")),
+                    "float-input" to ApiItem(type = "float", listItem = ApiItem(type = "string")),
+                    "enum-input" to ApiItem(
+                        type = "enum",
+                        allowedValues = listOf("foo", "bar"),
+                        listItem = ApiItem(type = "string"),
+                    ),
+                ),
+            )
+
+            // when
+            val result = manifest.validate()
+
+            // then
+            result shouldBe ActionValidationResult(
+                overallResult = ItemValidationResult.Invalid("Some typing is invalid."),
+                inputs = mapOf(
+                    "string-input" to ItemValidationResult.Invalid("'listItem' is not allowed for this type."),
+                    "boolean-input" to ItemValidationResult.Invalid("'listItem' is not allowed for this type."),
+                    "integer-input" to ItemValidationResult.Invalid("'listItem' is not allowed for this type."),
+                    "float-input" to ItemValidationResult.Invalid("'listItem' is not allowed for this type."),
+                    "enum-input" to ItemValidationResult.Invalid("'listItem' is not allowed for this type."),
+                ),
+            )
+        }
+
         test("enum type with 'separator' attribute") {
             // given
             val manifest = Manifest(
@@ -292,12 +356,33 @@ class ManifestValidationTest : FunSpec({
             )
         }
 
+        test("list type without 'listItem' attribute") {
+            // given
+            val manifest = Manifest(
+                typingSpec = expectedTypingSpec,
+                inputs = mapOf(
+                    "list-input" to ApiItem(type = "list", separator = ","),
+                ),
+            )
+
+            // when
+            val result = manifest.validate()
+
+            // then
+            result shouldBe ActionValidationResult(
+                overallResult = ItemValidationResult.Invalid("Some typing is invalid."),
+                inputs = mapOf(
+                    "list-input" to ItemValidationResult.Invalid("List item information must be specified."),
+                ),
+            )
+        }
+
         test("list type without 'separator' attribute") {
             // given
             val manifest = Manifest(
                 typingSpec = expectedTypingSpec,
                 inputs = mapOf(
-                    "list-input" to ApiItem(type = "list"),
+                    "list-input" to ApiItem(type = "list", listItem = ApiItem(type = "string")),
                 ),
             )
 
@@ -318,7 +403,12 @@ class ManifestValidationTest : FunSpec({
             val manifest = Manifest(
                 typingSpec = expectedTypingSpec,
                 inputs = mapOf(
-                    "list-input" to ApiItem(type = "list", separator = "\n", allowedValues = listOf("foo", "bar")),
+                    "list-input" to ApiItem(
+                        type = "list",
+                        separator = "\n",
+                        allowedValues = listOf("foo", "bar"),
+                        listItem = ApiItem(type = "string"),
+                    ),
                 ),
             )
 
@@ -330,6 +420,80 @@ class ManifestValidationTest : FunSpec({
                 overallResult = ItemValidationResult.Invalid("Some typing is invalid."),
                 inputs = mapOf(
                     "list-input" to ItemValidationResult.Invalid("'allowedValues' is not allowed for this type."),
+                ),
+            )
+        }
+
+        test("list type with forbidden list item type") {
+            // given
+            val manifest = Manifest(
+                typingSpec = expectedTypingSpec,
+                inputs = mapOf(
+                    "list-of-lists-input" to ApiItem(
+                        type = "list",
+                        separator = "\n",
+                        listItem = ApiItem(
+                            type = "list",
+                            separator = ",",
+                            listItem = ApiItem(type = "string"),
+                        ),
+                    ),
+                ),
+            )
+
+            // when
+            val result = manifest.validate()
+
+            // then
+            result shouldBe ActionValidationResult(
+                overallResult = ItemValidationResult.Invalid("Some typing is invalid."),
+                inputs = mapOf(
+                    "list-of-lists-input" to ItemValidationResult.Invalid(
+                        "List item type: List can be parameterized only with a primitive or enum type.",
+                    ),
+                ),
+            )
+        }
+
+        test("list type with list item type with incorrect attributes") {
+            // given
+            val manifest = Manifest(
+                typingSpec = expectedTypingSpec,
+                inputs = mapOf(
+                    "list-of-enums-without-allowed-values-input" to ApiItem(
+                        type = "list",
+                        separator = "\n",
+                        listItem = ApiItem(type = "enum"),
+                    ),
+                    "list-of-integers-with-allowed-values-input" to ApiItem(
+                        type = "list",
+                        separator = "\n",
+                        listItem = ApiItem(type = "integer", allowedValues = listOf("foo", "bar")),
+                    ),
+                    "list-of-unknown-type-input" to ApiItem(
+                        type = "list",
+                        separator = "\n",
+                        listItem = ApiItem(type = "for-sure-unknown-type"),
+                    ),
+                ),
+            )
+
+            // when
+            val result = manifest.validate()
+
+            // then
+            result shouldBe ActionValidationResult(
+                overallResult = ItemValidationResult.Invalid("Some typing is invalid."),
+                inputs = mapOf(
+                    "list-of-enums-without-allowed-values-input" to ItemValidationResult.Invalid(
+                        "List item type: Allowed values must be specified.",
+                    ),
+                    "list-of-integers-with-allowed-values-input" to ItemValidationResult.Invalid(
+                        "List item type: 'allowedValues' is not allowed for this type."
+                    ),
+                    "list-of-unknown-type-input" to ItemValidationResult.Invalid(
+                        "List item type: Unknown type: 'for-sure-unknown-type'."
+                    )
                 ),
             )
         }

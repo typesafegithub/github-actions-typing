@@ -16,6 +16,7 @@ data class ApiItem(
     val type: String? = null,
     val allowedValues: List<String>? = null,
     val separator: String? = null,
+    val listItem: ApiItem? = null,
 )
 
 private val myYaml = Yaml(

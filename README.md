@@ -131,7 +131,9 @@ A sequence of values.
 Because string is used as a data type for passing inputs to actions, a separator string has to be
 specified as well. This is usually a new line or a comma.
 
-Example:
+Lists can contain values of any primitive or enum type.
+
+Examples:
 
 ```yaml
 ...
@@ -139,6 +141,22 @@ inputs:
   input-files:
     type: list
     separator: ','
+    listItem:
+      type: string
+  ...
+```
+
+```yaml
+...
+inputs:
+  granted-scopes:
+    type: list
+    separator: ','
+    listItem:
+      type: enum
+      allowedValues:
+        - read
+        - write
   ...
 ```
 

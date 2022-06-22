@@ -10,6 +10,9 @@ fun ApiItem.validateEnum(): ItemValidationResult {
     if (this.separator != null) {
         return ItemValidationResult.Invalid("'separator' is not allowed for this type.")
     }
+    if (this.listItem != null) {
+        return ItemValidationResult.Invalid("'listItem' is not allowed for this type.")
+    }
     if (this.allowedValues.size < 2) {
         return ItemValidationResult.Invalid("There must be at least two allowed values.")
     }
