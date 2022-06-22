@@ -1,0 +1,4 @@
+typingSpec: krzema12/github-actions-typing@v0.1
+inputs:
+  verbose:
+    type: boolean

@@ -1,16 +1,20 @@
 package it.krzeminski.githubactionstyping
 
 import it.krzeminski.githubactionstyping.github.getBooleanInput
-import it.krzeminski.githubactionstyping.parsing.parseManifest
-import it.krzeminski.githubactionstyping.parsing.readActionManifest
+import it.krzeminski.githubactionstyping.parsing.parseTypesManifest
+import it.krzeminski.githubactionstyping.parsing.readActionTypesManifest
 import it.krzeminski.githubactionstyping.reporting.toPlaintextReport
 import it.krzeminski.githubactionstyping.validation.ItemValidationResult
 import it.krzeminski.githubactionstyping.validation.validate
 import kotlin.system.exitProcess
 
 fun main() {
-    val manifest = readActionManifest() ?: return
-    val parsedManifest = parseManifest(manifest)
+    val manifest = readActionTypesManifest() ?: run {
+        println("No types manifest (action-types.yml or action-types.yaml) found!")
+        exitProcess(1)
+        throw IllegalStateException()
+    }
+    val parsedManifest = parseTypesManifest(manifest)
 
     if (getBooleanInput("verbose")) {
         println("Action's manifest:")

@@ -5,7 +5,7 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.decodeFromString
 
 @Serializable
-data class Manifest(
+data class TypesManifest(
     val typingSpec: String? = null,
     val inputs: Map<String, ApiItem> = emptyMap(),
     val outputs: Map<String, ApiItem> = emptyMap(),
@@ -26,5 +26,5 @@ private val myYaml = Yaml(
     )
 )
 
-fun parseManifest(manifestString: String): Manifest =
+fun parseTypesManifest(manifestString: String): TypesManifest =
     myYaml.decodeFromString(manifestString)

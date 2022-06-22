@@ -3,13 +3,13 @@ package it.krzeminski.githubactionstyping.validation
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe
 import it.krzeminski.githubactionstyping.parsing.ApiItem
-import it.krzeminski.githubactionstyping.parsing.Manifest
+import it.krzeminski.githubactionstyping.parsing.TypesManifest
 
 class ManifestValidationTest : FunSpec({
     context("success cases") {
         test("primitive types") {
             // given
-            val manifest = Manifest(
+            val manifest = TypesManifest(
                 typingSpec = expectedTypingSpec,
                 inputs = mapOf(
                     "string-input" to ApiItem(type = "string"),
@@ -38,7 +38,7 @@ class ManifestValidationTest : FunSpec({
 
         test("enum type") {
             // given
-            val manifest = Manifest(
+            val manifest = TypesManifest(
                 typingSpec = expectedTypingSpec,
                 inputs = mapOf(
                     "enum-input" to ApiItem(type = "enum", allowedValues = listOf("foo", "bar", "baz")),
@@ -59,7 +59,7 @@ class ManifestValidationTest : FunSpec({
 
         test("list type") {
             // given
-            val manifest = Manifest(
+            val manifest = TypesManifest(
                 typingSpec = expectedTypingSpec,
                 inputs = mapOf(
                     "list-of-strings-input" to ApiItem(
@@ -113,7 +113,7 @@ class ManifestValidationTest : FunSpec({
     context("failure cases") {
         test("no typing spec set") {
             // given
-            val manifest = Manifest(
+            val manifest = TypesManifest(
                 typingSpec = null,
                 inputs = emptyMap(),
                 outputs = emptyMap(),
@@ -134,7 +134,7 @@ class ManifestValidationTest : FunSpec({
 
         test("incorrect typing spec set") {
             // given
-            val manifest = Manifest(
+            val manifest = TypesManifest(
                 typingSpec = "incorrect-typing-spec",
                 inputs = emptyMap(),
                 outputs = emptyMap(),
@@ -156,7 +156,7 @@ class ManifestValidationTest : FunSpec({
 
         test("input and output without type") {
             // given
-            val manifest = Manifest(
+            val manifest = TypesManifest(
                 typingSpec = expectedTypingSpec,
                 inputs = mapOf(
                     "some-input" to ApiItem(type = null),
@@ -187,7 +187,7 @@ class ManifestValidationTest : FunSpec({
 
         test("unknown type") {
             // given
-            val manifest = Manifest(
+            val manifest = TypesManifest(
                 typingSpec = expectedTypingSpec,
                 inputs = mapOf(
                     "some-input" to ApiItem(type = "for-sure-unknown-type"),
@@ -210,7 +210,7 @@ class ManifestValidationTest : FunSpec({
 
         test("primitive types with 'allowedValues' attribute") {
             // given
-            val manifest = Manifest(
+            val manifest = TypesManifest(
                 typingSpec = expectedTypingSpec,
                 inputs = mapOf(
                     "string-input" to ApiItem(type = "string", allowedValues = listOf("foo", "bar")),
@@ -237,7 +237,7 @@ class ManifestValidationTest : FunSpec({
 
         test("primitive types with 'separator' attribute") {
             // given
-            val manifest = Manifest(
+            val manifest = TypesManifest(
                 typingSpec = expectedTypingSpec,
                 inputs = mapOf(
                     "string-input" to ApiItem(type = "string", separator = ","),
@@ -264,7 +264,7 @@ class ManifestValidationTest : FunSpec({
 
         test("non-list types with 'listItem' attribute") {
             // given
-            val manifest = Manifest(
+            val manifest = TypesManifest(
                 typingSpec = expectedTypingSpec,
                 inputs = mapOf(
                     "string-input" to ApiItem(type = "string", listItem = ApiItem(type = "string")),
@@ -297,7 +297,7 @@ class ManifestValidationTest : FunSpec({
 
         test("enum type with 'separator' attribute") {
             // given
-            val manifest = Manifest(
+            val manifest = TypesManifest(
                 typingSpec = expectedTypingSpec,
                 inputs = mapOf(
                     "enum-input" to ApiItem(type = "enum", allowedValues = listOf("foo", "bar", "baz"), separator = ","),
@@ -318,7 +318,7 @@ class ManifestValidationTest : FunSpec({
 
         test("enum type without 'allowedValues' attribute") {
             // given
-            val manifest = Manifest(
+            val manifest = TypesManifest(
                 typingSpec = expectedTypingSpec,
                 inputs = mapOf(
                     "enum-input" to ApiItem(type = "enum", allowedValues = null),
@@ -339,7 +339,7 @@ class ManifestValidationTest : FunSpec({
 
         test("enum type with just one allowed value") {
             // given
-            val manifest = Manifest(
+            val manifest = TypesManifest(
                 typingSpec = expectedTypingSpec,
                 inputs = mapOf(
                     "enum-input" to ApiItem(type = "enum", allowedValues = listOf("foo")),
@@ -360,7 +360,7 @@ class ManifestValidationTest : FunSpec({
 
         test("list type without 'listItem' attribute") {
             // given
-            val manifest = Manifest(
+            val manifest = TypesManifest(
                 typingSpec = expectedTypingSpec,
                 inputs = mapOf(
                     "list-input" to ApiItem(type = "list", separator = ","),
@@ -381,7 +381,7 @@ class ManifestValidationTest : FunSpec({
 
         test("list type without 'separator' attribute") {
             // given
-            val manifest = Manifest(
+            val manifest = TypesManifest(
                 typingSpec = expectedTypingSpec,
                 inputs = mapOf(
                     "list-input" to ApiItem(type = "list", listItem = ApiItem(type = "string")),
@@ -402,7 +402,7 @@ class ManifestValidationTest : FunSpec({
 
         test("list type with 'allowedValues' attribute") {
             // given
-            val manifest = Manifest(
+            val manifest = TypesManifest(
                 typingSpec = expectedTypingSpec,
                 inputs = mapOf(
                     "list-input" to ApiItem(
@@ -428,7 +428,7 @@ class ManifestValidationTest : FunSpec({
 
         test("list type with forbidden list item type") {
             // given
-            val manifest = Manifest(
+            val manifest = TypesManifest(
                 typingSpec = expectedTypingSpec,
                 inputs = mapOf(
                     "list-of-lists-input" to ApiItem(
@@ -459,7 +459,7 @@ class ManifestValidationTest : FunSpec({
 
         test("list type with list item type with incorrect attributes") {
             // given
-            val manifest = Manifest(
+            val manifest = TypesManifest(
                 typingSpec = expectedTypingSpec,
                 inputs = mapOf(
                     "list-of-enums-without-allowed-values-input" to ApiItem(
@@ -502,7 +502,7 @@ class ManifestValidationTest : FunSpec({
 
         test("non-integer types with named values") {
             // given
-            val manifest = Manifest(
+            val manifest = TypesManifest(
                 typingSpec = expectedTypingSpec,
                 inputs = mapOf(
                     "string-input" to ApiItem(type = "string", namedValues = mapOf("foo" to 1)),

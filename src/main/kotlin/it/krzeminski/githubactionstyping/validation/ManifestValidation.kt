@@ -1,7 +1,7 @@
 package it.krzeminski.githubactionstyping.validation
 
 import it.krzeminski.githubactionstyping.parsing.ApiItem
-import it.krzeminski.githubactionstyping.parsing.Manifest
+import it.krzeminski.githubactionstyping.parsing.TypesManifest
 import it.krzeminski.githubactionstyping.validation.types.validateBoolean
 import it.krzeminski.githubactionstyping.validation.types.validateEnum
 import it.krzeminski.githubactionstyping.validation.types.validateFloat
@@ -11,7 +11,7 @@ import it.krzeminski.githubactionstyping.validation.types.validateString
 
 const val expectedTypingSpec = "krzema12/github-actions-typing@v0.1"
 
-fun Manifest.validate(): ActionValidationResult {
+fun TypesManifest.validate(): ActionValidationResult {
     if (this.typingSpec == null || this.typingSpec != expectedTypingSpec) {
         return ActionValidationResult(
             overallResult = ItemValidationResult.Invalid(

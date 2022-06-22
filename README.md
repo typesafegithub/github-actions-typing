@@ -6,32 +6,40 @@
 
 Bring type-safety to your GitHub actions' API!
 
-This is a GitHub action that validates your action's manifest (action.y(a)ml) and ensures the inputs and outputs have
-types set according to a certain specification.
+This is a GitHub action that validates your action's type specs (`action-types.y(a)ml`) and ensures the inputs and
+outputs have types set according to a certain specification.
 
 # Example
 
-Let's say your action has such manifest:
+Let's say your action has such manifest (`action.yml`):
 
 ```yaml
 name: My cool action
 description: Just to showcase GitHub Actions typing
-typingSpec: krzema12/github-actions-typing@v0.1
 inputs:
   verbose:
     description: 'Set to true to display debug information helpful when troubleshooting issues with this action.'
     required: false
     default: 'false'
-    type: boolean
   log-level:
     description: 'Specify the level of details for logging.'
     required: true
   permissions:
     description: 'Who should have access.'
-    type: inttteger
 runs:
   using: 'node16'
   image: 'dist/main.js'
+```
+
+and such `action-types.yml` next to it:
+
+```yaml
+typingSpec: krzema12/github-actions-typing@v0.1
+inputs:
+  verbose:
+    type: boolean
+  permissions:
+    type: inttteger
 ```
 
 This action, once used within a workflow, will fail the workflow run and produce such output:
@@ -40,7 +48,7 @@ This action, once used within a workflow, will fail the workflow run and produce
 
 # Usage
 
-In your action's `action.yml`:
+Create a new file in your action repo's root directory: `action-types.yml`, then:
 
 - add top-level attribute: `typingSpec: krzema12/github-actions-typing@v0.1`. Thanks to this, you as the actions' author
   state which kind of typings your actions adheres to. At the time of writing this, no standard has emerged yet. This
