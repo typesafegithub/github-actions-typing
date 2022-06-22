@@ -9,7 +9,7 @@ import it.krzeminski.githubactionstyping.validation.types.validateInteger
 import it.krzeminski.githubactionstyping.validation.types.validateList
 import it.krzeminski.githubactionstyping.validation.types.validateString
 
-const val expectedTypingSpec = "krzema12/github-actions-typing@v0.1"
+const val expectedTypingSpec = "krzema12/github-actions-typing@v0.3"
 
 fun TypesManifest.validate(): ActionValidationResult {
     if (this.typingSpec == null || this.typingSpec != expectedTypingSpec) {

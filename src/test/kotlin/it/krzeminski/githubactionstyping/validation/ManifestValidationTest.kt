@@ -125,7 +125,7 @@ class ManifestValidationTest : FunSpec({
             // then
             result shouldBe ActionValidationResult(
                 overallResult = ItemValidationResult.Invalid(
-                    "Set top-level 'typingSpec' attribute to 'krzema12/github-actions-typing@v0.1', was: null"
+                    "Set top-level 'typingSpec' attribute to 'krzema12/github-actions-typing@v0.3', was: null"
                 ),
                 inputs = emptyMap(),
                 outputs = emptyMap(),
@@ -146,7 +146,7 @@ class ManifestValidationTest : FunSpec({
             // then
             result shouldBe ActionValidationResult(
                 overallResult = ItemValidationResult.Invalid(
-                    "Set top-level 'typingSpec' attribute to 'krzema12/github-actions-typing@v0.1', " +
+                    "Set top-level 'typingSpec' attribute to 'krzema12/github-actions-typing@v0.3', " +
                         "was: 'incorrect-typing-spec'"
                 ),
                 inputs = emptyMap(),

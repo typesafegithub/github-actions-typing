@@ -34,7 +34,7 @@ runs:
 and such `action-types.yml` next to it:
 
 ```yaml
-typingSpec: krzema12/github-actions-typing@v0.1
+typingSpec: krzema12/github-actions-typing@v0.3
 inputs:
   verbose:
     type: boolean
@@ -50,7 +50,7 @@ This action, once used within a workflow, will fail the workflow run and produce
 
 Create a new file in your action repo's root directory: `action-types.yml`, then:
 
-- add top-level attribute: `typingSpec: krzema12/github-actions-typing@v0.1`. Thanks to this, you as the actions' author
+- add top-level attribute: `typingSpec: krzema12/github-actions-typing@v0.3`. Thanks to this, you as the actions' author
   state which kind of typings your actions adheres to. At the time of writing this, no standard has emerged yet. This
   attribute is there to be able to tell the specs apart in the future, for example if GitHub publishes a first-party way
   to specify types.
