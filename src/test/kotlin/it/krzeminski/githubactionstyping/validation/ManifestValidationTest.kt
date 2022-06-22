@@ -15,6 +15,7 @@ class ManifestValidationTest : FunSpec({
                     "string-input" to ApiItem(type = "string"),
                     "boolean-input" to ApiItem(type = "boolean"),
                     "integer-input" to ApiItem(type = "integer"),
+                    "integer-with-named-values-input" to ApiItem(type = "integer", namedValues = mapOf("foo" to 1, "bar" to 2)),
                     "float-input" to ApiItem(type = "float"),
                 ),
             )
@@ -29,6 +30,7 @@ class ManifestValidationTest : FunSpec({
                     "string-input" to ItemValidationResult.Valid,
                     "boolean-input" to ItemValidationResult.Valid,
                     "integer-input" to ItemValidationResult.Valid,
+                    "integer-with-named-values-input" to ItemValidationResult.Valid,
                     "float-input" to ItemValidationResult.Valid,
                 ),
             )
@@ -494,6 +496,35 @@ class ManifestValidationTest : FunSpec({
                     "list-of-unknown-type-input" to ItemValidationResult.Invalid(
                         "List item type: Unknown type: 'for-sure-unknown-type'."
                     )
+                ),
+            )
+        }
+
+        test("non-integer types with named values") {
+            // given
+            val manifest = Manifest(
+                typingSpec = expectedTypingSpec,
+                inputs = mapOf(
+                    "string-input" to ApiItem(type = "string", namedValues = mapOf("foo" to 1)),
+                    "boolean-input" to ApiItem(type = "boolean", namedValues = mapOf("foo" to 1)),
+                    "float-input" to ApiItem(type = "float", namedValues = mapOf("foo" to 1)),
+                    "list-input" to ApiItem(type = "list", separator = ",", listItem = ApiItem(type = "string"), namedValues = mapOf("foo" to 1)),
+                    "enum-input" to ApiItem(type = "enum", allowedValues = listOf("foo", "bar"), namedValues = mapOf("foo" to 1)),
+                ),
+            )
+
+            // when
+            val result = manifest.validate()
+
+            // then
+            result shouldBe ActionValidationResult(
+                overallResult = ItemValidationResult.Invalid("Some typing is invalid."),
+                inputs = mapOf(
+                    "string-input" to ItemValidationResult.Invalid("'namedValues' are currently supported only for integers."),
+                    "boolean-input" to ItemValidationResult.Invalid("'namedValues' are currently supported only for integers."),
+                    "float-input" to ItemValidationResult.Invalid("'namedValues' are currently supported only for integers."),
+                    "list-input" to ItemValidationResult.Invalid("'namedValues' are currently supported only for integers."),
+                    "enum-input" to ItemValidationResult.Invalid("'namedValues' are currently supported only for integers."),
                 ),
             )
         }

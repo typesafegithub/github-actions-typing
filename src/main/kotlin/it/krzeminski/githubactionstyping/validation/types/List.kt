@@ -14,6 +14,9 @@ fun ApiItem.validateList(): ItemValidationResult {
     if (this.allowedValues != null) {
         return ItemValidationResult.Invalid("'allowedValues' is not allowed for this type.")
     }
+    if (this.namedValues != null) {
+        return ItemValidationResult.Invalid("'namedValues' are currently supported only for integers.")
+    }
     return when (this.listItem.type) {
         "string" -> this.listItem.validateString()
         "boolean" -> this.listItem.validateBoolean()

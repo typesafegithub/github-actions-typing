@@ -110,6 +110,18 @@ inputs:
     ...
 ```
 
+In case of "magic values" meaning something else that the user would expect, you can specify them like so:
+
+```yaml
+...
+inputs:
+  fetch-depth:
+    type: integer
+    namedValues:
+      infinite: 0
+    ...
+```
+
 ### Float
 
 A number with a fractional component.

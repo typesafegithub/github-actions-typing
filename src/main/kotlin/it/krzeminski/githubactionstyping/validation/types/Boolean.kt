@@ -13,6 +13,9 @@ fun ApiItem.validateBoolean(): ItemValidationResult {
     if (this.listItem != null) {
         return ItemValidationResult.Invalid("'listItem' is not allowed for this type.")
     }
+    if (this.namedValues != null) {
+        return ItemValidationResult.Invalid("'namedValues' are currently supported only for integers.")
+    }
 
     return ItemValidationResult.Valid
 }
