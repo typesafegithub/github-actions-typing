@@ -2,8 +2,8 @@ package it.krzeminski.githubactionstyping.parsing
 
 import java.io.File
 
-fun readActionTypesManifest(): String? =
+fun readYamlFile(nameWithoutExtension: String): String? =
     listOf("yaml", "yml")
-        .map { "action-types.$it" }
+        .map { "$nameWithoutExtension.$it" }
         .firstOrNull { File(it).exists() }
         ?.let { File(it).readText() }
