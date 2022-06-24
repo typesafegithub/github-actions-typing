@@ -1,7 +1,3 @@
-# Work in progress! Not ready to use.
-
----
-
 # GitHub Actions typing
 
 Bring type-safety to your GitHub actions' API!
