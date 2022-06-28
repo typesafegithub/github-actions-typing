@@ -30,7 +30,7 @@ class ManifestsToReportTest : FunSpec({
                 type: boolean
               someEnum:
                 type: enum
-                allowedValues:
+                allowed-values:
                  - foo
                  - bar
         """.trimIndent()

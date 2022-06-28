@@ -160,7 +160,7 @@ class ManifestValidationTest : FunSpec({
             )
         }
 
-        test("primitive types with 'allowedValues' attribute") {
+        test("primitive types with 'allowed-values' attribute") {
             // given
             val manifest = TypesManifest(
                 inputs = mapOf(
@@ -178,10 +178,10 @@ class ManifestValidationTest : FunSpec({
             result shouldBe ActionValidationResult(
                 overallResult = ItemValidationResult.Invalid("Some typing is invalid."),
                 inputs = mapOf(
-                    "string-input" to ItemValidationResult.Invalid("'allowedValues' is not allowed for this type."),
-                    "boolean-input" to ItemValidationResult.Invalid("'allowedValues' is not allowed for this type."),
-                    "integer-input" to ItemValidationResult.Invalid("'allowedValues' is not allowed for this type."),
-                    "float-input" to ItemValidationResult.Invalid("'allowedValues' is not allowed for this type."),
+                    "string-input" to ItemValidationResult.Invalid("'allowed-values' is not allowed for this type."),
+                    "boolean-input" to ItemValidationResult.Invalid("'allowed-values' is not allowed for this type."),
+                    "integer-input" to ItemValidationResult.Invalid("'allowed-values' is not allowed for this type."),
+                    "float-input" to ItemValidationResult.Invalid("'allowed-values' is not allowed for this type."),
                 ),
             )
         }
@@ -212,7 +212,7 @@ class ManifestValidationTest : FunSpec({
             )
         }
 
-        test("non-list types with 'listItem' attribute") {
+        test("non-list types with 'list-item' attribute") {
             // given
             val manifest = TypesManifest(
                 inputs = mapOf(
@@ -235,11 +235,11 @@ class ManifestValidationTest : FunSpec({
             result shouldBe ActionValidationResult(
                 overallResult = ItemValidationResult.Invalid("Some typing is invalid."),
                 inputs = mapOf(
-                    "string-input" to ItemValidationResult.Invalid("'listItem' is not allowed for this type."),
-                    "boolean-input" to ItemValidationResult.Invalid("'listItem' is not allowed for this type."),
-                    "integer-input" to ItemValidationResult.Invalid("'listItem' is not allowed for this type."),
-                    "float-input" to ItemValidationResult.Invalid("'listItem' is not allowed for this type."),
-                    "enum-input" to ItemValidationResult.Invalid("'listItem' is not allowed for this type."),
+                    "string-input" to ItemValidationResult.Invalid("'list-item' is not allowed for this type."),
+                    "boolean-input" to ItemValidationResult.Invalid("'list-item' is not allowed for this type."),
+                    "integer-input" to ItemValidationResult.Invalid("'list-item' is not allowed for this type."),
+                    "float-input" to ItemValidationResult.Invalid("'list-item' is not allowed for this type."),
+                    "enum-input" to ItemValidationResult.Invalid("'list-item' is not allowed for this type."),
                 ),
             )
         }
@@ -264,7 +264,7 @@ class ManifestValidationTest : FunSpec({
             )
         }
 
-        test("enum type without 'allowedValues' attribute") {
+        test("enum type without 'allowed-values' attribute") {
             // given
             val manifest = TypesManifest(
                 inputs = mapOf(
@@ -304,7 +304,7 @@ class ManifestValidationTest : FunSpec({
             )
         }
 
-        test("list type without 'listItem' attribute") {
+        test("list type without 'list-item' attribute") {
             // given
             val manifest = TypesManifest(
                 inputs = mapOf(
@@ -344,7 +344,7 @@ class ManifestValidationTest : FunSpec({
             )
         }
 
-        test("list type with 'allowedValues' attribute") {
+        test("list type with 'allowed-values' attribute") {
             // given
             val manifest = TypesManifest(
                 inputs = mapOf(
@@ -364,7 +364,7 @@ class ManifestValidationTest : FunSpec({
             result shouldBe ActionValidationResult(
                 overallResult = ItemValidationResult.Invalid("Some typing is invalid."),
                 inputs = mapOf(
-                    "list-input" to ItemValidationResult.Invalid("'allowedValues' is not allowed for this type."),
+                    "list-input" to ItemValidationResult.Invalid("'allowed-values' is not allowed for this type."),
                 ),
             )
         }
@@ -432,7 +432,7 @@ class ManifestValidationTest : FunSpec({
                         "List item type: Allowed values must be specified.",
                     ),
                     "list-of-integers-with-allowed-values-input" to ItemValidationResult.Invalid(
-                        "List item type: 'allowedValues' is not allowed for this type."
+                        "List item type: 'allowed-values' is not allowed for this type."
                     ),
                     "list-of-unknown-type-input" to ItemValidationResult.Invalid(
                         "List item type: Unknown type: 'for-sure-unknown-type'."
@@ -460,11 +460,11 @@ class ManifestValidationTest : FunSpec({
             result shouldBe ActionValidationResult(
                 overallResult = ItemValidationResult.Invalid("Some typing is invalid."),
                 inputs = mapOf(
-                    "string-input" to ItemValidationResult.Invalid("'namedValues' are currently supported only for integers."),
-                    "boolean-input" to ItemValidationResult.Invalid("'namedValues' are currently supported only for integers."),
-                    "float-input" to ItemValidationResult.Invalid("'namedValues' are currently supported only for integers."),
-                    "list-input" to ItemValidationResult.Invalid("'namedValues' are currently supported only for integers."),
-                    "enum-input" to ItemValidationResult.Invalid("'namedValues' are currently supported only for integers."),
+                    "string-input" to ItemValidationResult.Invalid("'named-values' are currently supported only for integers."),
+                    "boolean-input" to ItemValidationResult.Invalid("'named-values' are currently supported only for integers."),
+                    "float-input" to ItemValidationResult.Invalid("'named-values' are currently supported only for integers."),
+                    "list-input" to ItemValidationResult.Invalid("'named-values' are currently supported only for integers."),
+                    "enum-input" to ItemValidationResult.Invalid("'named-values' are currently supported only for integers."),
                 ),
             )
         }

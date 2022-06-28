@@ -1,6 +1,7 @@
 package it.krzeminski.githubactionstyping.parsing
 
 import com.charleskorn.kaml.Yaml
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.decodeFromString
 
@@ -13,9 +14,12 @@ data class TypesManifest(
 @Serializable
 data class ApiItem(
     val type: String? = null,
+    @SerialName("allowed-values")
     val allowedValues: List<String>? = null,
     val separator: String? = null,
+    @SerialName("named-values")
     val namedValues: Map<String, Int>? = null,
+    @SerialName("list-item")
     val listItem: ApiItem? = null,
 )
 

@@ -11,10 +11,10 @@ fun ApiItem.validateEnum(): ItemValidationResult {
         return ItemValidationResult.Invalid("'separator' is not allowed for this type.")
     }
     if (this.listItem != null) {
-        return ItemValidationResult.Invalid("'listItem' is not allowed for this type.")
+        return ItemValidationResult.Invalid("'list-item' is not allowed for this type.")
     }
     if (this.namedValues != null) {
-        return ItemValidationResult.Invalid("'namedValues' are currently supported only for integers.")
+        return ItemValidationResult.Invalid("'named-values' are currently supported only for integers.")
     }
     if (this.allowedValues.size < 2) {
         return ItemValidationResult.Invalid("There must be at least two allowed values.")
