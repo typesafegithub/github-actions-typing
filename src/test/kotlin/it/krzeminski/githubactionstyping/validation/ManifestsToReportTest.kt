@@ -25,7 +25,6 @@ class ManifestsToReportTest : FunSpec({
               image: 'Dockerfile'
         """.trimIndent()
         val typesManifest = """
-            typingSpec: krzema12/github-actions-typing@v0.3
             inputs:
               verbose:
                 type: boolean
@@ -79,7 +78,6 @@ class ManifestsToReportTest : FunSpec({
               image: 'Dockerfile'
         """.trimIndent()
         val typesManifest = """
-            typingSpec: krzema12/github-actions-typing@v0.3
             inputs:
               verbose:
                 type: boolean

@@ -9,17 +9,7 @@ import it.krzeminski.githubactionstyping.validation.types.validateInteger
 import it.krzeminski.githubactionstyping.validation.types.validateList
 import it.krzeminski.githubactionstyping.validation.types.validateString
 
-const val expectedTypingSpec = "krzema12/github-actions-typing@v0.3"
-
 fun TypesManifest.validate(): ActionValidationResult {
-    if (this.typingSpec == null || this.typingSpec != expectedTypingSpec) {
-        return ActionValidationResult(
-            overallResult = ItemValidationResult.Invalid(
-                "Set top-level 'typingSpec' attribute to '$expectedTypingSpec', was: ${typingSpec?.let { "'$it'" }}"
-            )
-        )
-    }
-
     val inputValidationResults = this.inputs.mapValues { (_, value) -> value.validate() }
     val outputValidationResults = this.outputs.mapValues { (_, value) -> value.validate() }
     val isSomethingInvalid = (inputValidationResults.values + outputValidationResults.values)
