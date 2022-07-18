@@ -54,7 +54,8 @@ Finally, create a workflow in your actions' repository that will simply call thi
 name: Validate action typings
 
 on:
-  push: [main]
+  push:
+    branches: [main]
   pull_request:
   workflow_dispatch:
 
