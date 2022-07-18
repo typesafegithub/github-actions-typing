@@ -1,6 +1,5 @@
 package it.krzeminski.githubactionstyping
 
-import it.krzeminski.githubactionstyping.github.getBooleanInput
 import it.krzeminski.githubactionstyping.parsing.TypesManifest
 import it.krzeminski.githubactionstyping.parsing.parseManifest
 import it.krzeminski.githubactionstyping.parsing.parseTypesManifest
@@ -30,23 +29,21 @@ fun manifestsToReport(manifest: String, typesManifest: String): Pair<Boolean, St
         throw IllegalStateException("The same set of outputs should exist in action manifest and types manifest!")
     }
 
-    if (getBooleanInput("verbose")) {
-        println("Action's manifest:")
-        println(manifest)
+    printlnDebug("Action's manifest:")
+    printlnDebug(manifest)
 
-        println("Parsed manifest:")
-        println(parsedManifest)
+    printlnDebug("Parsed manifest:")
+    printlnDebug(parsedManifest)
 
-        println("Action's types manifest:")
-        println(typesManifest)
+    printlnDebug("Action's types manifest:")
+    printlnDebug(typesManifest)
 
-        println("Parsed types manifest:")
-        println(parsedTypesManifest)
+    printlnDebug("Parsed types manifest:")
+    printlnDebug(parsedTypesManifest)
 
-        println()
-        println("==============================================")
-        println()
-    }
+    printlnDebug()
+    printlnDebug("==============================================")
+    printlnDebug()
 
     val validationResult = parsedTypesManifest.validate()
     val isValid = validationResult.overallResult is ItemValidationResult.Valid
@@ -54,3 +51,8 @@ fun manifestsToReport(manifest: String, typesManifest: String): Pair<Boolean, St
 
     return Pair(isValid, report)
 }
+
+private fun printlnDebug(string: Any? = null) =
+    (string ?: "").toString().lines()
+        .map { "::debug::$it" }
+        .forEach { println(it) }
