@@ -59,6 +59,67 @@ class ManifestsToReportTest : FunSpec({
         }
     }
 
+    test("success case with anchor and alias") {
+        // when
+        val manifest = """
+            name: GitHub Actions Typing
+            description: Bring type-safety to your GitHub actions' API!
+            author: Piotr Krzemiński
+            inputs:
+              verbose:
+                description: 'Set to true to display debug information helpful when troubleshooting issues with this action.'
+                required: false
+                default: 'false'
+              someEnum:
+                description: 'Testing enum'
+                required: false
+              someEnum2:
+                description: 'Testing enum'
+                required: false
+            runs:
+              using: 'docker'
+              image: 'Dockerfile'
+        """.trimIndent()
+        val typesManifest = """
+            inputs:
+              verbose:
+                type: boolean
+              someEnum:
+                type: enum
+                allowed-values: &enum-allowed-values
+                 - foo
+                 - bar
+              someEnum2:
+                type: enum
+                allowed-values: *enum-allowed-values
+        """.trimIndent()
+
+        // when
+        val (isValid, report) = manifestsToReport(manifest, typesManifest)
+
+        // then
+        assertSoftly {
+            isValid shouldBe true
+            report shouldBe """
+                Overall result: 
+                ${'\u001b'}[32m✔ VALID${'\u001b'}[0m
+
+                Inputs:
+                • verbose:
+                  ${'\u001b'}[32m✔ VALID${'\u001b'}[0m
+                • someEnum:
+                  ${'\u001b'}[32m✔ VALID${'\u001b'}[0m
+                • someEnum2:
+                  ${'\u001b'}[32m✔ VALID${'\u001b'}[0m
+
+                Outputs:
+                None.
+
+
+            """.trimIndent()
+        }
+    }
+
     test("enum: missing allowed values") {
         // when
         val manifest = """
