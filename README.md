@@ -145,6 +145,8 @@ specified as well. This is usually a new line or a comma.
 
 Lists can contain values of any primitive or enum type.
 
+If your list items are in separate line each, use `"\n"` as separator.
+
 Examples:
 
 ```yaml
