@@ -33,4 +33,13 @@ workflow(
         uses(CheckoutV3())
         uses(GithubActionsTypingV0())
     }
+
+    job(
+        id = "build_kotlin_scripts",
+        name = "Build Kotlin scripts",
+        runsOn = RunnerType.UbuntuLatest,
+    ) {
+        uses(CheckoutV3())
+        run("find -name '*.main.kts' | xargs kotlinc")
+    }
 }.writeToFile()
