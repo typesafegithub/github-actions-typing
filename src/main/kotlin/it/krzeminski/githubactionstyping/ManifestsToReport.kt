@@ -1,6 +1,7 @@
 package it.krzeminski.githubactionstyping
 
 import it.krzeminski.githubactionstyping.github.getBooleanInput
+import it.krzeminski.githubactionstyping.parsing.TypesManifest
 import it.krzeminski.githubactionstyping.parsing.parseManifest
 import it.krzeminski.githubactionstyping.parsing.parseTypesManifest
 import it.krzeminski.githubactionstyping.reporting.toPlaintextReport
@@ -8,7 +9,11 @@ import it.krzeminski.githubactionstyping.validation.ItemValidationResult
 import it.krzeminski.githubactionstyping.validation.validate
 
 fun manifestsToReport(manifest: String, typesManifest: String): Pair<Boolean, String> {
-    val parsedTypesManifest = parseTypesManifest(typesManifest)
+    val parsedTypesManifest = if (typesManifest.isNotBlank()) {
+        parseTypesManifest(typesManifest)
+    } else {
+        TypesManifest()
+    }
     val parsedManifest = parseManifest(manifest)
 
     val inputsInTypesManifest = parsedTypesManifest.inputs.keys
