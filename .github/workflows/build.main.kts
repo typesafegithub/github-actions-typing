@@ -1,9 +1,9 @@
 #!/usr/bin/env kotlin
-@file:DependsOn("it.krzeminski:github-actions-kotlin-dsl:0.19.0")
+@file:DependsOn("it.krzeminski:github-actions-kotlin-dsl:0.22.0")
 
-import it.krzeminski.githubactions.actions.CustomAction
 import it.krzeminski.githubactions.actions.actions.CheckoutV3
 import it.krzeminski.githubactions.actions.gradle.GradleBuildActionV2
+import it.krzeminski.githubactions.actions.krzema12.GithubActionsTypingV0
 import it.krzeminski.githubactions.domain.RunnerType
 import it.krzeminski.githubactions.domain.triggers.PullRequest
 import it.krzeminski.githubactions.domain.triggers.Push
@@ -31,11 +31,6 @@ workflow(
         runsOn = RunnerType.UbuntuLatest,
     ) {
         uses(CheckoutV3())
-        uses(
-            CustomAction(
-                "krzema12", "github-actions-typing", "v0",
-                inputs = emptyMap(),
-            )
-        )
+        uses(GithubActionsTypingV0())
     }
 }.writeToFile()
