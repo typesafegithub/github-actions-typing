@@ -5,6 +5,8 @@ Bring type-safety to your GitHub actions' API!
 This is a GitHub action that validates your action's type specs (`action-types.y(a)ml`) and ensures the inputs and
 outputs have types set according to a certain specification.
 
+It supports YAML anchors and aliases to reduce duplication.
+
 To see which actions already provide typings using this schema, click [here](https://github.com/krzema12/github-actions-typing/network/dependents).
 
 # Example
