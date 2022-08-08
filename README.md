@@ -4,6 +4,7 @@ Bring type-safety to your GitHub actions' API!
 
 This is a GitHub action that validates your action's type specs (`action-types.y(a)ml`) and ensures the inputs and
 outputs have types set according to a certain specification.
+It aims to be a standardized way to present your actions' API, both to human users and any kind of automation.
 
 It supports YAML anchors and aliases to reduce duplication.
 
