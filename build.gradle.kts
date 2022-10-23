@@ -11,7 +11,7 @@ repositories {
 dependencies {
     implementation("com.charleskorn.kaml:kaml:0.49.0")
 
-    testImplementation(platform("io.kotest:kotest-bom:5.5.1"))
+    testImplementation(platform("io.kotest:kotest-bom:5.5.2"))
     testImplementation("io.kotest:kotest-runner-junit5")
     testImplementation("io.kotest:kotest-assertions-core")
 }
