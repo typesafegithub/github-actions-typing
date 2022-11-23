@@ -182,6 +182,8 @@ inputs:
 
 Multiple possible values.
 
+You can also optionally define `name` which is a hint for code generators what name can be used as enum type name.
+
 Example:
 ```yaml
 ...
@@ -192,5 +194,11 @@ inputs:
       - user
       - admin
       - guest
+  if_mention:
+    type: enum
+    name: MentionStatus
+    allowed-values:
+      - success
+      - failure
     ...
 ```

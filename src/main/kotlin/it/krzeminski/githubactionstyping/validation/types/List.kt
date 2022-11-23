@@ -5,6 +5,9 @@ import it.krzeminski.githubactionstyping.validation.ItemValidationResult
 import it.krzeminski.githubactionstyping.validation.validate
 
 fun ApiItem.validateList(): ItemValidationResult {
+    if (this.name != null) {
+        return ItemValidationResult.Invalid("'name' is not allowed for this type.")
+    }
     if (this.listItem == null) {
         return ItemValidationResult.Invalid("List item information must be specified.")
     }
