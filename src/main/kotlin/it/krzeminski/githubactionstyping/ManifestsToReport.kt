@@ -5,6 +5,7 @@ import it.krzeminski.githubactionstyping.parsing.parseManifest
 import it.krzeminski.githubactionstyping.parsing.parseTypesManifest
 import it.krzeminski.githubactionstyping.reporting.toPlaintextReport
 import it.krzeminski.githubactionstyping.validation.ItemValidationResult
+import it.krzeminski.githubactionstyping.validation.buildInputOutputMismatchValidationResult
 import it.krzeminski.githubactionstyping.validation.validate
 
 fun manifestsToReport(manifest: String, typesManifest: String): Pair<Boolean, String> {
@@ -18,15 +19,17 @@ fun manifestsToReport(manifest: String, typesManifest: String): Pair<Boolean, St
     val inputsInTypesManifest = parsedTypesManifest.inputs.keys
     val inputsInManifest = parsedManifest.inputs.keys
 
-    if (inputsInManifest != inputsInTypesManifest) {
-        throw IllegalStateException("The same set of inputs should exist in action manifest and types manifest!")
-    }
-
     val outputsInTypesManifest = parsedTypesManifest.outputs.keys
     val outputsInManifest = parsedManifest.outputs.keys
 
-    if (outputsInManifest != outputsInTypesManifest) {
-        throw IllegalStateException("The same set of outputs should exist in action manifest and types manifest!")
+    if (inputsInManifest != inputsInTypesManifest || outputsInManifest != outputsInTypesManifest) {
+        val inputOutputMismatchValidationResult = buildInputOutputMismatchValidationResult(
+            inputsInManifest = inputsInManifest,
+            inputsInTypesManifest = inputsInTypesManifest,
+            outputsInManifest = outputsInManifest,
+            outputsInTypesManifest = outputsInTypesManifest,
+        )
+        return Pair(false, inputOutputMismatchValidationResult.toPlaintextReport())
     }
 
     printlnDebug("Action's manifest:")

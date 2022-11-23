@@ -22,6 +22,43 @@ fun TypesManifest.validate(): ActionValidationResult {
     )
 }
 
+fun buildInputOutputMismatchValidationResult(
+    inputsInManifest: Set<String>,
+    inputsInTypesManifest: Set<String>,
+    outputsInManifest: Set<String>,
+    outputsInTypesManifest: Set<String>,
+): ActionValidationResult {
+    return ActionValidationResult(
+        overallResult = ItemValidationResult.Invalid(
+            "Input/output mismatch detected. Please fix it first, then rerun to see other possible violations.",
+        ),
+        inputs = (inputsInManifest + inputsInTypesManifest)
+            .associateWith {
+                if (it in inputsInManifest && it in inputsInTypesManifest) {
+                    ItemValidationResult.Valid
+                } else {
+                    if (it !in inputsInManifest) {
+                        ItemValidationResult.Invalid("This input doesn't exist in the action manifest.")
+                    } else {
+                        ItemValidationResult.Invalid("This input doesn't exist in the types manifest.")
+                    }
+                }
+            },
+        outputs = (outputsInManifest + outputsInTypesManifest)
+            .associateWith {
+                if (it in outputsInManifest && it in outputsInTypesManifest) {
+                    ItemValidationResult.Valid
+                } else {
+                    if (it !in outputsInManifest) {
+                        ItemValidationResult.Invalid("This output doesn't exist in the action manifest.")
+                    } else {
+                        ItemValidationResult.Invalid("This output doesn't exist in the types manifest.")
+                    }
+                }
+            },
+    )
+}
+
 private fun ApiItem.validate(): ItemValidationResult {
     if (this.type == null) {
         return ItemValidationResult.Invalid("Type must be specified. Use 'type' attribute.")

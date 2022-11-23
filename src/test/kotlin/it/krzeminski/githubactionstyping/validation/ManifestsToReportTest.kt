@@ -202,4 +202,70 @@ class ManifestsToReportTest : FunSpec({
             """.trimIndent()
         }
     }
+
+    test("inputs mismatch between action manifest and types manifest") {
+        // when
+        val manifest = """
+            name: GitHub Actions Typing
+            description: Bring type-safety to your GitHub actions' API!
+            author: Piotr Krzemiński
+            inputs:
+              foo:
+                description: 'Set to true to display debug information helpful when troubleshooting issues with this action.'
+                required: false
+              bar:
+                description: 'Testing enum'
+                required: false
+            outputs:
+              goo:
+                description: 'Set to true to display debug information helpful when troubleshooting issues with this action.'
+              zoo:
+                description: 'Testing enum'
+        """.trimIndent()
+        val typesManifest = """
+            inputs:
+              foo:
+                type: boolean
+              baz:
+                type: enum
+                allowed-values:
+                 - foo
+                 - bar
+            outputs:
+              goo:
+                type: boolean
+              boo:
+                type: enum
+        """.trimIndent()
+
+        // when
+        val (isValid, report) = manifestsToReport(manifest, typesManifest)
+
+        // then
+        assertSoftly {
+            isValid shouldBe false
+            report shouldBe """
+                Overall result: 
+                ${'\u001b'}[31m❌ INVALID: Input/output mismatch detected. Please fix it first, then rerun to see other possible violations.${'\u001b'}[0m
+
+                Inputs:
+                • foo:
+                  ${'\u001b'}[32m✔ VALID${'\u001b'}[0m
+                • bar:
+                  ${'\u001b'}[31m❌ INVALID: This input doesn't exist in the types manifest.${'\u001b'}[0m
+                • baz:
+                  ${'\u001b'}[31m❌ INVALID: This input doesn't exist in the action manifest.${'\u001b'}[0m
+
+                Outputs:
+                • goo:
+                  ${'\u001b'}[32m✔ VALID${'\u001b'}[0m
+                • zoo:
+                  ${'\u001b'}[31m❌ INVALID: This output doesn't exist in the types manifest.${'\u001b'}[0m
+                • boo:
+                  ${'\u001b'}[31m❌ INVALID: This output doesn't exist in the action manifest.${'\u001b'}[0m
+
+
+            """.trimIndent()
+        }
+    }
 })
