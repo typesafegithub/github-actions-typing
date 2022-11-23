@@ -14,6 +14,7 @@ data class TypesManifest(
 @Serializable
 data class ApiItem(
     val type: String? = null,
+    val name: String? = null,
     @SerialName("allowed-values")
     val allowedValues: List<String>? = null,
     val separator: String? = null,

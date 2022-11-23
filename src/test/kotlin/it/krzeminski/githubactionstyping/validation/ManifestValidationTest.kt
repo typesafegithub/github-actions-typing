@@ -40,6 +40,11 @@ class ManifestValidationTest : FunSpec({
             val manifest = TypesManifest(
                 inputs = mapOf(
                     "enum-input" to ApiItem(type = "enum", allowedValues = listOf("foo", "bar", "baz")),
+                    "enum-input-with-custom-item-name" to ApiItem(
+                        type = "enum",
+                        name = "SomeItemName",
+                        allowedValues = listOf("foo", "bar", "baz"),
+                    ),
                 ),
             )
 
@@ -51,6 +56,7 @@ class ManifestValidationTest : FunSpec({
                 overallResult = ItemValidationResult.Valid,
                 inputs = mapOf(
                     "enum-input" to ItemValidationResult.Valid,
+                    "enum-input-with-custom-item-name" to ItemValidationResult.Valid,
                 ),
             )
         }
@@ -465,6 +471,34 @@ class ManifestValidationTest : FunSpec({
                     "float-input" to ItemValidationResult.Invalid("'named-values' are currently supported only for integers."),
                     "list-input" to ItemValidationResult.Invalid("'named-values' are currently supported only for integers."),
                     "enum-input" to ItemValidationResult.Invalid("'named-values' are currently supported only for integers."),
+                ),
+            )
+        }
+
+        test("non-enum types with 'name' attribute") {
+            // given
+            val manifest = TypesManifest(
+                inputs = mapOf(
+                    "string-input" to ApiItem(type = "string", name = "SomeName"),
+                    "boolean-input" to ApiItem(type = "boolean", name = "SomeName"),
+                    "integer-input" to ApiItem(type = "integer", name = "SomeName"),
+                    "float-input" to ApiItem(type = "float", name = "SomeName"),
+                    "list-input" to ApiItem(type = "list", name = "SomeName", separator = ",", listItem = ApiItem(type = "string")),
+                ),
+            )
+
+            // when
+            val result = manifest.validate()
+
+            // then
+            result shouldBe ActionValidationResult(
+                overallResult = ItemValidationResult.Invalid("Some typing is invalid."),
+                inputs = mapOf(
+                    "string-input" to ItemValidationResult.Invalid("'name' is not allowed for this type."),
+                    "boolean-input" to ItemValidationResult.Invalid("'name' is not allowed for this type."),
+                    "integer-input" to ItemValidationResult.Invalid("'name' is not allowed for this type."),
+                    "float-input" to ItemValidationResult.Invalid("'name' is not allowed for this type."),
+                    "list-input" to ItemValidationResult.Invalid("'name' is not allowed for this type."),
                 ),
             )
         }
