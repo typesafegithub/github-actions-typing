@@ -1,6 +1,9 @@
 name: GitHub Actions Typing
 description: Bring type-safety to your GitHub actions' API!
 author: Piotr Krzemiński
+branding:
+  icon: lock
+  color: green
 runs:
   using: 'docker'
   image: 'Dockerfile'
