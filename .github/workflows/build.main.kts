@@ -3,7 +3,7 @@
 
 import it.krzeminski.githubactions.actions.actions.CheckoutV3
 import it.krzeminski.githubactions.actions.gradle.GradleBuildActionV2
-import it.krzeminski.githubactions.actions.krzema12.GithubActionsTypingV0
+import it.krzeminski.githubactions.actions.krzema12.GithubActionsTypingV1
 import it.krzeminski.githubactions.domain.RunnerType
 import it.krzeminski.githubactions.domain.triggers.PullRequest
 import it.krzeminski.githubactions.domain.triggers.Push
@@ -31,7 +31,7 @@ workflow(
         runsOn = RunnerType.UbuntuLatest,
     ) {
         uses(CheckoutV3())
-        uses(GithubActionsTypingV0())
+        uses(GithubActionsTypingV1())
     }
 
     job(
