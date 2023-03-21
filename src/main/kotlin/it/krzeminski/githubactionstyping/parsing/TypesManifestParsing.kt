@@ -27,6 +27,7 @@ data class ApiItem(
 private val myYaml = Yaml(
     configuration = Yaml.default.configuration.copy(
         strictMode = false,
+        allowAnchorsAndAliases = true,
     )
 )
 
