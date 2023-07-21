@@ -2,6 +2,7 @@
 @file:DependsOn("io.github.typesafegithub:github-workflows-kt:0.47.0")
 
 import io.github.typesafegithub.workflows.actions.actions.CheckoutV3
+import io.github.typesafegithub.workflows.actions.actions.SetupJavaV3
 import io.github.typesafegithub.workflows.actions.gradle.GradleBuildActionV2
 import io.github.typesafegithub.workflows.actions.typesafegithub.GithubActionsTypingV1
 import io.github.typesafegithub.workflows.domain.RunnerType
@@ -35,11 +36,33 @@ workflow(
     }
 
     job(
-        id = "build_kotlin_scripts",
-        name = "Build Kotlin scripts",
+        id = "workflows_consistency_check",
+        name = "Run consistency check on all GitHub workflows",
         runsOn = RunnerType.UbuntuLatest,
     ) {
         uses(action = CheckoutV3())
-        run(command = "find -name '*.main.kts' | xargs kotlinc")
+        uses(
+            name = "Set up Java in proper version",
+            action = SetupJavaV3(
+                javaVersion = "17",
+                distribution = SetupJavaV3.Distribution.Zulu,
+                cache = SetupJavaV3.BuildPlatform.Gradle,
+            ),
+        )
+        run(command = "cd .github/workflows")
+        run(
+            name = "Regenerate all workflow YAMLs",
+            command = """
+            find -name "*.main.kts" -print0 | while read -d ${'$'}'\0' file
+            do
+                echo "Regenerating ${'$'}file..."
+                (${'$'}file)
+            done
+            """.trimIndent(),
+        )
+        run(
+            name = "Check if some file is different after regeneration",
+            command = "git diff --exit-code .",
+        )
     }
 }.writeToFile()
