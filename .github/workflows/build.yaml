@@ -28,7 +28,7 @@ jobs:
     - 'check_yaml_consistency'
     steps:
     - id: 'step-0'
-      uses: 'actions/checkout@v3'
+      uses: 'actions/checkout@v4'
     - id: 'step-1'
       uses: 'gradle/gradle-build-action@v2'
       with:
@@ -39,7 +39,7 @@ jobs:
     - 'check_yaml_consistency'
     steps:
     - id: 'step-0'
-      uses: 'actions/checkout@v3'
+      uses: 'actions/checkout@v4'
     - id: 'step-1'
       uses: 'typesafegithub/github-actions-typing@v1'
   workflows_consistency_check:
@@ -49,7 +49,7 @@ jobs:
     - 'check_yaml_consistency'
     steps:
     - id: 'step-0'
-      uses: 'actions/checkout@v3'
+      uses: 'actions/checkout@v4'
     - id: 'step-1'
       name: 'Set up Java in proper version'
       uses: 'actions/setup-java@v3'
