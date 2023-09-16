@@ -1,7 +1,7 @@
 #!/usr/bin/env kotlin
 @file:DependsOn("io.github.typesafegithub:github-workflows-kt:1.1.0")
 
-import io.github.typesafegithub.workflows.actions.actions.CheckoutV3
+import io.github.typesafegithub.workflows.actions.actions.CheckoutV4
 import io.github.typesafegithub.workflows.actions.actions.SetupJavaV3
 import io.github.typesafegithub.workflows.actions.gradle.GradleBuildActionV2
 import io.github.typesafegithub.workflows.actions.typesafegithub.GithubActionsTypingV1
@@ -23,7 +23,7 @@ workflow(
         id = "build",
         runsOn = RunnerType.UbuntuLatest,
     ) {
-        uses(action = CheckoutV3())
+        uses(action = CheckoutV4())
         uses(action = GradleBuildActionV2(arguments = "build"))
     }
 
@@ -31,7 +31,7 @@ workflow(
         id = "validate-types",
         runsOn = RunnerType.UbuntuLatest,
     ) {
-        uses(action = CheckoutV3())
+        uses(action = CheckoutV4())
         uses(action = GithubActionsTypingV1())
     }
 
@@ -40,7 +40,7 @@ workflow(
         name = "Run consistency check on all GitHub workflows",
         runsOn = RunnerType.UbuntuLatest,
     ) {
-        uses(action = CheckoutV3())
+        uses(action = CheckoutV4())
         uses(
             name = "Set up Java in proper version",
             action = SetupJavaV3(
