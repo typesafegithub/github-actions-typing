@@ -1,4 +1,4 @@
-FROM gradle:8.3.0-jdk17 AS build
+FROM gradle:8.4.0-jdk17 AS build
 COPY --chown=gradle:gradle . /src
 WORKDIR /src
 RUN gradle build --no-daemon
