@@ -5,7 +5,7 @@ RUN gradle build --no-daemon
 RUN rm -rf dist
 RUN unzip build/distributions/github-actions-typing.zip -d dist
 
-FROM eclipse-temurin:21-jre
+FROM eclipse-temurin:21.0.1_12-jre
 RUN mkdir /app
 COPY --from=build /src/dist/github-actions-typing/lib/*.jar /app/
 WORKDIR /app
