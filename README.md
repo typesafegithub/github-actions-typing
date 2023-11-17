@@ -40,7 +40,7 @@ inputs:
   verbose:
     type: boolean
   permissions:
-    type: inttteger
+    type: integer
 ```
 
 This action, once used within a workflow, will fail the workflow run and produce such output:
