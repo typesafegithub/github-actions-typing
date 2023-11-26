@@ -32,7 +32,7 @@ workflow(
         runsOn = RunnerType.UbuntuLatest,
     ) {
         uses(action = CheckoutV4())
-        uses(action = GithubActionsTypingV1(_customVersion = "0910aa96fe427ee2de588c47405f38f609c1385e"))
+        uses(action = GithubActionsTypingV1())
     }
 
     job(
