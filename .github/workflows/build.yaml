@@ -41,7 +41,7 @@ jobs:
     - id: 'step-0'
       uses: 'actions/checkout@v4'
     - id: 'step-1'
-      uses: 'typesafegithub/github-actions-typing@v1'
+      uses: 'typesafegithub/github-actions-typing@0910aa96fe427ee2de588c47405f38f609c1385e'
   workflows_consistency_check:
     name: 'Run consistency check on all GitHub workflows'
     runs-on: 'ubuntu-latest'
