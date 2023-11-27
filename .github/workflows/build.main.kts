@@ -29,13 +29,40 @@ workflow(
         run(
             name = "Check if the produced files are committed correctly",
             command = """
+                for jar in dist/**/*.jar; do
+                    echo "Extracting ${'$'}jar..."
+                    filename=${'$'}(basename -- "${'$'}jar")
+                    filename="${'$'}{filename % . *}"
+
+                    targetDir="dist-unzipped/${'$'}filename"
+                    echo "Target directory: ${'$'}targetDir"
+
+                    mkdir -p "${'$'}targetDir"
+                    unzip "${'$'}jar" -d "${'$'}targetDir"
+                done
+
+                git add dist-unzipped/
+                git commit -m "Add unzipped JARs"
+
                 rm -rf dist
                 unzip build/distributions/github-actions-typing.zip -d dist
 
-                # Stage both modified and untracked files
-                git add dist/github-actions-typing/lib
-                # Exit with non-zero code if anything changed
-                git diff --cached --exit-code dist
+                rm -rf dist-unzipped
+
+                for jar in dist/**/*.jar; do
+                    echo "Extracting ${'$'}jar..."
+                    filename=${'$'}(basename -- "${'$'}jar")
+                    filename="${'$'}{filename % . *}"
+
+                    targetDir="dist-unzipped/${'$'}filename"
+                    echo "Target directory: ${'$'}targetDir"
+
+                    mkdir -p "${'$'}targetDir"
+                    unzip "${'$'}jar" -d "${'$'}targetDir"
+                done
+
+                git add dist-unzipped
+                git diff --cached --exit-code dist-unzipped
             """.trimIndent()
         )
     }
