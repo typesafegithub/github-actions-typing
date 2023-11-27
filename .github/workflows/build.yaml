@@ -36,7 +36,7 @@ jobs:
     - id: 'step-2'
       name: 'Check if the produced files are committed correctly'
       run: |-
-        for jar in dist/**/*.jar; do
+        for jar in dist/github-actions-typing/lib/*.jar; do
             echo "Extracting $jar..."
             filename=$(basename -- "$jar")
             filename="${filename%.*}"
@@ -56,7 +56,7 @@ jobs:
 
         rm -rf dist-unzipped
 
-        for jar in dist/**/*.jar; do
+        for jar in dist/github-actions-typing/lib/*.jar; do
             echo "Extracting $jar..."
             filename=$(basename -- "$jar")
             filename="${filename%.*}"

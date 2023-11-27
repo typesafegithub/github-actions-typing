@@ -29,7 +29,7 @@ workflow(
         run(
             name = "Check if the produced files are committed correctly",
             command = """
-                for jar in dist/**/*.jar; do
+                for jar in dist/github-actions-typing/lib/*.jar; do
                     echo "Extracting ${'$'}jar..."
                     filename=${'$'}(basename -- "${'$'}jar")
                     filename="${'$'}{filename%.*}"
@@ -49,7 +49,7 @@ workflow(
 
                 rm -rf dist-unzipped
 
-                for jar in dist/**/*.jar; do
+                for jar in dist/github-actions-typing/lib/*.jar; do
                     echo "Extracting ${'$'}jar..."
                     filename=${'$'}(basename -- "${'$'}jar")
                     filename="${'$'}{filename%.*}"
