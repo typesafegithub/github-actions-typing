@@ -32,7 +32,7 @@ workflow(
                 unzip build/distributions/github-actions-typing.zip -d dist
 
                 # Stage both modified and untracked files
-                git add dist
+                git add dist/github-actions-typing/lib
                 # Exit with non-zero code if anything changed
                 git diff --cached --exit-code dist
             """.trimIndent()
