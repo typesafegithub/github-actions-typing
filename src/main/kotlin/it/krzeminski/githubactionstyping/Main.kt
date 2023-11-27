@@ -5,7 +5,7 @@ import kotlin.system.exitProcess
 
 fun main() {
     val typesManifest = readYamlFile("action-types") ?: run {
-        println("No types manifest (action-types.yml or action-types.yaml) found!")
+        println("TestNo types manifest (action-types.yml or action-types.yaml) found!")
         exitProcess(1)
         throw IllegalStateException()
     }
