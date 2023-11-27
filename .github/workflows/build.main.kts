@@ -32,7 +32,7 @@ workflow(
                 for jar in dist/**/*.jar; do
                     echo "Extracting ${'$'}jar..."
                     filename=${'$'}(basename -- "${'$'}jar")
-                    filename="${'$'}{filename % . *}"
+                    filename="${'$'}{filename%.*}"
 
                     targetDir="dist-unzipped/${'$'}filename"
                     echo "Target directory: ${'$'}targetDir"
@@ -52,7 +52,7 @@ workflow(
                 for jar in dist/**/*.jar; do
                     echo "Extracting ${'$'}jar..."
                     filename=${'$'}(basename -- "${'$'}jar")
-                    filename="${'$'}{filename % . *}"
+                    filename="${'$'}{filename%.*}"
 
                     targetDir="dist-unzipped/${'$'}filename"
                     echo "Target directory: ${'$'}targetDir"
