@@ -25,6 +25,18 @@ workflow(
     ) {
         uses(action = CheckoutV4())
         uses(action = GradleBuildActionV2(arguments = "build"))
+
+        run(
+            name = "Check if the produced files are committed correctly",
+            command = """
+                build/distributions/github-actions-typing.zip -d dist
+
+                # Stage both modified and untracked files
+                git add .
+                # Exit with non-zero code if anything changed
+                git diff --cached --exit-code dist
+            """.trimIndent()
+        )
     }
 
     job(

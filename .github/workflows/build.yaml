@@ -33,6 +33,15 @@ jobs:
       uses: 'gradle/gradle-build-action@v2'
       with:
         arguments: 'build'
+    - id: 'step-2'
+      name: 'Check if the produced files are committed correctly'
+      run: |-
+        build/distributions/github-actions-typing.zip -d dist
+
+        # Stage both modified and untracked files
+        git add .
+        # Exit with non-zero code if anything changed
+        git diff --cached --exit-code dist
   validate-types:
     runs-on: 'ubuntu-latest'
     needs:
