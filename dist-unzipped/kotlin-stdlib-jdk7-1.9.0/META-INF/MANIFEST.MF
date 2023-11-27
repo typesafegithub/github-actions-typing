@@ -1,0 +1,8 @@
+Manifest-Version: 1.0
+Implementation-Title: kotlin-stdlib-jdk7
+Kotlin-Runtime-Component: Main
+Kotlin-Version: 1.9
+Implementation-Version: 1.9.0-release-358
+Multi-Release: true
+Implementation-Vendor: JetBrains
+

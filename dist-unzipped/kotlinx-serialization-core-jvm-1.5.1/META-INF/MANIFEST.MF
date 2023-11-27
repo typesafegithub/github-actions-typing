@@ -1,0 +1,5 @@
+Manifest-Version: 1.0
+Implementation-Version: 1.5.1
+Require-Kotlin-Version: 1.4.30-M1
+Multi-Release: true
+
