@@ -29,6 +29,7 @@ workflow(
         run(
             name = "Check if the produced files are committed correctly",
             command = """
+                rm -rf dist
                 unzip build/distributions/github-actions-typing.zip -d dist
 
                 # Stage both modified and untracked files
