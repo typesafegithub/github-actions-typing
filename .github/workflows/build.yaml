@@ -36,7 +36,7 @@ jobs:
     - id: 'step-2'
       name: 'Check if the produced files are committed correctly'
       run: |-
-        build/distributions/github-actions-typing.zip -d dist
+        unzip build/distributions/github-actions-typing.zip -d dist
 
         # Stage both modified and untracked files
         git add .
