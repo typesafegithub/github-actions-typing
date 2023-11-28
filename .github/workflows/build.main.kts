@@ -25,6 +25,36 @@ workflow(
     ) {
         uses(action = CheckoutV4())
         uses(action = GradleBuildActionV2(arguments = "build"))
+
+        run(
+            name = "Check if the produced files are committed correctly",
+            command = """
+                set -euxo pipefail
+
+                unzip_jar() {
+                    for jar in dist/github-actions-typing/lib/*.jar; do
+                        echo "Extracting ${'$'}jar..."
+                        filename=${'$'}(basename -- "${'$'}jar")
+                        filename="${'$'}{filename%.*}"
+
+                        targetDir="${'$'}1/${'$'}filename"
+                        echo "Target directory: ${'$'}targetDir"
+
+                        mkdir -p "${'$'}targetDir"
+                        unzip -qq "${'$'}jar" -d "${'$'}targetDir"
+                    done
+                }
+
+                unzip_jar "dist-unzipped-before"
+
+                rm -rf dist
+                unzip -qq build/distributions/github-actions-typing.zip -d dist
+
+                unzip_jar "dist-unzipped-after"
+
+                git diff --no-index --exit-code dist-unzipped-before dist-unzipped-after
+            """.trimIndent()
+        )
     }
 
     job(
