@@ -29,6 +29,8 @@ workflow(
         run(
             name = "Check if the produced files are committed correctly",
             command = """
+                set -euxo pipefail
+
                 unzip_jar() {
                     for jar in dist/github-actions-typing/lib/*.jar; do
                         echo "Extracting ${'$'}jar..."
@@ -46,7 +48,7 @@ workflow(
                 unzip_jar "dist-unzipped-before"
 
                 rm -rf dist
-                unzip build/distributions/github-actions-typing.zip -d dist
+                unzip -qq build/distributions/github-actions-typing.zip -d dist
 
                 unzip_jar "dist-unzipped-after"
 
