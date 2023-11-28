@@ -36,42 +36,28 @@ jobs:
     - id: 'step-2'
       name: 'Check if the produced files are committed correctly'
       run: |-
-        for jar in dist/github-actions-typing/lib/*.jar; do
-            echo "Extracting $jar..."
-            filename=$(basename -- "$jar")
-            filename="${filename%.*}"
+        unzip_jar() {
+            for jar in dist/github-actions-typing/lib/*.jar; do
+                echo "Extracting $jar..."
+                filename=$(basename -- "$jar")
+                filename="${filename%.*}"
 
-            targetDir="dist-unzipped/$filename"
-            echo "Target directory: $targetDir"
+                targetDir="$1/$filename"
+                echo "Target directory: $targetDir"
 
-            mkdir -p "$targetDir"
-            unzip "$jar" -d "$targetDir"
-        done
+                mkdir -p "$targetDir"
+                unzip "$jar" -d "$targetDir"
+            done
+        }
 
-        git add dist-unzipped/
-        git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
-        git config --global user.name "github-actions[bot]"
-        git commit -m "Add unzipped JARs"
+        unzip_jar "dist-unzipped-before"
 
         rm -rf dist
         unzip build/distributions/github-actions-typing.zip -d dist
 
-        rm -rf dist-unzipped
+        unzip_jar "dist-unzipped-after"
 
-        for jar in dist/github-actions-typing/lib/*.jar; do
-            echo "Extracting $jar..."
-            filename=$(basename -- "$jar")
-            filename="${filename%.*}"
-
-            targetDir="dist-unzipped/$filename"
-            echo "Target directory: $targetDir"
-
-            mkdir -p "$targetDir"
-            unzip "$jar" -d "$targetDir"
-        done
-
-        git add dist-unzipped
-        git diff --cached --exit-code dist-unzipped
+        git diff --no-index --exit-code dist-unzipped-before dist-unzipped-after
   validate-types:
     runs-on: 'ubuntu-latest'
     needs:
