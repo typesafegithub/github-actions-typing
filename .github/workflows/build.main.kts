@@ -39,7 +39,7 @@ workflow(
                         echo "Target directory: ${'$'}targetDir"
 
                         mkdir -p "${'$'}targetDir"
-                        unzip "${'$'}jar" -d "${'$'}targetDir"
+                        unzip -qq "${'$'}jar" -d "${'$'}targetDir"
                     done
                 }
 
