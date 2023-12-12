@@ -2,7 +2,7 @@
 @file:DependsOn("io.github.typesafegithub:github-workflows-kt:1.7.0")
 
 import io.github.typesafegithub.workflows.actions.actions.CheckoutV4
-import io.github.typesafegithub.workflows.actions.actions.SetupJavaV3
+import io.github.typesafegithub.workflows.actions.actions.SetupJavaV4
 import io.github.typesafegithub.workflows.actions.gradle.GradleBuildActionV2
 import io.github.typesafegithub.workflows.actions.typesafegithub.GithubActionsTypingV1
 import io.github.typesafegithub.workflows.domain.RunnerType
@@ -73,10 +73,10 @@ workflow(
         uses(action = CheckoutV4())
         uses(
             name = "Set up Java in proper version",
-            action = SetupJavaV3(
+            action = SetupJavaV4(
                 javaVersion = "17",
-                distribution = SetupJavaV3.Distribution.Zulu,
-                cache = SetupJavaV3.BuildPlatform.Gradle,
+                distribution = SetupJavaV4.Distribution.Zulu,
+                cache = SetupJavaV4.BuildPlatform.Gradle,
             ),
         )
         run(command = "cd .github/workflows")
