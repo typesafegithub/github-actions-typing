@@ -1,7 +1,11 @@
 #!/usr/bin/env kotlin
+@file:Repository("https://repo1.maven.org/maven2/")
 @file:DependsOn("io.github.typesafegithub:github-workflows-kt:1.13.0")
 
-import io.github.typesafegithub.workflows.actions.actions.CheckoutV4
+@file:Repository("https://github-workflows-kt-bindings.colman.com.br/binding/")
+@file:DependsOn("actions:checkout:v4")
+
+import io.github.typesafegithub.workflows.actions.actions.Checkout
 import io.github.typesafegithub.workflows.actions.actions.SetupJavaV4
 import io.github.typesafegithub.workflows.actions.gradle.GradleBuildActionV2
 import io.github.typesafegithub.workflows.actions.typesafegithub.GithubActionsTypingV1
@@ -23,7 +27,7 @@ workflow(
         id = "build",
         runsOn = RunnerType.UbuntuLatest,
     ) {
-        uses(action = CheckoutV4())
+        uses(action = Checkout())
         uses(action = GradleBuildActionV2(arguments = "build"))
 
         run(
@@ -61,7 +65,7 @@ workflow(
         id = "validate-types",
         runsOn = RunnerType.UbuntuLatest,
     ) {
-        uses(action = CheckoutV4())
+        uses(action = Checkout())
         uses(action = GithubActionsTypingV1())
     }
 
@@ -70,7 +74,7 @@ workflow(
         name = "Run consistency check on all GitHub workflows",
         runsOn = RunnerType.UbuntuLatest,
     ) {
-        uses(action = CheckoutV4())
+        uses(action = Checkout())
         uses(
             name = "Set up Java in proper version",
             action = SetupJavaV4(
