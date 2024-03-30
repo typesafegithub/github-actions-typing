@@ -4,11 +4,14 @@
 
 @file:Repository("https://github-workflows-kt-bindings.colman.com.br/binding/")
 @file:DependsOn("actions:checkout:v4")
+@file:DependsOn("actions:setup-java:v4")
+@file:DependsOn("gradle:gradle-build-action:v2")
+@file:DependsOn("typesafegithub:github-actions-typing:v1")
 
 import io.github.typesafegithub.workflows.actions.actions.Checkout
-import io.github.typesafegithub.workflows.actions.actions.SetupJavaV4
-import io.github.typesafegithub.workflows.actions.gradle.GradleBuildActionV2
-import io.github.typesafegithub.workflows.actions.typesafegithub.GithubActionsTypingV1
+import io.github.typesafegithub.workflows.actions.actions.SetupJava
+import io.github.typesafegithub.workflows.actions.gradle.GradleBuildAction
+import io.github.typesafegithub.workflows.actions.typesafegithub.GithubActionsTyping
 import io.github.typesafegithub.workflows.domain.RunnerType
 import io.github.typesafegithub.workflows.domain.triggers.PullRequest
 import io.github.typesafegithub.workflows.domain.triggers.Push
@@ -28,7 +31,7 @@ workflow(
         runsOn = RunnerType.UbuntuLatest,
     ) {
         uses(action = Checkout())
-        uses(action = GradleBuildActionV2(arguments = "build"))
+        uses(action = GradleBuildAction(arguments = "build"))
 
         run(
             name = "Check if the produced files are committed correctly",
@@ -66,7 +69,7 @@ workflow(
         runsOn = RunnerType.UbuntuLatest,
     ) {
         uses(action = Checkout())
-        uses(action = GithubActionsTypingV1())
+        uses(action = GithubActionsTyping())
     }
 
     job(
@@ -77,10 +80,10 @@ workflow(
         uses(action = Checkout())
         uses(
             name = "Set up Java in proper version",
-            action = SetupJavaV4(
+            action = SetupJava(
                 javaVersion = "17",
-                distribution = SetupJavaV4.Distribution.Zulu,
-                cache = SetupJavaV4.BuildPlatform.Gradle,
+                distribution = SetupJava.Distribution.Zulu,
+                cache = SetupJava.BuildPlatform.Gradle,
             ),
         )
         run(command = "cd .github/workflows")
