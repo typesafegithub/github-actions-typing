@@ -9,6 +9,7 @@
 import io.github.typesafegithub.workflows.actions.actions.Checkout
 import io.github.typesafegithub.workflows.actions.gradle.ActionsSetupGradle
 import io.github.typesafegithub.workflows.domain.RunnerType
+import io.github.typesafegithub.workflows.domain.triggers.PullRequest
 import io.github.typesafegithub.workflows.domain.triggers.WorkflowDispatch
 import io.github.typesafegithub.workflows.dsl.workflow
 import io.github.typesafegithub.workflows.yaml.writeToFile
@@ -17,6 +18,7 @@ workflow(
     name = "Update dist",
     on = listOf(
         WorkflowDispatch(),
+        PullRequest(types = listOf(PullRequest.Type.Opened)),
     ),
     sourceFile = __FILE__.toPath(),
 ) {

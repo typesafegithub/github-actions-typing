@@ -5,6 +5,9 @@
 name: 'Update dist'
 on:
   workflow_dispatch: {}
+  pull_request:
+    types:
+    - 'opened'
 jobs:
   check_yaml_consistency:
     name: 'Check YAML consistency'
