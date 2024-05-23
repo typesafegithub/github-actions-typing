@@ -11,14 +11,13 @@ import io.github.typesafegithub.workflows.actions.gradle.ActionsSetupGradle
 import io.github.typesafegithub.workflows.domain.RunnerType
 import io.github.typesafegithub.workflows.domain.triggers.WorkflowDispatch
 import io.github.typesafegithub.workflows.dsl.workflow
-import io.github.typesafegithub.workflows.yaml.writeToFile
 
 workflow(
     name = "Update dist",
     on = listOf(
         WorkflowDispatch(),
     ),
-    sourceFile = __FILE__.toPath(),
+    sourceFile = __FILE__,
 ) {
     job(
         id = "build",
@@ -60,4 +59,4 @@ workflow(
             command = "git push",
         )
     }
-}.writeToFile()
+}
