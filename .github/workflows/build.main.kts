@@ -16,7 +16,6 @@ import io.github.typesafegithub.workflows.domain.RunnerType
 import io.github.typesafegithub.workflows.domain.triggers.PullRequest
 import io.github.typesafegithub.workflows.domain.triggers.Push
 import io.github.typesafegithub.workflows.dsl.workflow
-import io.github.typesafegithub.workflows.yaml.writeToFile
 
 workflow(
     name = "Build",
@@ -24,7 +23,7 @@ workflow(
         Push(branches = listOf("main")),
         PullRequest(),
     ),
-    sourceFile = __FILE__.toPath(),
+    sourceFile = __FILE__,
 ) {
     job(
         id = "build",
@@ -102,4 +101,4 @@ workflow(
             command = "git diff --exit-code .",
         )
     }
-}.writeToFile()
+}
