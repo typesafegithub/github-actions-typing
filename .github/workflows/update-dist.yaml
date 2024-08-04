@@ -27,7 +27,7 @@ jobs:
     - id: 'step-0'
       uses: 'actions/checkout@v4'
     - id: 'step-1'
-      uses: 'gradle/actions/setup-gradle@v3'
+      uses: 'gradle/actions/setup-gradle@v4'
     - id: 'step-2'
       run: './gradlew build'
     - id: 'step-3'
