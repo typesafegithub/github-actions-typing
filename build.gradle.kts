@@ -16,6 +16,10 @@ dependencies {
     testImplementation("io.kotest:kotest-assertions-core")
 }
 
+kotlin {
+    jvmToolchain(21)
+}
+
 tasks.jar {
     manifest.attributes["Main-Class"] = "MainKt"
 }
