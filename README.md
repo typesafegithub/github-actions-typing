@@ -127,6 +127,19 @@ inputs:
     ...
 ```
 
+You can also optionally define `name` which is a hint for code generators what name can be used as class name.
+
+```yaml
+...
+inputs:
+  fetch-depth:
+    type: integer
+    name: Amount
+    named-values:
+      infinite: 0
+    ...
+```
+
 ### Float
 
 A number with a fractional component.

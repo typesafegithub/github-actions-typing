@@ -14,7 +14,15 @@ class ManifestValidationTest : FunSpec({
                     "string-input" to ApiItem(type = "string"),
                     "boolean-input" to ApiItem(type = "boolean"),
                     "integer-input" to ApiItem(type = "integer"),
-                    "integer-with-named-values-input" to ApiItem(type = "integer", namedValues = mapOf("foo" to 1, "bar" to 2)),
+                    "integer-with-named-values-input" to ApiItem(
+                        type = "integer",
+                        namedValues = mapOf("foo" to 1, "bar" to 2)
+                    ),
+                    "integer-with-named-values-and-custom-item-name-input" to ApiItem(
+                        type = "integer",
+                        name = "SomeItemName",
+                        namedValues = mapOf("foo" to 1, "bar" to 2)
+                    ),
                     "float-input" to ApiItem(type = "float"),
                 ),
             )
@@ -30,6 +38,7 @@ class ManifestValidationTest : FunSpec({
                     "boolean-input" to ItemValidationResult.Valid,
                     "integer-input" to ItemValidationResult.Valid,
                     "integer-with-named-values-input" to ItemValidationResult.Valid,
+                    "integer-with-named-values-and-custom-item-name-input" to ItemValidationResult.Valid,
                     "float-input" to ItemValidationResult.Valid,
                 ),
             )
@@ -496,7 +505,7 @@ class ManifestValidationTest : FunSpec({
                 inputs = mapOf(
                     "string-input" to ItemValidationResult.Invalid("'name' is not allowed for this type."),
                     "boolean-input" to ItemValidationResult.Invalid("'name' is not allowed for this type."),
-                    "integer-input" to ItemValidationResult.Invalid("'name' is not allowed for this type."),
+                    "integer-input" to ItemValidationResult.Invalid("'name' is only allowed for this type when also having 'named-values'."),
                     "float-input" to ItemValidationResult.Invalid("'name' is not allowed for this type."),
                     "list-input" to ItemValidationResult.Invalid("'name' is not allowed for this type."),
                 ),
