@@ -10,17 +10,26 @@ import io.github.typesafegithub.workflows.actions.actions.Checkout
 import io.github.typesafegithub.workflows.actions.gradle.ActionsSetupGradle
 import io.github.typesafegithub.workflows.domain.RunnerType
 import io.github.typesafegithub.workflows.domain.triggers.WorkflowDispatch
+import io.github.typesafegithub.workflows.dsl.expressions.expr
 import io.github.typesafegithub.workflows.dsl.workflow
 
 workflow(
-    name = "Update dist",
+    name = "Release",
     on = listOf(
-        WorkflowDispatch(),
+        WorkflowDispatch(
+            inputs = mapOf(
+                "version" to WorkflowDispatch.Input(
+                    type = WorkflowDispatch.Type.String,
+                    required = true,
+                    description = "Used for the tag and the version name. E.g. v1.2.3.",
+                )
+            ),
+        ),
     ),
     sourceFile = __FILE__,
 ) {
     job(
-        id = "build",
+        id = "release",
         runsOn = RunnerType.UbuntuLatest,
     ) {
         uses(action = Checkout())
@@ -46,9 +55,12 @@ workflow(
             """.trimIndent()
         )
 
+        val tempBranchName = "temp-branch-for-release"
+
         run(
             name = "Commit changes",
             command = """
+                git checkout -b $tempBranchName
                 git add .
                 git commit -m "Update dist"
             """.trimIndent()
@@ -57,6 +69,21 @@ workflow(
         run(
             name = "Push commit",
             command = "git push",
+        )
+
+        val versionExpr = expr { "github.eventWorkflowDispatch.inputs.version" }
+
+        run(
+            name = "Create and push tag",
+            command = """
+                git tag -a "$versionExpr" -m "Release version $versionExpr"
+                git push origin "$versionExpr"
+            """.trimIndent()
+        )
+
+        run(
+            name = "Delete temp branch",
+            command = "git push origin --delete $tempBranchName"
         )
     }
 }
