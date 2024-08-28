@@ -68,10 +68,10 @@ workflow(
 
         run(
             name = "Push commit",
-            command = "git push",
+            command = "git push --set-upstream origin $tempBranchName",
         )
 
-        val versionExpr = expr { "github.eventWorkflowDispatch.inputs.version" }
+        val versionExpr = expr { "github.event.inputs.version" }
 
         run(
             name = "Create and push tag",
