@@ -56,12 +56,12 @@ jobs:
         git commit -m "Update dist"
     - id: 'step-6'
       name: 'Push commit'
-      run: 'git push'
+      run: 'git push --set-upstream origin temp-branch-for-release'
     - id: 'step-7'
       name: 'Create and push tag'
       run: |-
-        git tag -a "${{ github.eventWorkflowDispatch.inputs.version }}" -m "Release version ${{ github.eventWorkflowDispatch.inputs.version }}"
-        git push origin "${{ github.eventWorkflowDispatch.inputs.version }}"
+        git tag -a "${{ github.event.inputs.version }}" -m "Release version ${{ github.event.inputs.version }}"
+        git push origin "${{ github.event.inputs.version }}"
     - id: 'step-8'
       name: 'Delete temp branch'
       run: 'git push origin --delete temp-branch-for-release'
