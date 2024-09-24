@@ -1,0 +1,1 @@
+I'm an action with just a single top-level "action.yml" and its associated typings that are invalid.

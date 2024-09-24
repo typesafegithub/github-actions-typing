@@ -1,0 +1,8 @@
+inputs:
+  verbose:
+    type: boolean
+  someEnum:
+    type: string
+    allowed-values:
+      - foo
+      - bar
