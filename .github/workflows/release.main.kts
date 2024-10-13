@@ -1,17 +1,24 @@
 #!/usr/bin/env kotlin
 @file:Repository("https://repo1.maven.org/maven2/")
 @file:DependsOn("io.github.typesafegithub:github-workflows-kt:3.0.0")
+@file:DependsOn("org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.3")
 
 @file:Repository("https://bindings.krzeminski.it")
 @file:DependsOn("actions:checkout:v4")
 @file:DependsOn("gradle:actions__setup-gradle:v4")
+@file:OptIn(ExperimentalKotlinLogicStep::class)
 
 import io.github.typesafegithub.workflows.actions.actions.Checkout
 import io.github.typesafegithub.workflows.actions.gradle.ActionsSetupGradle
+import io.github.typesafegithub.workflows.annotations.ExperimentalKotlinLogicStep
 import io.github.typesafegithub.workflows.domain.RunnerType
 import io.github.typesafegithub.workflows.domain.triggers.WorkflowDispatch
 import io.github.typesafegithub.workflows.dsl.expressions.expr
 import io.github.typesafegithub.workflows.dsl.workflow
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.contentOrNull
+import kotlinx.serialization.json.jsonObject
+import kotlinx.serialization.json.jsonPrimitive
 
 workflow(
     name = "Release",
@@ -74,10 +81,36 @@ workflow(
         val versionExpr = expr { "github.event.inputs.version" }
 
         run(
-            name = "Create and push tag",
+            name = "Create and push a patch version tag",
             command = """
                 git tag -a "$versionExpr" -m "Release version $versionExpr"
                 git push origin "$versionExpr"
+            """.trimIndent()
+        )
+
+        val MAJOR_VERSION_OUTPUT_NAME = "majorVersion"
+
+        val extractMajorVersion = run {
+            // There should be a way to access the inputs using the DSL.
+            // TODO: https://github.com/typesafegithub/github-workflows-kt/issues/1685
+            val githubContextJson = System.getenv("GHWKT_GITHUB_CONTEXT_JSON")!!
+            val version: String = Json.parseToJsonElement(githubContextJson)
+                .jsonObject["event"]
+                ?.jsonObject?.get("inputs")
+                ?.jsonObject?.get("version")
+                ?.jsonPrimitive?.contentOrNull
+                ?: error("Version couldn't be extracted from input")
+            val majorVersion = version.substringBefore(".")
+            outputs[MAJOR_VERSION_OUTPUT_NAME] = majorVersion
+        }
+
+        val majorVersionExpr = expr { "steps.${extractMajorVersion.id}.outputs.$MAJOR_VERSION_OUTPUT_NAME" }
+
+        run(
+            name = "Create or update a major version tag",
+            command = """
+                git tag "$majorVersionExpr" -f
+                git push origin "$majorVersionExpr" -f
             """.trimIndent()
         )
 
