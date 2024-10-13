@@ -111,7 +111,7 @@ workflow(
             command = """
                 git branch -D "$majorVersionExpr" || true
                 git checkout -b "$majorVersionExpr"
-                git push origin "$majorVersionExpr"
+                git push origin "$majorVersionExpr" -f
             """.trimIndent()
         )
 

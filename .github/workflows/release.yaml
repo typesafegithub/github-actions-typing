@@ -71,7 +71,7 @@ jobs:
       run: |-
         git branch -D "${{ steps.step-8.outputs.majorVersion }}" || true
         git checkout -b "${{ steps.step-8.outputs.majorVersion }}"
-        git push origin "${{ steps.step-8.outputs.majorVersion }}"
+        git push origin "${{ steps.step-8.outputs.majorVersion }}" -f
     - id: 'step-10'
       name: 'Delete temp branch'
       run: 'git push origin --delete temp-branch-for-release'
