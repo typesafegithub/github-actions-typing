@@ -107,10 +107,11 @@ workflow(
         val majorVersionExpr = expr { "steps.${extractMajorVersion.id}.outputs.$MAJOR_VERSION_OUTPUT_NAME" }
 
         run(
-            name = "Create or update a major version tag",
+            name = "Create or update a major version branch",
             command = """
-                git tag "$majorVersionExpr" -f
-                git push origin "$majorVersionExpr" -f
+                git branch -D "$majorVersionExpr" || true
+                git checkout -b "$majorVersionExpr"
+                git push origin "$majorVersionExpr"
             """.trimIndent()
         )
 

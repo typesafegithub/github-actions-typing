@@ -67,10 +67,11 @@ jobs:
         GHWKT_GITHUB_CONTEXT_JSON: '${{ toJSON(github) }}'
       run: 'GHWKT_RUN_STEP=''release:step-8'' ''.github/workflows/release.main.kts'''
     - id: 'step-9'
-      name: 'Create or update a major version tag'
+      name: 'Create or update a major version branch'
       run: |-
-        git tag "${{ steps.step-8.outputs.majorVersion }}" -f
-        git push origin "${{ steps.step-8.outputs.majorVersion }}" -f
+        git branch -D "${{ steps.step-8.outputs.majorVersion }}" || true
+        git checkout -b "${{ steps.step-8.outputs.majorVersion }}"
+        git push origin "${{ steps.step-8.outputs.majorVersion }}"
     - id: 'step-10'
       name: 'Delete temp branch'
       run: 'git push origin --delete temp-branch-for-release'
