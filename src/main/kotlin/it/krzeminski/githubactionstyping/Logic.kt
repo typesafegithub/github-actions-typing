@@ -2,6 +2,7 @@ package it.krzeminski.githubactionstyping
 
 import it.krzeminski.githubactionstyping.parsing.readYamlFile
 import java.nio.file.Path
+import kotlin.io.path.exists
 
 /**
  * Runs validation for a given action, with its manifest files present in the current directory.
@@ -13,6 +14,7 @@ import java.nio.file.Path
  * - the string is a printable report, with details about all inputs and outputs
  */
 fun validateTypings(repoRoot: Path = Path.of(".")): Pair<Boolean, String> {
+    require(repoRoot.exists()) { "The given repo root leads to non-existent dir: $repoRoot" }
     val manifest = repoRoot.readYamlFile("action") ?:
         return Pair(false, "No action manifest (action.yml or action.yaml) found!")
 
