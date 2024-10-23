@@ -24,6 +24,51 @@ class LogicTest : FunSpec({
                 Overall result: 
                 ${'\u001b'}[32m✔ VALID${'\u001b'}[0m
 
+                Result for typings for 'action.yml':
+                ${'\u001b'}[32m✔ VALID${'\u001b'}[0m
+
+                Inputs:
+                • verbose:
+                  ${'\u001b'}[32m✔ VALID${'\u001b'}[0m
+                • someEnum:
+                  ${'\u001b'}[32m✔ VALID${'\u001b'}[0m
+
+                Outputs:
+                None.
+
+
+            """.trimIndent()
+        }
+    }
+
+    test("repo with top-level and nested action and valid typings") {
+        // When
+        val (isValid, report) = validateTypings(
+            repoRoot = testRepos.resolve("repo-with-top-level-and-nested-action-and-valid-typings"),
+        )
+
+        // Then
+        assertSoftly {
+            isValid shouldBe true
+            report shouldBe """
+                Overall result: 
+                ${'\u001b'}[32m✔ VALID${'\u001b'}[0m
+
+                Result for typings for 'action.yml':
+                ${'\u001b'}[32m✔ VALID${'\u001b'}[0m
+
+                Inputs:
+                • verbose:
+                  ${'\u001b'}[32m✔ VALID${'\u001b'}[0m
+                • someEnum:
+                  ${'\u001b'}[32m✔ VALID${'\u001b'}[0m
+
+                Outputs:
+                None.
+
+                Result for file 'some/directory/action-types.yml':
+                ${'\u001b'}[32m✔ VALID${'\u001b'}[0m
+
                 Inputs:
                 • verbose:
                   ${'\u001b'}[32m✔ VALID${'\u001b'}[0m
@@ -78,7 +123,7 @@ class LogicTest : FunSpec({
         }
     }
 
-    test("repo with only top-level action and top-level manifest") {
+    test("repo with only top-level action and no top-level manifest") {
         // When
         val (isValid, report) = validateTypings(
             repoRoot = testRepos.resolve("repo-with-only-top-level-action-and-no-top-level-manifest"),
@@ -86,8 +131,8 @@ class LogicTest : FunSpec({
 
         // Then
         assertSoftly {
-            isValid shouldBe false
-            report shouldBe "No action manifest (action.yml or action.yaml) found!"
+            isValid shouldBe true
+            report shouldBe "No action manifest found."
         }
     }
 })

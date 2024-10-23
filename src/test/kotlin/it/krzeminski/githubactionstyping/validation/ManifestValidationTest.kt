@@ -4,6 +4,7 @@ import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe
 import it.krzeminski.githubactionstyping.parsing.ApiItem
 import it.krzeminski.githubactionstyping.parsing.TypesManifest
+import java.nio.file.Path
 
 class ManifestValidationTest : FunSpec({
     context("success cases") {
@@ -28,11 +29,12 @@ class ManifestValidationTest : FunSpec({
             )
 
             // when
-            val result = manifest.validate()
+            val result = manifest.validate(manifestPath = Path.of("action.yml"))
 
             // then
             result shouldBe ActionValidationResult(
-                overallResult = ItemValidationResult.Valid,
+                manifestPath = Path.of("action.yml"),
+                resultForThisAction = ItemValidationResult.Valid,
                 inputs = mapOf(
                     "string-input" to ItemValidationResult.Valid,
                     "boolean-input" to ItemValidationResult.Valid,
@@ -58,11 +60,12 @@ class ManifestValidationTest : FunSpec({
             )
 
             // when
-            val result = manifest.validate()
+            val result = manifest.validate(manifestPath = Path.of("action.yml"))
 
             // then
             result shouldBe ActionValidationResult(
-                overallResult = ItemValidationResult.Valid,
+                manifestPath = Path.of("action.yml"),
+                resultForThisAction = ItemValidationResult.Valid,
                 inputs = mapOf(
                     "enum-input" to ItemValidationResult.Valid,
                     "enum-input-with-custom-item-name" to ItemValidationResult.Valid,
@@ -106,11 +109,12 @@ class ManifestValidationTest : FunSpec({
             )
 
             // when
-            val result = manifest.validate()
+            val result = manifest.validate(manifestPath = Path.of("action.yml"))
 
             // then
             result shouldBe ActionValidationResult(
-                overallResult = ItemValidationResult.Valid,
+                manifestPath = Path.of("action.yml"),
+                resultForThisAction = ItemValidationResult.Valid,
                 inputs = mapOf(
                     "list-of-strings-input" to ItemValidationResult.Valid,
                     "list-of-booleans-input" to ItemValidationResult.Valid,
@@ -135,11 +139,12 @@ class ManifestValidationTest : FunSpec({
             )
 
             // when
-            val result = manifest.validate()
+            val result = manifest.validate(manifestPath = Path.of("action.yml"))
 
             // then
             result shouldBe ActionValidationResult(
-                overallResult = ItemValidationResult.Invalid("Some typing is invalid."),
+                manifestPath = Path.of("action.yml"),
+                resultForThisAction = ItemValidationResult.Invalid("Some typing is invalid."),
                 inputs = mapOf(
                     "some-input" to ItemValidationResult.Invalid(
                         message = "Type must be specified. Use 'type' attribute."
@@ -162,11 +167,12 @@ class ManifestValidationTest : FunSpec({
             )
 
             // when
-            val result = manifest.validate()
+            val result = manifest.validate(manifestPath = Path.of("action.yml"))
 
             // then
             result shouldBe ActionValidationResult(
-                overallResult = ItemValidationResult.Invalid("Some typing is invalid."),
+                manifestPath = Path.of("action.yml"),
+                resultForThisAction = ItemValidationResult.Invalid("Some typing is invalid."),
                 inputs = mapOf(
                     "some-input" to ItemValidationResult.Invalid(
                         message = "Unknown type: 'for-sure-unknown-type'."
@@ -187,11 +193,12 @@ class ManifestValidationTest : FunSpec({
             )
 
             // when
-            val result = manifest.validate()
+            val result = manifest.validate(manifestPath = Path.of("action.yml"))
 
             // then
             result shouldBe ActionValidationResult(
-                overallResult = ItemValidationResult.Invalid("Some typing is invalid."),
+                manifestPath = Path.of("action.yml"),
+                resultForThisAction = ItemValidationResult.Invalid("Some typing is invalid."),
                 inputs = mapOf(
                     "string-input" to ItemValidationResult.Invalid("'allowed-values' is not allowed for this type."),
                     "boolean-input" to ItemValidationResult.Invalid("'allowed-values' is not allowed for this type."),
@@ -213,11 +220,12 @@ class ManifestValidationTest : FunSpec({
             )
 
             // when
-            val result = manifest.validate()
+            val result = manifest.validate(manifestPath = Path.of("action.yml"))
 
             // then
             result shouldBe ActionValidationResult(
-                overallResult = ItemValidationResult.Invalid("Some typing is invalid."),
+                manifestPath = Path.of("action.yml"),
+                resultForThisAction = ItemValidationResult.Invalid("Some typing is invalid."),
                 inputs = mapOf(
                     "string-input" to ItemValidationResult.Invalid("'separator' is not allowed for this type."),
                     "boolean-input" to ItemValidationResult.Invalid("'separator' is not allowed for this type."),
@@ -244,11 +252,12 @@ class ManifestValidationTest : FunSpec({
             )
 
             // when
-            val result = manifest.validate()
+            val result = manifest.validate(manifestPath = Path.of("action.yml"))
 
             // then
             result shouldBe ActionValidationResult(
-                overallResult = ItemValidationResult.Invalid("Some typing is invalid."),
+                manifestPath = Path.of("action.yml"),
+                resultForThisAction = ItemValidationResult.Invalid("Some typing is invalid."),
                 inputs = mapOf(
                     "string-input" to ItemValidationResult.Invalid("'list-item' is not allowed for this type."),
                     "boolean-input" to ItemValidationResult.Invalid("'list-item' is not allowed for this type."),
@@ -268,11 +277,12 @@ class ManifestValidationTest : FunSpec({
             )
 
             // when
-            val result = manifest.validate()
+            val result = manifest.validate(manifestPath = Path.of("action.yml"))
 
             // then
             result shouldBe ActionValidationResult(
-                overallResult = ItemValidationResult.Invalid("Some typing is invalid."),
+                manifestPath = Path.of("action.yml"),
+                resultForThisAction = ItemValidationResult.Invalid("Some typing is invalid."),
                 inputs = mapOf(
                     "enum-input" to ItemValidationResult.Invalid("'separator' is not allowed for this type."),
                 ),
@@ -288,11 +298,12 @@ class ManifestValidationTest : FunSpec({
             )
 
             // when
-            val result = manifest.validate()
+            val result = manifest.validate(manifestPath = Path.of("action.yml"))
 
             // then
             result shouldBe ActionValidationResult(
-                overallResult = ItemValidationResult.Invalid("Some typing is invalid."),
+                manifestPath = Path.of("action.yml"),
+                resultForThisAction = ItemValidationResult.Invalid("Some typing is invalid."),
                 inputs = mapOf(
                     "enum-input" to ItemValidationResult.Invalid("Allowed values must be specified."),
                 ),
@@ -308,11 +319,12 @@ class ManifestValidationTest : FunSpec({
             )
 
             // when
-            val result = manifest.validate()
+            val result = manifest.validate(manifestPath = Path.of("action.yml"))
 
             // then
             result shouldBe ActionValidationResult(
-                overallResult = ItemValidationResult.Invalid("Some typing is invalid."),
+                manifestPath = Path.of("action.yml"),
+                resultForThisAction = ItemValidationResult.Invalid("Some typing is invalid."),
                 inputs = mapOf(
                     "enum-input" to ItemValidationResult.Invalid("There must be at least two allowed values."),
                 ),
@@ -328,11 +340,12 @@ class ManifestValidationTest : FunSpec({
             )
 
             // when
-            val result = manifest.validate()
+            val result = manifest.validate(manifestPath = Path.of("action.yml"))
 
             // then
             result shouldBe ActionValidationResult(
-                overallResult = ItemValidationResult.Invalid("Some typing is invalid."),
+                manifestPath = Path.of("action.yml"),
+                resultForThisAction = ItemValidationResult.Invalid("Some typing is invalid."),
                 inputs = mapOf(
                     "list-input" to ItemValidationResult.Invalid("List item information must be specified."),
                 ),
@@ -348,11 +361,12 @@ class ManifestValidationTest : FunSpec({
             )
 
             // when
-            val result = manifest.validate()
+            val result = manifest.validate(manifestPath = Path.of("action.yml"))
 
             // then
             result shouldBe ActionValidationResult(
-                overallResult = ItemValidationResult.Invalid("Some typing is invalid."),
+                manifestPath = Path.of("action.yml"),
+                resultForThisAction = ItemValidationResult.Invalid("Some typing is invalid."),
                 inputs = mapOf(
                     "list-input" to ItemValidationResult.Invalid("Separator must be specified."),
                 ),
@@ -373,11 +387,12 @@ class ManifestValidationTest : FunSpec({
             )
 
             // when
-            val result = manifest.validate()
+            val result = manifest.validate(manifestPath = Path.of("action.yml"))
 
             // then
             result shouldBe ActionValidationResult(
-                overallResult = ItemValidationResult.Invalid("Some typing is invalid."),
+                manifestPath = Path.of("action.yml"),
+                resultForThisAction = ItemValidationResult.Invalid("Some typing is invalid."),
                 inputs = mapOf(
                     "list-input" to ItemValidationResult.Invalid("'allowed-values' is not allowed for this type."),
                 ),
@@ -401,11 +416,12 @@ class ManifestValidationTest : FunSpec({
             )
 
             // when
-            val result = manifest.validate()
+            val result = manifest.validate(manifestPath = Path.of("action.yml"))
 
             // then
             result shouldBe ActionValidationResult(
-                overallResult = ItemValidationResult.Invalid("Some typing is invalid."),
+                manifestPath = Path.of("action.yml"),
+                resultForThisAction = ItemValidationResult.Invalid("Some typing is invalid."),
                 inputs = mapOf(
                     "list-of-lists-input" to ItemValidationResult.Invalid(
                         "List item type: List can be parameterized only with a primitive or enum type.",
@@ -437,11 +453,12 @@ class ManifestValidationTest : FunSpec({
             )
 
             // when
-            val result = manifest.validate()
+            val result = manifest.validate(manifestPath = Path.of("action.yml"))
 
             // then
             result shouldBe ActionValidationResult(
-                overallResult = ItemValidationResult.Invalid("Some typing is invalid."),
+                manifestPath = Path.of("action.yml"),
+                resultForThisAction = ItemValidationResult.Invalid("Some typing is invalid."),
                 inputs = mapOf(
                     "list-of-enums-without-allowed-values-input" to ItemValidationResult.Invalid(
                         "List item type: Allowed values must be specified.",
@@ -469,11 +486,12 @@ class ManifestValidationTest : FunSpec({
             )
 
             // when
-            val result = manifest.validate()
+            val result = manifest.validate(manifestPath = Path.of("action.yml"))
 
             // then
             result shouldBe ActionValidationResult(
-                overallResult = ItemValidationResult.Invalid("Some typing is invalid."),
+                manifestPath = Path.of("action.yml"),
+                resultForThisAction = ItemValidationResult.Invalid("Some typing is invalid."),
                 inputs = mapOf(
                     "string-input" to ItemValidationResult.Invalid("'named-values' are currently supported only for integers."),
                     "boolean-input" to ItemValidationResult.Invalid("'named-values' are currently supported only for integers."),
@@ -497,11 +515,12 @@ class ManifestValidationTest : FunSpec({
             )
 
             // when
-            val result = manifest.validate()
+            val result = manifest.validate(manifestPath = Path.of("action.yml"))
 
             // then
             result shouldBe ActionValidationResult(
-                overallResult = ItemValidationResult.Invalid("Some typing is invalid."),
+                manifestPath = Path.of("action.yml"),
+                resultForThisAction = ItemValidationResult.Invalid("Some typing is invalid."),
                 inputs = mapOf(
                     "string-input" to ItemValidationResult.Invalid("'name' is not allowed for this type."),
                     "boolean-input" to ItemValidationResult.Invalid("'name' is not allowed for this type."),

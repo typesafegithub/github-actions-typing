@@ -4,8 +4,8 @@ import it.krzeminski.githubactionstyping.validation.ActionValidationResult
 import it.krzeminski.githubactionstyping.validation.ItemValidationResult
 
 fun ActionValidationResult.toPlaintextReport(): String = buildString {
-    appendLine("Overall result: ")
-    this@toPlaintextReport.overallResult.appendStatus(this)
+    appendLine("Result for typings for '${this@toPlaintextReport.manifestPath}':")
+    this@toPlaintextReport.resultForThisAction.appendStatus(this)
     appendLine()
 
     appendLine("Inputs:")
