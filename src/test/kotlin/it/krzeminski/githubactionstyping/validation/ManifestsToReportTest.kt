@@ -4,6 +4,7 @@ import io.kotest.assertions.assertSoftly
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe
 import it.krzeminski.githubactionstyping.manifestsToReport
+import java.nio.file.Path
 
 class ManifestsToReportTest : FunSpec({
     test("success case") {
@@ -36,13 +37,14 @@ class ManifestsToReportTest : FunSpec({
         """.trimIndent()
 
         // when
-        val (isValid, report) = manifestsToReport(manifest, typesManifest)
+        val (isValid, report) = manifestsToReport(
+            manifestPath = Path.of("action.yml"), manifest, typesManifest)
 
         // then
         assertSoftly {
             isValid shouldBe true
             report shouldBe """
-                Overall result: 
+                Result for typings for 'action.yml':
                 ${'\u001b'}[32m✔ VALID${'\u001b'}[0m
 
                 Inputs:
@@ -95,13 +97,14 @@ class ManifestsToReportTest : FunSpec({
         """.trimIndent()
 
         // when
-        val (isValid, report) = manifestsToReport(manifest, typesManifest)
+        val (isValid, report) = manifestsToReport(
+            manifestPath = Path.of("action.yml"), manifest, typesManifest)
 
         // then
         assertSoftly {
             isValid shouldBe true
             report shouldBe """
-                Overall result: 
+                Result for typings for 'action.yml':
                 ${'\u001b'}[32m✔ VALID${'\u001b'}[0m
 
                 Inputs:
@@ -133,13 +136,14 @@ class ManifestsToReportTest : FunSpec({
         val typesManifest = " "
 
         // when
-        val (isValid, report) = manifestsToReport(manifest, typesManifest)
+        val (isValid, report) = manifestsToReport(
+            manifestPath = Path.of("action.yml"), manifest, typesManifest)
 
         // then
         assertSoftly {
             isValid shouldBe true
             report shouldBe """
-                Overall result: 
+                Result for typings for 'action.yml':
                 ${'\u001b'}[32m✔ VALID${'\u001b'}[0m
 
                 Inputs:
@@ -180,13 +184,14 @@ class ManifestsToReportTest : FunSpec({
         """.trimIndent()
 
         // when
-        val (isValid, report) = manifestsToReport(manifest, typesManifest)
+        val (isValid, report) = manifestsToReport(
+            manifestPath = Path.of("action.yml"), manifest, typesManifest)
 
         // then
         assertSoftly {
             isValid shouldBe false
             report shouldBe """
-                Overall result: 
+                Result for typings for 'action.yml':
                 ${'\u001b'}[31m❌ INVALID: Some typing is invalid.${'\u001b'}[0m
 
                 Inputs:
@@ -239,13 +244,14 @@ class ManifestsToReportTest : FunSpec({
         """.trimIndent()
 
         // when
-        val (isValid, report) = manifestsToReport(manifest, typesManifest)
+        val (isValid, report) = manifestsToReport(
+            manifestPath = Path.of("action.yml"), manifest, typesManifest)
 
         // then
         assertSoftly {
             isValid shouldBe false
             report shouldBe """
-                Overall result: 
+                Result for typings for 'action.yml':
                 ${'\u001b'}[31m❌ INVALID: Input/output mismatch detected. Please fix it first, then rerun to see other possible violations.${'\u001b'}[0m
 
                 Inputs:
