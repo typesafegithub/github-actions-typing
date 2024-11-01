@@ -9,7 +9,7 @@ repositories {
 }
 
 dependencies {
-    implementation("com.charleskorn.kaml:kaml:0.62.1")
+    implementation("com.charleskorn.kaml:kaml:0.62.2")
 
     testImplementation(platform("io.kotest:kotest-bom:5.9.1"))
     testImplementation("io.kotest:kotest-runner-junit5")
