@@ -1,0 +1,14 @@
+name: GitHub Actions Typing
+description: Bring type-safety to your GitHub actions' API!
+author: Piotr Krzemiński
+inputs:
+  verbose:
+    description: 'Set to true to display debug information helpful when troubleshooting issues with this action.'
+    required: false
+    default: 'false'
+  someEnum:
+    description: 'Testing enum'
+    required: false
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
