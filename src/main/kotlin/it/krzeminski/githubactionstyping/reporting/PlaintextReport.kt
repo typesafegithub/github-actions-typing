@@ -1,34 +1,37 @@
 package it.krzeminski.githubactionstyping.reporting
 
-import it.krzeminski.githubactionstyping.validation.ActionValidationResult
 import it.krzeminski.githubactionstyping.validation.ItemValidationResult
+import it.krzeminski.githubactionstyping.validation.RepoValidationResult
 
-fun ActionValidationResult.toPlaintextReport(): String = buildString {
-    appendLine("Overall result: ")
-    this@toPlaintextReport.overallResult.appendStatus(this)
-    appendLine()
+fun RepoValidationResult.toPlaintextReport(): String = buildString {
+    this@toPlaintextReport.pathToActionValidationResult.forEach { (path, resultForAction) ->
+        appendLine("For action with manifest at '$path':")
+        appendLine("Result:")
+        resultForAction.overallResult.appendStatus(this)
+        appendLine()
 
-    appendLine("Inputs:")
-    this@toPlaintextReport.inputs.forEach { (key, value) ->
-        appendLine("• $key:")
-        append("  ")
-        value.appendStatus(this)
-    }
-    if (this@toPlaintextReport.inputs.isEmpty()) {
-        appendLine("None.")
-    }
-    appendLine()
+        appendLine("Inputs:")
+        resultForAction.inputs.forEach { (key, value) ->
+            appendLine("• $key:")
+            append("  ")
+            value.appendStatus(this)
+        }
+        if (resultForAction.inputs.isEmpty()) {
+            appendLine("None.")
+        }
+        appendLine()
 
-    appendLine("Outputs:")
-    this@toPlaintextReport.outputs.forEach { (key, value) ->
-        appendLine("• $key:")
-        append("  ")
-        value.appendStatus(this)
+        appendLine("Outputs:")
+        resultForAction.outputs.forEach { (key, value) ->
+            appendLine("• $key:")
+            append("  ")
+            value.appendStatus(this)
+        }
+        if (resultForAction.outputs.isEmpty()) {
+            appendLine("None.")
+        }
+        appendLine()
     }
-    if (this@toPlaintextReport.outputs.isEmpty()) {
-        appendLine("None.")
-    }
-    appendLine()
 }
 
 private fun ItemValidationResult.appendStatus(

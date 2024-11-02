@@ -7,8 +7,9 @@ import it.krzeminski.githubactionstyping.reporting.toPlaintextReport
 import it.krzeminski.githubactionstyping.validation.ItemValidationResult
 import it.krzeminski.githubactionstyping.validation.buildInputOutputMismatchValidationResult
 import it.krzeminski.githubactionstyping.validation.validate
+import java.nio.file.Path
 
-fun manifestsToReport(manifest: String, typesManifest: String): Pair<Boolean, String> {
+fun manifestsToReport(manifestPath: Path, manifest: String, typesManifest: String): Pair<Boolean, String> {
     val parsedTypesManifest = if (typesManifest.isNotBlank()) {
         parseTypesManifest(typesManifest)
     } else {
@@ -24,6 +25,7 @@ fun manifestsToReport(manifest: String, typesManifest: String): Pair<Boolean, St
 
     if (inputsInManifest != inputsInTypesManifest || outputsInManifest != outputsInTypesManifest) {
         val inputOutputMismatchValidationResult = buildInputOutputMismatchValidationResult(
+            manifestPath = manifestPath,
             inputsInManifest = inputsInManifest,
             inputsInTypesManifest = inputsInTypesManifest,
             outputsInManifest = outputsInManifest,
@@ -48,7 +50,7 @@ fun manifestsToReport(manifest: String, typesManifest: String): Pair<Boolean, St
     printlnDebug("==============================================")
     printlnDebug()
 
-    val validationResult = parsedTypesManifest.validate()
+    val validationResult = parsedTypesManifest.validate(manifestPath)
     val isValid = validationResult.overallResult is ItemValidationResult.Valid
     val report = validationResult.toPlaintextReport()
 
