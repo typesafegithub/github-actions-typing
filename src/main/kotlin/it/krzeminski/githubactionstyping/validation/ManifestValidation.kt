@@ -8,54 +8,64 @@ import it.krzeminski.githubactionstyping.validation.types.validateFloat
 import it.krzeminski.githubactionstyping.validation.types.validateInteger
 import it.krzeminski.githubactionstyping.validation.types.validateList
 import it.krzeminski.githubactionstyping.validation.types.validateString
+import java.nio.file.Path
 
-fun TypesManifest.validate(): ActionValidationResult {
+fun TypesManifest.validate(manifestPath: Path): RepoValidationResult {
     val inputValidationResults = this.inputs.mapValues { (_, value) -> value.validate() }
     val outputValidationResults = this.outputs.mapValues { (_, value) -> value.validate() }
     val isSomethingInvalid = (inputValidationResults.values + outputValidationResults.values)
         .any { it != ItemValidationResult.Valid }
 
-    return ActionValidationResult(
+    return RepoValidationResult(
         overallResult = if (isSomethingInvalid) ItemValidationResult.Invalid("Some typing is invalid.") else ItemValidationResult.Valid,
-        inputs = inputValidationResults,
-        outputs = outputValidationResults,
+        pathToActionValidationResult = mapOf(manifestPath to ActionValidationResult(
+            overallResult = if (isSomethingInvalid) ItemValidationResult.Invalid("Some typing is invalid.") else ItemValidationResult.Valid,
+            inputs = inputValidationResults,
+            outputs = outputValidationResults,
+        )
+        )
     )
 }
 
 fun buildInputOutputMismatchValidationResult(
+    manifestPath: Path,
     inputsInManifest: Set<String>,
     inputsInTypesManifest: Set<String>,
     outputsInManifest: Set<String>,
     outputsInTypesManifest: Set<String>,
-): ActionValidationResult {
-    return ActionValidationResult(
-        overallResult = ItemValidationResult.Invalid(
-            "Input/output mismatch detected. Please fix it first, then rerun to see other possible violations.",
-        ),
-        inputs = (inputsInManifest + inputsInTypesManifest)
-            .associateWith {
-                if (it in inputsInManifest && it in inputsInTypesManifest) {
-                    ItemValidationResult.Valid
-                } else {
-                    if (it !in inputsInManifest) {
-                        ItemValidationResult.Invalid("This input doesn't exist in the action manifest.")
+): RepoValidationResult {
+    return RepoValidationResult(
+        overallResult = ItemValidationResult.Invalid("There was input/output mismatch for one of the actions."),
+        pathToActionValidationResult = mapOf(manifestPath to ActionValidationResult(
+            overallResult = ItemValidationResult.Invalid(
+                "Input/output mismatch detected. Please fix it first, then rerun to see other possible violations.",
+            ),
+            inputs = (inputsInManifest + inputsInTypesManifest)
+                .associateWith {
+                    if (it in inputsInManifest && it in inputsInTypesManifest) {
+                        ItemValidationResult.Valid
                     } else {
-                        ItemValidationResult.Invalid("This input doesn't exist in the types manifest.")
+                        if (it !in inputsInManifest) {
+                            ItemValidationResult.Invalid("This input doesn't exist in the action manifest.")
+                        } else {
+                            ItemValidationResult.Invalid("This input doesn't exist in the types manifest.")
+                        }
                     }
-                }
-            },
-        outputs = (outputsInManifest + outputsInTypesManifest)
-            .associateWith {
-                if (it in outputsInManifest && it in outputsInTypesManifest) {
-                    ItemValidationResult.Valid
-                } else {
-                    if (it !in outputsInManifest) {
-                        ItemValidationResult.Invalid("This output doesn't exist in the action manifest.")
+                },
+            outputs = (outputsInManifest + outputsInTypesManifest)
+                .associateWith {
+                    if (it in outputsInManifest && it in outputsInTypesManifest) {
+                        ItemValidationResult.Valid
                     } else {
-                        ItemValidationResult.Invalid("This output doesn't exist in the types manifest.")
+                        if (it !in outputsInManifest) {
+                            ItemValidationResult.Invalid("This output doesn't exist in the action manifest.")
+                        } else {
+                            ItemValidationResult.Invalid("This output doesn't exist in the types manifest.")
+                        }
                     }
-                }
-            },
+                },
+            )
+        )
     )
 }
 
@@ -73,15 +83,4 @@ private fun ApiItem.validate(): ItemValidationResult {
         "enum" -> this.validateEnum()
         else -> ItemValidationResult.Invalid("Unknown type: '${this.type}'.")
     }
-}
-
-data class ActionValidationResult(
-    val overallResult: ItemValidationResult,
-    val inputs: Map<String, ItemValidationResult> = emptyMap(),
-    val outputs: Map<String, ItemValidationResult> = emptyMap(),
-)
-
-sealed interface ItemValidationResult {
-    object Valid : ItemValidationResult
-    data class Invalid(val message: String) : ItemValidationResult
 }

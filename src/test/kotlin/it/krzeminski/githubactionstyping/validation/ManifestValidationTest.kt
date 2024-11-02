@@ -4,6 +4,7 @@ import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe
 import it.krzeminski.githubactionstyping.parsing.ApiItem
 import it.krzeminski.githubactionstyping.parsing.TypesManifest
+import kotlin.io.path.Path
 
 class ManifestValidationTest : FunSpec({
     context("success cases") {
@@ -28,7 +29,7 @@ class ManifestValidationTest : FunSpec({
             )
 
             // when
-            val result = manifest.validate()
+            val result = manifest.validate(Path("action.yml")).pathToActionValidationResult[Path("action.yml")]
 
             // then
             result shouldBe ActionValidationResult(
@@ -58,7 +59,7 @@ class ManifestValidationTest : FunSpec({
             )
 
             // when
-            val result = manifest.validate()
+            val result = manifest.validate(Path("action.yml")).pathToActionValidationResult[Path("action.yml")]
 
             // then
             result shouldBe ActionValidationResult(
@@ -106,7 +107,7 @@ class ManifestValidationTest : FunSpec({
             )
 
             // when
-            val result = manifest.validate()
+             val result = manifest.validate(Path("action.yml")).pathToActionValidationResult[Path("action.yml")]
 
             // then
             result shouldBe ActionValidationResult(
@@ -135,7 +136,7 @@ class ManifestValidationTest : FunSpec({
             )
 
             // when
-            val result = manifest.validate()
+             val result = manifest.validate(Path("action.yml")).pathToActionValidationResult[Path("action.yml")]
 
             // then
             result shouldBe ActionValidationResult(
@@ -162,7 +163,7 @@ class ManifestValidationTest : FunSpec({
             )
 
             // when
-            val result = manifest.validate()
+             val result = manifest.validate(Path("action.yml")).pathToActionValidationResult[Path("action.yml")]
 
             // then
             result shouldBe ActionValidationResult(
@@ -187,7 +188,7 @@ class ManifestValidationTest : FunSpec({
             )
 
             // when
-            val result = manifest.validate()
+             val result = manifest.validate(Path("action.yml")).pathToActionValidationResult[Path("action.yml")]
 
             // then
             result shouldBe ActionValidationResult(
@@ -213,7 +214,7 @@ class ManifestValidationTest : FunSpec({
             )
 
             // when
-            val result = manifest.validate()
+             val result = manifest.validate(Path("action.yml")).pathToActionValidationResult[Path("action.yml")]
 
             // then
             result shouldBe ActionValidationResult(
@@ -244,7 +245,7 @@ class ManifestValidationTest : FunSpec({
             )
 
             // when
-            val result = manifest.validate()
+             val result = manifest.validate(Path("action.yml")).pathToActionValidationResult[Path("action.yml")]
 
             // then
             result shouldBe ActionValidationResult(
@@ -268,7 +269,7 @@ class ManifestValidationTest : FunSpec({
             )
 
             // when
-            val result = manifest.validate()
+             val result = manifest.validate(Path("action.yml")).pathToActionValidationResult[Path("action.yml")]
 
             // then
             result shouldBe ActionValidationResult(
@@ -288,7 +289,7 @@ class ManifestValidationTest : FunSpec({
             )
 
             // when
-            val result = manifest.validate()
+             val result = manifest.validate(Path("action.yml")).pathToActionValidationResult[Path("action.yml")]
 
             // then
             result shouldBe ActionValidationResult(
@@ -308,7 +309,7 @@ class ManifestValidationTest : FunSpec({
             )
 
             // when
-            val result = manifest.validate()
+             val result = manifest.validate(Path("action.yml")).pathToActionValidationResult[Path("action.yml")]
 
             // then
             result shouldBe ActionValidationResult(
@@ -328,7 +329,7 @@ class ManifestValidationTest : FunSpec({
             )
 
             // when
-            val result = manifest.validate()
+             val result = manifest.validate(Path("action.yml")).pathToActionValidationResult[Path("action.yml")]
 
             // then
             result shouldBe ActionValidationResult(
@@ -348,7 +349,7 @@ class ManifestValidationTest : FunSpec({
             )
 
             // when
-            val result = manifest.validate()
+             val result = manifest.validate(Path("action.yml")).pathToActionValidationResult[Path("action.yml")]
 
             // then
             result shouldBe ActionValidationResult(
@@ -373,7 +374,7 @@ class ManifestValidationTest : FunSpec({
             )
 
             // when
-            val result = manifest.validate()
+             val result = manifest.validate(Path("action.yml")).pathToActionValidationResult[Path("action.yml")]
 
             // then
             result shouldBe ActionValidationResult(
@@ -401,7 +402,7 @@ class ManifestValidationTest : FunSpec({
             )
 
             // when
-            val result = manifest.validate()
+             val result = manifest.validate(Path("action.yml")).pathToActionValidationResult[Path("action.yml")]
 
             // then
             result shouldBe ActionValidationResult(
@@ -437,7 +438,7 @@ class ManifestValidationTest : FunSpec({
             )
 
             // when
-            val result = manifest.validate()
+             val result = manifest.validate(Path("action.yml")).pathToActionValidationResult[Path("action.yml")]
 
             // then
             result shouldBe ActionValidationResult(
@@ -469,7 +470,7 @@ class ManifestValidationTest : FunSpec({
             )
 
             // when
-            val result = manifest.validate()
+             val result = manifest.validate(Path("action.yml")).pathToActionValidationResult[Path("action.yml")]
 
             // then
             result shouldBe ActionValidationResult(
@@ -497,7 +498,7 @@ class ManifestValidationTest : FunSpec({
             )
 
             // when
-            val result = manifest.validate()
+             val result = manifest.validate(Path("action.yml")).pathToActionValidationResult[Path("action.yml")]
 
             // then
             result shouldBe ActionValidationResult(
