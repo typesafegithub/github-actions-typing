@@ -1,0 +1,11 @@
+# yaml-language-server: $schema=../../../main/schema/github-actions-typing.schema.json
+# See https://github.com/typesafegithub/github-actions-typing
+inputs:
+  permissions:
+    type: enum
+    allowed-values:
+      - user
+      - admin
+      - guest
+    list-item:
+      type: boolean
