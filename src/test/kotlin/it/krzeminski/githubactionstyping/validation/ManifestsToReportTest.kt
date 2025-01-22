@@ -157,6 +157,40 @@ class ManifestsToReportTest : FunSpec({
         }
     }
 
+    test("comment-only types YAML") {
+        // when
+        val manifest = """
+            name: GitHub Actions Typing
+            description: Bring type-safety to your GitHub actions' API!
+            author: Piotr Krzemiński
+            runs:
+              using: 'docker'
+              image: 'Dockerfile'
+        """.trimIndent()
+        val typesManifest = "#"
+
+        // when
+        val (isValid, report) = manifestsToReport(Path("action.yml"), manifest, typesManifest)
+
+        // then
+        assertSoftly {
+            isValid shouldBe true
+            report shouldBe """
+                For action with manifest at 'action.yml':
+                Result:
+                ${'\u001b'}[32m✔ VALID${'\u001b'}[0m
+
+                Inputs:
+                None.
+                
+                Outputs:
+                None.
+
+
+            """.trimIndent()
+        }
+    }
+
     test("enum: missing allowed values") {
         // when
         val manifest = """
