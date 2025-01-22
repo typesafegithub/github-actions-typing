@@ -1,5 +1,6 @@
 package it.krzeminski.githubactionstyping.parsing
 
+import com.charleskorn.kaml.EmptyYamlDocumentException
 import com.charleskorn.kaml.Yaml
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
@@ -32,4 +33,11 @@ private val myYaml = Yaml(
 )
 
 fun parseTypesManifest(manifestString: String): TypesManifest =
-    myYaml.decodeFromString(manifestString)
+    runCatching {
+        myYaml.decodeFromString<TypesManifest>(manifestString)
+    }.getOrElse {
+        if (it is EmptyYamlDocumentException) {
+            return TypesManifest()
+        }
+        throw it
+    }
