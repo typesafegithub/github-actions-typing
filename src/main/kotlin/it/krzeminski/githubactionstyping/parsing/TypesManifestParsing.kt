@@ -1,5 +1,6 @@
 package it.krzeminski.githubactionstyping.parsing
 
+import com.charleskorn.kaml.AnchorsAndAliases
 import com.charleskorn.kaml.EmptyYamlDocumentException
 import com.charleskorn.kaml.Yaml
 import kotlinx.serialization.SerialName
@@ -28,7 +29,7 @@ data class ApiItem(
 private val myYaml = Yaml(
     configuration = Yaml.default.configuration.copy(
         strictMode = false,
-        allowAnchorsAndAliases = true,
+        anchorsAndAliases = AnchorsAndAliases.Permitted(),
     )
 )
 
