@@ -1,29 +1,54 @@
 plugins {
-    kotlin("jvm") version "2.1.0"
+    kotlin("multiplatform") version "2.1.0"
     kotlin("plugin.serialization") version "2.1.0"
-    application
+    id("io.kotest.multiplatform") version "5.9.1"
+    distribution
 }
 
-repositories {
-    mavenCentral()
-}
 
-dependencies {
-    implementation("com.charleskorn.kaml:kaml:0.67.0")
-
-    testImplementation(platform("io.kotest:kotest-bom:5.9.1"))
-    testImplementation("io.kotest:kotest-runner-junit5")
-    testImplementation("io.kotest:kotest-assertions-core")
-}
 
 kotlin {
     jvmToolchain(21)
+    jvm {
+        mainRun {
+            mainClass = "it.krzeminski.githubactionstyping.MainKt"
+        }
+
+        val test by testRuns.existing {
+            executionTask {
+                useJUnitPlatform()
+            }
+        }
+    }
+
+    sourceSets {
+        jvmMain {
+            dependencies {
+                implementation("com.charleskorn.kaml:kaml:0.67.0")
+            }
+        }
+
+        jvmTest {
+            dependencies {
+                runtimeOnly("org.junit.platform:junit-platform-launcher")
+                implementation(dependencies.platform("io.kotest:kotest-bom:5.9.1"))
+                runtimeOnly("io.kotest:kotest-runner-junit5")
+                implementation("io.kotest:kotest-framework-api")
+                implementation("io.kotest:kotest-assertions-core")
+            }
+        }
+    }
 }
 
-tasks.jar {
-    manifest.attributes["Main-Class"] = "MainKt"
-}
-
-tasks.withType<Test>().configureEach {
-    useJUnitPlatform()
+distributions {
+    main {
+        contents {
+            into("lib") {
+                val jvmJar by tasks.existing
+                from(jvmJar)
+                val jvmRuntimeClasspath by configurations
+                from(jvmRuntimeClasspath)
+            }
+        }
+    }
 }
