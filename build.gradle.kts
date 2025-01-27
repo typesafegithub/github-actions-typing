@@ -1,7 +1,7 @@
 plugins {
     kotlin("multiplatform") version "2.1.0"
     kotlin("plugin.serialization") version "2.1.0"
-    id("io.kotest.multiplatform") version "5.9.1"
+    id("io.kotest.multiplatform") version "6.0.0-LOCAL"
     distribution
 }
 
