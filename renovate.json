@@ -3,5 +3,11 @@
   "extends": [
     "config:base"
   ],
-  "automerge": true
+  "automerge": true,
+  "packageRules": [
+    {
+      "matchPackageNames": ["io.kotest.multiplatform"],
+      "allowedVersions": "!/LOCAL$/"
+    }
+  ]
 }
