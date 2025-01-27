@@ -1,0 +1,187 @@
+# yaml-language-server: $schema=../../../main/schema/github-actions-typing.schema.json
+# See https://github.com/typesafegithub/github-actions-typing
+inputs:
+  string_input:
+    type: string
+
+  boolean_input:
+    type: boolean
+
+  integer_input:
+    type: integer
+
+  float_input:
+    type: float
+
+  integer_with_named_values_input:
+    type: integer
+    named-values:
+      named-value: 0
+
+  integer_with_named_values_and_name_input:
+    type: integer
+    name: Foo
+    named-values:
+      named-value: 0
+
+  enum_input:
+    type: enum
+    allowed-values:
+      - foo
+
+  enum_with_name_input:
+    type: enum
+    name: Foo
+    allowed-values:
+      - foo
+
+  list_of_string_input:
+    type: list
+    separator: ","
+    list-item:
+      type: string
+
+  list_of_boolean_input:
+    type: list
+    separator: ","
+    list-item:
+      type: boolean
+
+  list_of_integer_input:
+    type: list
+    separator: ","
+    list-item:
+      type: integer
+
+  list_of_float_input:
+    type: list
+    separator: ","
+    list-item:
+      type: float
+
+  list_of_integer_with_named_values_input:
+    type: list
+    separator: ","
+    list-item:
+      type: integer
+      named-values:
+        named-value: 0
+
+  list_of_integer_with_named_values_and_name_input:
+    type: list
+    separator: ","
+    list-item:
+      type: integer
+      name: Foo
+      named-values:
+        named-value: 0
+
+  list_of_enum_input:
+    type: list
+    separator: ","
+    list-item:
+      type: enum
+      allowed-values:
+        - foo
+
+  list_of_enum_with_name_input:
+    type: list
+    separator: ","
+    list-item:
+      type: enum
+      name: Foo
+      allowed-values:
+        - foo
+
+outputs:
+  string_output:
+    type: string
+
+  boolean_output:
+    type: boolean
+
+  integer_output:
+    type: integer
+
+  float_output:
+    type: float
+
+  integer_with_named_values_output:
+    type: integer
+    named-values:
+      named-value: 0
+
+  integer_with_named_values_and_name_output:
+    type: integer
+    name: Foo
+    named-values:
+      named-value: 0
+
+  enum_output:
+    type: enum
+    allowed-values:
+      - foo
+
+  enum_with_name_output:
+    type: enum
+    name: Foo
+    allowed-values:
+      - foo
+
+  list_of_string_output:
+    type: list
+    separator: ","
+    list-item:
+      type: string
+
+  list_of_boolean_output:
+    type: list
+    separator: ","
+    list-item:
+      type: boolean
+
+  list_of_integer_output:
+    type: list
+    separator: ","
+    list-item:
+      type: integer
+
+  list_of_float_output:
+    type: list
+    separator: ","
+    list-item:
+      type: float
+
+  list_of_integer_with_named_values_output:
+    type: list
+    separator: ","
+    list-item:
+      type: integer
+      named-values:
+        named-value: 0
+
+  list_of_integer_with_named_values_and_name_output:
+    type: list
+    separator: ","
+    list-item:
+      type: integer
+      name: Foo
+      named-values:
+        named-value: 0
+
+  list_of_enum_output:
+    type: list
+    separator: ","
+    list-item:
+      type: enum
+      allowed-values:
+        - foo
+
+  list_of_enum_with_name_output:
+    type: list
+    separator: ","
+    list-item:
+      type: enum
+      name: Foo
+      allowed-values:
+        - foo
