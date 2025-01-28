@@ -29,8 +29,25 @@ workflow(
         id = "build",
         runsOn = RunnerType.UbuntuLatest,
     ) {
-        uses(action = Checkout())
-        uses(action = GradleBuildAction(arguments = "build"))
+        uses(
+            name = "Checkout github-actions-typing",
+            action = Checkout(
+                path = "github-actions-typing"
+            )
+        )
+        uses(
+            name = "Checkout github-actions-typing-catalog",
+            action = Checkout(
+                repository = "typesafegithub/github-actions-typing-catalog",
+                path = "github-actions-typing-catalog"
+            )
+        )
+        uses(
+            action = GradleBuildAction(
+                buildRootDirectory = "github-actions-typing",
+                arguments = "build"
+            )
+        )
     }
 
     job(

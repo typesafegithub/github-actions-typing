@@ -39,23 +39,39 @@ workflow(
         id = "release",
         runsOn = RunnerType.UbuntuLatest,
     ) {
-        uses(action = Checkout())
+        uses(
+            name = "Checkout github-actions-typing",
+            action = Checkout(
+                path = "github-actions-typing"
+            )
+        )
+        uses(
+            name = "Checkout github-actions-typing-catalog",
+            action = Checkout(
+                repository = "typesafegithub/github-actions-typing-catalog",
+                path = "github-actions-typing-catalog"
+            )
+        )
         uses(action = ActionsSetupGradle())
-        run(command = "./gradlew build")
+        run(
+            workingDirectory = "github-actions-typing",
+            command = "./gradlew build"
+        )
 
         run(
             name = "Regenerate the contents of dist directory",
+            workingDirectory = "github-actions-typing",
             command = """
                 set -euxo pipefail
 
                 rm -rf dist
                 unzip -qq build/distributions/github-actions-typing.zip -d dist
-                rm -rf dist/github-actions-typing/bin
             """.trimIndent()
         )
 
         run(
             name = "Configure git",
+            workingDirectory = "github-actions-typing",
             command = """
                 git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
                 git config user.name "github-actions[bot]"
@@ -66,6 +82,7 @@ workflow(
 
         run(
             name = "Commit changes",
+            workingDirectory = "github-actions-typing",
             command = """
                 git checkout -b $tempBranchName
                 git add .
@@ -75,6 +92,7 @@ workflow(
 
         run(
             name = "Push commit",
+            workingDirectory = "github-actions-typing",
             command = "git push --set-upstream origin $tempBranchName",
         )
 
@@ -82,6 +100,7 @@ workflow(
 
         run(
             name = "Create and push a patch version tag",
+            workingDirectory = "github-actions-typing",
             command = """
                 git tag -a "$versionExpr" -m "Release version $versionExpr"
                 git push origin "$versionExpr"
@@ -108,6 +127,7 @@ workflow(
 
         run(
             name = "Create or update a major version branch",
+            workingDirectory = "github-actions-typing",
             command = """
                 git branch -D "$majorVersionExpr" || true
                 git checkout -b "$majorVersionExpr"
@@ -117,6 +137,7 @@ workflow(
 
         run(
             name = "Delete temp branch",
+            workingDirectory = "github-actions-typing",
             command = "git push origin --delete $tempBranchName"
         )
     }
