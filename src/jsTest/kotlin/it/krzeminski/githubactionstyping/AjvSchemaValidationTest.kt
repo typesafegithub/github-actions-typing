@@ -10,7 +10,6 @@ import io.kotest.matchers.MatcherResult
 import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.nulls.shouldNotBeNull
 import io.kotest.matchers.should
-import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNot
 import io.kotest.mpp.env
 import node.buffer.BufferEncoding.Companion.utf8
@@ -31,7 +30,10 @@ private val badDir = env("badDir")!!
 
 private lateinit var validate: ValidateFunction
 
-class AjvTest : FunSpec({
+/**
+ * Validate good and bad typings against the Ajv schema validator.
+ */
+class AjvSchemaValidationTest : FunSpec({
     beforeSpec {
         withClue("catalogDir should be a non-empty directory") {
             exists(catalogDir).shouldBeTrue()

@@ -26,7 +26,10 @@ private val badDir = File(sysprop("badDir")!!)
 
 private lateinit var schema: JsonSchema
 
-class JsonSchemaValidatorTest : FunSpec({
+/**
+ * Validate good and bad typings against the Json Schema Validator schema validator.
+ */
+class JsonSchemaValidatorSchemaValidationTest : FunSpec({
     beforeSpec {
         catalogDir.shouldBeADirectory()
         catalogDir.shouldNotBeEmptyDirectory()

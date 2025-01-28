@@ -9,7 +9,10 @@ import node.fs.readFile
 
 private val schemaFile = env("schemaFile")!!
 
-class JsonlintTest : FunSpec({
+/**
+ * Validate the JSON schema using Jsonlint.
+ */
+class SchemaLintingTest : FunSpec({
     test("jsonlint validation") {
         parse(
             readFile(schemaFile, utf8),

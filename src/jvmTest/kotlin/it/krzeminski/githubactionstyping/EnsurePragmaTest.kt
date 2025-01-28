@@ -10,7 +10,10 @@ private val schemaFile = File(sysprop("schemaFile")!!)
 private val goodDir = File(sysprop("goodDir")!!)
 private val badDir = File(sysprop("badDir")!!)
 
-class PragmaTest : FunSpec({
+/**
+ * Make sure all test typings have a pragma line pointing to the local schema.
+ */
+class EnsurePragmaTest : FunSpec({
     withData(
         nameFn = { "${it.parentFile.name}/${it.name} should start with schema pragma line" },
         sequenceOf(goodDir, badDir).flatMap {

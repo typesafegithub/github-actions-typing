@@ -120,6 +120,10 @@ kotlin {
 }
 
 kotlinNodeJsRootExtension.version = "20.18.1"
+
+// disable the KMP plugin adding custom repositories which is bad practice
+// and promotes supply chain attacks
+// instead we define the repositories ourselves in the settings script
 kotlinNodeJsRootExtension.downloadBaseUrl = null
 yarn.downloadBaseUrl = null
 
