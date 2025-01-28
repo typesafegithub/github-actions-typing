@@ -1,0 +1,12 @@
+# yaml-language-server: $schema=../../../main/schema/github-actions-typing.schema.json
+# See https://github.com/typesafegithub/github-actions-typing
+inputs:
+  granted-scopes:
+    type: list
+    separator: ','
+    list-item:
+      type: enum
+      allowed-values:
+        - read
+        - write
+      separator: ','
