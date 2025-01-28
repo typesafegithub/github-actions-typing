@@ -1,0 +1,10 @@
+# yaml-language-server: $schema=../../../main/schema/github-actions-typing.schema.json
+# See https://github.com/typesafegithub/github-actions-typing
+outputs:
+  list-of-boolean:
+    type: list
+    separator: ','
+    list-item:
+      type: boolean
+      named-values:
+        infinite: 0

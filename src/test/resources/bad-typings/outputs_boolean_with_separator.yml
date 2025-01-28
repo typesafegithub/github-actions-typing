@@ -1,0 +1,6 @@
+# yaml-language-server: $schema=../../../main/schema/github-actions-typing.schema.json
+# See https://github.com/typesafegithub/github-actions-typing
+outputs:
+  verbose:
+    type: boolean
+    separator: ','

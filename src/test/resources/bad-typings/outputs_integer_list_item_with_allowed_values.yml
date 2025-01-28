@@ -1,0 +1,11 @@
+# yaml-language-server: $schema=../../../main/schema/github-actions-typing.schema.json
+# See https://github.com/typesafegithub/github-actions-typing
+outputs:
+  list-of-integer:
+    type: list
+    separator: ','
+    list-item:
+      type: integer
+      allowed-values:
+        - read
+        - write
