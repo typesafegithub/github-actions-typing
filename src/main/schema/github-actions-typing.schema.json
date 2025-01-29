@@ -164,6 +164,12 @@
       },
       "additionalProperties": false
     },
+    "properties_or_null": {
+      "oneOf": [
+        { "type": "null" },
+        { "$ref": "#/definitions/properties" }
+      ]
+    },
     "top_level_or_null": {
       "oneOf": [
         { "type": "null" },
@@ -171,16 +177,14 @@
           "type": "object",
           "properties": {
             "inputs": {
-              "$ref": "#/definitions/properties",
+              "$ref": "#/definitions/properties_or_null",
               "title": "Inputs",
-              "description": "The inputs of the action.\nhttps://github.com/typesafegithub/github-actions-typing/blob/main/README.md",
-              "type": "object"
+              "description": "The inputs of the action.\nhttps://github.com/typesafegithub/github-actions-typing/blob/main/README.md"
             },
             "outputs": {
-              "$ref": "#/definitions/properties",
+              "$ref": "#/definitions/properties_or_null",
               "title": "Outputs",
-              "description": "The outputs of the action.\nhttps://github.com/typesafegithub/github-actions-typing/blob/main/README.md",
-              "type": "object"
+              "description": "The outputs of the action.\nhttps://github.com/typesafegithub/github-actions-typing/blob/main/README.md"
             }
           },
           "additionalProperties": false
