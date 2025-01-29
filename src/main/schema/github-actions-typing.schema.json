@@ -1,0 +1,192 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://json.schemastore.org/github-actions-typing.json",
+  "title": "GitHub Actions typing",
+  "description": "Type information for GitHub Actions\nhttps://github.com/typesafegithub/github-actions-typing",
+  "definitions": {
+    "property_type": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "title": "Type",
+          "description": "The type of the input or output.\nhttps://github.com/typesafegithub/github-actions-typing/blob/main/README.md#available-types",
+          "type": "string",
+          "enum": ["string", "boolean", "integer", "float", "enum", "list"]
+        }
+      },
+      "required": ["type"],
+      "additionalProperties": true
+    },
+    "list_item_type": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "title": "Type",
+          "description": "The type of the list item.\nhttps://github.com/typesafegithub/github-actions-typing/blob/main/README.md#list",
+          "type": "string",
+          "enum": ["string", "boolean", "integer", "float", "enum"]
+        }
+      },
+      "required": ["type"],
+      "additionalProperties": true
+    },
+    "simple_primitive_property": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "title": "Type",
+          "description": "The type of the input, output, or list item.\nhttps://github.com/typesafegithub/github-actions-typing/blob/main/README.md#available-types",
+          "type": "string",
+          "enum": ["string", "boolean", "integer", "float"]
+        }
+      },
+      "required": ["type"],
+      "additionalProperties": false
+    },
+    "integer_with_named_values_property": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "title": "Type",
+          "description": "The type of the input, output, or list item.\nhttps://github.com/typesafegithub/github-actions-typing/blob/main/README.md#available-types",
+          "type": "string",
+          "const": "integer"
+        },
+        "name": {
+          "title": "Name",
+          "description": "A hint for code generators what name can be used as class name.\nhttps://github.com/typesafegithub/github-actions-typing/blob/main/README.md#integer",
+          "type": "string",
+          "minLength": 1
+        },
+        "named-values": {
+          "title": "Named Values",
+          "description": "A map of special names and their value like \"Infinity\" or \"Never\"\nhttps://github.com/typesafegithub/github-actions-typing/blob/main/README.md#integer",
+          "type": "object",
+          "patternProperties": {
+            "^[_a-zA-Z][a-zA-Z0-9_-]*$": {
+              "title": "Named Value",
+              "description": "A special name to configure the given value.\nhttps://github.com/typesafegithub/github-actions-typing/blob/main/README.md#integer",
+              "type": "integer"
+            }
+          },
+          "minProperties": 1,
+          "additionalProperties": false
+        }
+      },
+      "required": ["type", "named-values"],
+      "additionalProperties": false
+    },
+    "enum_property": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "title": "Type",
+          "description": "The type of the input, output, or list item.\nhttps://github.com/typesafegithub/github-actions-typing/blob/main/README.md#available-types",
+          "type": "string",
+          "const": "enum"
+        },
+        "name": {
+          "title": "Name",
+          "description": "A hint for code generators what name can be used as class name.\nhttps://github.com/typesafegithub/github-actions-typing/blob/main/README.md#enum",
+          "type": "string",
+          "minLength": 1
+        },
+        "allowed-values": {
+          "title": "Allowed Values",
+          "description": "The allowed values for the enum property\nhttps://github.com/typesafegithub/github-actions-typing/blob/main/README.md#enum",
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 1
+        }
+      },
+      "required": ["type", "allowed-values"],
+      "additionalProperties": false
+    },
+    "list_property": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "title": "Type",
+          "description": "The type of the input, output, or list item.\nhttps://github.com/typesafegithub/github-actions-typing/blob/main/README.md#available-types",
+          "type": "string",
+          "const": "list"
+        },
+        "separator": {
+          "title": "Separator",
+          "description": "The separator that is added between the elements when building the string, for example a comma or newline character.\nhttps://github.com/typesafegithub/github-actions-typing/blob/main/README.md#list",
+          "type": "string",
+          "minLength": 1
+        },
+        "list-item": {
+          "title": "List Item",
+          "description": "The specification how list item elements have to look like.\nhttps://github.com/typesafegithub/github-actions-typing/blob/main/README.md#list",
+          "type": "object",
+          "allOf": [
+            { "$ref": "#/definitions/list_item_type" },
+            {
+              "oneOf": [
+                { "$ref": "#/definitions/simple_primitive_property" },
+                { "$ref": "#/definitions/integer_with_named_values_property" },
+                { "$ref": "#/definitions/enum_property" }
+              ]
+            }
+          ]
+        }
+      },
+      "required": ["type", "separator", "list-item"],
+      "additionalProperties": false
+    },
+    "property": {
+      "allOf": [
+        { "$ref": "#/definitions/property_type" },
+        {
+          "oneOf": [
+            { "$ref": "#/definitions/simple_primitive_property" },
+            { "$ref": "#/definitions/integer_with_named_values_property" },
+            { "$ref": "#/definitions/enum_property" },
+            { "$ref": "#/definitions/list_property" }
+          ]
+        }
+      ]
+    },
+    "properties": {
+      "type": "object",
+      "patternProperties": {
+        "^[_a-zA-Z][a-zA-Z0-9_-]*$": {
+          "$ref": "#/definitions/property",
+          "title": "Input or Output",
+          "description": "An input or output of the action.\nhttps://github.com/typesafegithub/github-actions-typing/blob/main/README.md",
+          "type": "object"
+        }
+      },
+      "additionalProperties": false
+    },
+    "top_level_or_null": {
+      "oneOf": [
+        { "type": "null" },
+        {
+          "type": "object",
+          "properties": {
+            "inputs": {
+              "$ref": "#/definitions/properties",
+              "title": "Inputs",
+              "description": "The inputs of the action.\nhttps://github.com/typesafegithub/github-actions-typing/blob/main/README.md",
+              "type": "object"
+            },
+            "outputs": {
+              "$ref": "#/definitions/properties",
+              "title": "Outputs",
+              "description": "The outputs of the action.\nhttps://github.com/typesafegithub/github-actions-typing/blob/main/README.md",
+              "type": "object"
+            }
+          },
+          "additionalProperties": false
+        }
+      ]
+    }
+  },
+  "$ref": "#/definitions/top_level_or_null"
+}

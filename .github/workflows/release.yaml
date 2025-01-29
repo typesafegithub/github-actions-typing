@@ -30,48 +30,64 @@ jobs:
     - 'check_yaml_consistency'
     steps:
     - id: 'step-0'
+      name: 'Checkout github-actions-typing'
       uses: 'actions/checkout@v4'
+      with:
+        path: 'github-actions-typing'
     - id: 'step-1'
-      uses: 'gradle/actions/setup-gradle@v4'
+      name: 'Checkout github-actions-typing-catalog'
+      uses: 'actions/checkout@v4'
+      with:
+        repository: 'typesafegithub/github-actions-typing-catalog'
+        path: 'github-actions-typing-catalog'
     - id: 'step-2'
-      run: './gradlew build'
+      uses: 'gradle/actions/setup-gradle@v4'
     - id: 'step-3'
+      working-directory: 'github-actions-typing'
+      run: './gradlew build'
+    - id: 'step-4'
       name: 'Regenerate the contents of dist directory'
+      working-directory: 'github-actions-typing'
       run: |-
         set -euxo pipefail
 
         rm -rf dist
         unzip -qq build/distributions/github-actions-typing.zip -d dist
-        rm -rf dist/github-actions-typing/bin
-    - id: 'step-4'
+    - id: 'step-5'
       name: 'Configure git'
+      working-directory: 'github-actions-typing'
       run: |-
         git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
         git config user.name "github-actions[bot]"
-    - id: 'step-5'
+    - id: 'step-6'
       name: 'Commit changes'
+      working-directory: 'github-actions-typing'
       run: |-
         git checkout -b temp-branch-for-release
         git add .
         git commit -m "Update dist"
-    - id: 'step-6'
-      name: 'Push commit'
-      run: 'git push --set-upstream origin temp-branch-for-release'
     - id: 'step-7'
+      name: 'Push commit'
+      working-directory: 'github-actions-typing'
+      run: 'git push --set-upstream origin temp-branch-for-release'
+    - id: 'step-8'
       name: 'Create and push a patch version tag'
+      working-directory: 'github-actions-typing'
       run: |-
         git tag -a "${{ github.event.inputs.version }}" -m "Release version ${{ github.event.inputs.version }}"
         git push origin "${{ github.event.inputs.version }}"
-    - id: 'step-8'
+    - id: 'step-9'
       env:
         GHWKT_GITHUB_CONTEXT_JSON: '${{ toJSON(github) }}'
-      run: 'GHWKT_RUN_STEP=''release:step-8'' ''.github/workflows/release.main.kts'''
-    - id: 'step-9'
-      name: 'Create or update a major version branch'
-      run: |-
-        git branch -D "${{ steps.step-8.outputs.majorVersion }}" || true
-        git checkout -b "${{ steps.step-8.outputs.majorVersion }}"
-        git push origin "${{ steps.step-8.outputs.majorVersion }}" -f
+      run: 'GHWKT_RUN_STEP=''release:step-9'' ''.github/workflows/release.main.kts'''
     - id: 'step-10'
+      name: 'Create or update a major version branch'
+      working-directory: 'github-actions-typing'
+      run: |-
+        git branch -D "${{ steps.step-9.outputs.majorVersion }}" || true
+        git checkout -b "${{ steps.step-9.outputs.majorVersion }}"
+        git push origin "${{ steps.step-9.outputs.majorVersion }}" -f
+    - id: 'step-11'
       name: 'Delete temp branch'
+      working-directory: 'github-actions-typing'
       run: 'git push origin --delete temp-branch-for-release'
