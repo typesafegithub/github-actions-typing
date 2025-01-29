@@ -39,7 +39,7 @@ val collectExternalTypings by tasks.registering(Sync::class) {
     into(layout.buildDirectory.dir("external-typings"))
 }
 
-val schemaFile = file("src/main/schema/github-actions-typing.schema.json")
+val schemaFile = file("github-actions-typing.schema.json")
 val goodDir = file("src/test/resources/good-typings")
 val badDir = file("src/test/resources/bad-typings")
 
