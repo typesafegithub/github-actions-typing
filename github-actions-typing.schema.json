@@ -127,7 +127,7 @@
           "allOf": [
             { "$ref": "#/definitions/list_item_type" },
             {
-              "oneOf": [
+              "anyOf": [
                 { "$ref": "#/definitions/simple_primitive_property" },
                 { "$ref": "#/definitions/integer_with_named_values_property" },
                 { "$ref": "#/definitions/enum_property" }
@@ -143,7 +143,7 @@
       "allOf": [
         { "$ref": "#/definitions/property_type" },
         {
-          "oneOf": [
+          "anyOf": [
             { "$ref": "#/definitions/simple_primitive_property" },
             { "$ref": "#/definitions/integer_with_named_values_property" },
             { "$ref": "#/definitions/enum_property" },
@@ -165,13 +165,13 @@
       "additionalProperties": false
     },
     "properties_or_null": {
-      "oneOf": [
+      "anyOf": [
         { "type": "null" },
         { "$ref": "#/definitions/properties" }
       ]
     },
     "top_level_or_null": {
-      "oneOf": [
+      "anyOf": [
         { "type": "null" },
         {
           "type": "object",
