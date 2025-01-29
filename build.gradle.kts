@@ -27,10 +27,7 @@ val collectCatalogTypings by tasks.registering(Sync::class) {
 
 val collectExternalTypings by tasks.registering(Sync::class) {
     mapOf(
-        "Vampire_setup-wsl_v1.yml" to "Vampire/setup-wsl/refs/heads/v1/action-types.yml",
-        "Vampire_setup-wsl_v2.yml" to "Vampire/setup-wsl/refs/heads/v1/action-types.yml",
-        "Vampire_setup-wsl_v3.yml" to "Vampire/setup-wsl/refs/heads/v1/action-types.yml",
-        "Vampire_setup-wsl_v4.yml" to "Vampire/setup-wsl/refs/heads/v1/action-types.yml",
+        "Vampire_setup-wsl_v4.yml" to "Vampire/setup-wsl/refs/heads/v4/action-types.yml",
         "Vampire_setup-wsl_master.yml" to "Vampire/setup-wsl/refs/heads/master/action-types.yml",
         "typesafegithub_github-actions-typing_v1.yml" to "typesafegithub/github-actions-typing/refs/heads/v1/action-types.yml",
         "typesafegithub_github-actions-typing_main.yml" to "typesafegithub/github-actions-typing/refs/heads/main/action-types.yml",
