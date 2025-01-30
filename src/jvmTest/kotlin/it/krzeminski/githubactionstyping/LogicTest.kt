@@ -80,7 +80,7 @@ class LogicTest : FunSpec({
         }
     }
 
-    test("repo with only top-level action and top-level manifest") {
+    test("repo with only top-level action and no top-level manifest") {
         // When
         val (isValid, report) = validateTypings(
             repoRoot = testRepos.resolve("repo-with-only-top-level-action-and-no-top-level-manifest"),
