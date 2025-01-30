@@ -43,5 +43,11 @@ private fun ItemValidationResult.appendStatus(
     }
 }
 
+internal fun booleanStatusToText(status: Boolean): String =
+    when (status) {
+        true -> green("✔ VALID")
+        false -> red("❌ INVALID")
+    }
+
 private fun green(text: String) = "\u001b[32m$text\u001b[0m"
 private fun red(text: String) = "\u001b[31m$text\u001b[0m"
