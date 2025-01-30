@@ -257,9 +257,8 @@ class LogicTest : FunSpec({
             isValid shouldBe false
             report shouldBe """
                 Overall result:
-                ${'\u001b'}[31m❌ INVALID${'\u001b'}[0m
+                ${'\u001b'}[31m❌ INVALID: No action manifest (action.yml or action.yaml) found!${'\u001b'}[0m
 
-                No action manifest (action.yml or action.yaml) found!
             """.trimIndent()
         }
     }

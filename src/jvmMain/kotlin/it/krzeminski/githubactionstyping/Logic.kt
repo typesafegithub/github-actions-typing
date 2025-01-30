@@ -34,18 +34,31 @@ fun validateTypings(repoRoot: Path = Path.of(".")): Pair<Boolean, String> {
             )
         }
         .toList()
-    val overallResult = validationResultsForActions.all { it.first }
+    val overallResult = validationResultsForActions.let {
+        if (it.isNotEmpty()) {
+            it.all { it.first }
+        } else {
+            // No actions means something's wrong.
+            false
+        }
+    }
     return Pair(
         overallResult,
         buildString {
             appendLine("Overall result:")
             val validationResult = when (overallResult) {
                 true -> ItemValidationResult.Valid
-                false -> ItemValidationResult.Invalid(message = null)
+                false -> ItemValidationResult.Invalid(message = if (validationResultsForActions.isNotEmpty()) {
+                    null
+                } else {
+                    "No action manifest (action.yml or action.yaml) found!"
+                })
             }
             validationResult.appendStatus(this)
-            appendLine()
-            append(validationResultsForActions.joinToString("\n") { it.second })
+            if (validationResultsForActions.isNotEmpty()) {
+                appendLine()
+                append(validationResultsForActions.joinToString("\n") { it.second })
+            }
         }
     )
 }
