@@ -13,6 +13,7 @@ import io.github.typesafegithub.workflows.actions.gradle.ActionsSetupGradle
 import io.github.typesafegithub.workflows.annotations.ExperimentalKotlinLogicStep
 import io.github.typesafegithub.workflows.domain.RunnerType
 import io.github.typesafegithub.workflows.domain.triggers.WorkflowDispatch
+import io.github.typesafegithub.workflows.dsl.JobBuilder
 import io.github.typesafegithub.workflows.dsl.expressions.expr
 import io.github.typesafegithub.workflows.dsl.workflow
 import kotlinx.serialization.json.Json
@@ -39,62 +40,8 @@ workflow(
         id = "release",
         runsOn = RunnerType.UbuntuLatest,
     ) {
-        uses(
-            name = "Checkout github-actions-typing",
-            action = Checkout(
-                path = "github-actions-typing"
-            )
-        )
-        uses(
-            name = "Checkout github-actions-typing-catalog",
-            action = Checkout(
-                repository = "typesafegithub/github-actions-typing-catalog",
-                path = "github-actions-typing-catalog"
-            )
-        )
-        uses(action = ActionsSetupGradle())
-        run(
-            workingDirectory = "github-actions-typing",
-            command = "./gradlew build"
-        )
-
-        run(
-            name = "Regenerate the contents of dist directory",
-            workingDirectory = "github-actions-typing",
-            command = """
-                set -euxo pipefail
-
-                rm -rf dist
-                unzip -qq build/distributions/github-actions-typing.zip -d dist
-            """.trimIndent()
-        )
-
-        run(
-            name = "Configure git",
-            workingDirectory = "github-actions-typing",
-            command = """
-                git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-                git config user.name "github-actions[bot]"
-            """.trimIndent()
-        )
-
         val tempBranchName = "temp-branch-for-release"
-
-        run(
-            name = "Commit changes",
-            workingDirectory = "github-actions-typing",
-            command = """
-                git checkout -b $tempBranchName
-                git add .
-                git commit -m "Update dist"
-            """.trimIndent()
-        )
-
-        run(
-            name = "Push commit",
-            workingDirectory = "github-actions-typing",
-            command = "git push --set-upstream origin $tempBranchName",
-        )
+        buildAndCommitDist(branchName = tempBranchName)
 
         val versionExpr = expr { "github.event.inputs.version" }
 
@@ -139,6 +86,96 @@ workflow(
             name = "Delete temp branch",
             workingDirectory = "github-actions-typing",
             command = "git push origin --delete $tempBranchName"
+        )
+    }
+}
+
+workflow(
+    name = "Make branch runnable",
+    on = listOf(
+        WorkflowDispatch(),
+    ),
+    sourceFile = __FILE__,
+    targetFileName = "make-branch-runnable.yaml",
+) {
+    job(
+        id = "make-branch-runnable",
+        runsOn = RunnerType.UbuntuLatest,
+    ) {
+        buildAndCommitDist()
+    }
+}
+
+private fun JobBuilder<*>.buildAndCommitDist(branchName: String? = null) {
+    uses(
+        name = "Checkout github-actions-typing",
+        action = Checkout(
+            path = "github-actions-typing"
+        )
+    )
+    uses(
+        name = "Checkout github-actions-typing-catalog",
+        action = Checkout(
+            repository = "typesafegithub/github-actions-typing-catalog",
+            path = "github-actions-typing-catalog"
+        )
+    )
+    uses(action = ActionsSetupGradle())
+    run(
+        workingDirectory = "github-actions-typing",
+        command = "./gradlew build"
+    )
+
+    run(
+        name = "Regenerate the contents of dist directory",
+        workingDirectory = "github-actions-typing",
+        command = """
+                set -euxo pipefail
+
+                rm -rf dist
+                unzip -qq build/distributions/github-actions-typing.zip -d dist
+            """.trimIndent()
+    )
+
+    run(
+        name = "Configure git",
+        workingDirectory = "github-actions-typing",
+        command = """
+                git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+                git config user.name "github-actions[bot]"
+            """.trimIndent()
+    )
+
+    if (branchName != null) {
+        run(
+            name = "Commit changes to temp branch",
+            workingDirectory = "github-actions-typing",
+            command = """
+                git checkout -b $branchName
+                git add .
+                git commit -m "Update dist"
+            """.trimIndent()
+        )
+
+        run(
+            name = "Push commit",
+            workingDirectory = "github-actions-typing",
+            command = "git push --set-upstream origin $branchName",
+        )
+    } else {
+        run(
+            name = "Commit changes",
+            workingDirectory = "github-actions-typing",
+            command = """
+                git add .
+                git commit -m "Update dist"
+            """.trimIndent()
+        )
+
+        run(
+            name = "Push commit",
+            workingDirectory = "github-actions-typing",
+            command = "git push",
         )
     }
 }
