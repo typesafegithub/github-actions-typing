@@ -9,13 +9,21 @@ import it.krzeminski.githubactionstyping.validation.buildInputOutputMismatchVali
 import it.krzeminski.githubactionstyping.validation.validate
 import java.nio.file.Path
 
-fun manifestsToReport(manifestPath: Path, manifest: String, typesManifest: String): Pair<Boolean, String> {
+fun manifestsToReport(manifestAndPath: Pair<String, Path>?, typesManifest: String?): Pair<Boolean, String> {
+    if (manifestAndPath == null) {
+        return Pair(false, "No action manifest (action.yml or action.yaml) found!")
+    }
+
+    if (typesManifest == null) {
+        return Pair(false, "No types manifest (action-types.yml or action-types.yaml) found!")
+    }
+
     val parsedTypesManifest = if (typesManifest.isNotBlank()) {
         parseTypesManifest(typesManifest)
     } else {
         TypesManifest()
     }
-    val parsedManifest = parseManifest(manifest)
+    val parsedManifest = parseManifest(manifestAndPath.first)
 
     val inputsInTypesManifest = parsedTypesManifest.inputs.keys
     val inputsInManifest = parsedManifest.inputs.keys
@@ -25,7 +33,7 @@ fun manifestsToReport(manifestPath: Path, manifest: String, typesManifest: Strin
 
     if (inputsInManifest != inputsInTypesManifest || outputsInManifest != outputsInTypesManifest) {
         val inputOutputMismatchValidationResult = buildInputOutputMismatchValidationResult(
-            manifestPath = manifestPath,
+            manifestPath = manifestAndPath.second,
             inputsInManifest = inputsInManifest,
             inputsInTypesManifest = inputsInTypesManifest,
             outputsInManifest = outputsInManifest,
@@ -35,7 +43,7 @@ fun manifestsToReport(manifestPath: Path, manifest: String, typesManifest: Strin
     }
 
     printlnDebug("Action's manifest:")
-    printlnDebug(manifest)
+    printlnDebug(manifestAndPath.first)
 
     printlnDebug("Parsed manifest:")
     printlnDebug(parsedManifest)
@@ -50,7 +58,7 @@ fun manifestsToReport(manifestPath: Path, manifest: String, typesManifest: Strin
     printlnDebug("==============================================")
     printlnDebug()
 
-    val validationResult = parsedTypesManifest.validate(manifestPath)
+    val validationResult = parsedTypesManifest.validate(manifestAndPath.second)
     val isValid = validationResult.overallResult is ItemValidationResult.Valid
     val report = validationResult.toPlaintextReport()
 

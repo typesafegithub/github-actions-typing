@@ -15,11 +15,11 @@ import kotlin.io.path.exists
  */
 fun validateTypings(repoRoot: Path = Path.of(".")): Pair<Boolean, String> {
     require(repoRoot.exists()) { "The given repo root leads to non-existent dir: $repoRoot" }
-    val (manifest, manifestPath) = repoRoot.readYamlFile("action") ?:
-        return Pair(false, "No action manifest (action.yml or action.yaml) found!")
+    val manifestAndPath: Pair<String, Path>? = repoRoot.readYamlFile("action")
+    val typesManifestAndPath: Pair<String, Path>? = repoRoot.readYamlFile("action-types")
 
-    val (typesManifest, _) = repoRoot.readYamlFile("action-types") ?:
-    return Pair(false, "No types manifest (action-types.yml or action-types.yaml) found!")
-
-    return manifestsToReport(repoRoot.relativize(manifestPath), manifest, typesManifest)
+    return manifestsToReport(
+        manifestAndPath = manifestAndPath?.let { Pair(it.first, repoRoot.relativize(it.second)) },
+        typesManifest = typesManifestAndPath?.first,
+    )
 }
