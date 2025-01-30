@@ -21,6 +21,9 @@ class LogicTest : FunSpec({
         assertSoftly {
             isValid shouldBe true
             report shouldBe """
+                Overall result:
+                [32m✔ VALID[0m
+
                 For action with manifest at 'action.yml':
                 Result:
                 ${'\u001b'}[32m✔ VALID${'\u001b'}[0m
@@ -49,6 +52,9 @@ class LogicTest : FunSpec({
         assertSoftly {
             isValid shouldBe false
             report shouldBe """
+                Overall result:
+                ${'\u001b'}[31m❌ INVALID${'\u001b'}[0m
+
                 For action with manifest at 'action.yml':
                 Result:
                 ${'\u001b'}[31m❌ INVALID: Some typing is invalid.${'\u001b'}[0m
@@ -76,7 +82,15 @@ class LogicTest : FunSpec({
         // Then
         assertSoftly {
             isValid shouldBe false
-            report shouldBe "No types manifest (action-types.yml or action-types.yaml) found!"
+            report shouldBe """
+                Overall result:
+                ${'\u001b'}[31m❌ INVALID${'\u001b'}[0m
+
+                For action with manifest at 'action.yml':
+                Result:
+                ${'\u001b'}[31m❌ INVALID: No types manifest (action-types.yml or action-types.yaml) found!${'\u001b'}[0m
+
+            """.trimIndent()
         }
     }
 
@@ -90,7 +104,24 @@ class LogicTest : FunSpec({
         assertSoftly {
             isValid shouldBe true
             report shouldBe """
+                Overall result:
+                [32m✔ VALID[0m
+
                 For action with manifest at 'action.yml':
+                Result:
+                ${'\u001b'}[32m✔ VALID${'\u001b'}[0m
+
+                Inputs:
+                • verbose:
+                  ${'\u001b'}[32m✔ VALID${'\u001b'}[0m
+                • someEnum:
+                  ${'\u001b'}[32m✔ VALID${'\u001b'}[0m
+
+                Outputs:
+                None.
+
+
+                For action with manifest at 'some/directory/action.yaml':
                 Result:
                 ${'\u001b'}[32m✔ VALID${'\u001b'}[0m
 
@@ -116,8 +147,11 @@ class LogicTest : FunSpec({
 
         // Then
         assertSoftly {
-            isValid shouldBe true
+            isValid shouldBe false
             report shouldBe """
+                Overall result:
+                ${'\u001b'}[31m❌ INVALID${'\u001b'}[0m
+
                 For action with manifest at 'action.yml':
                 Result:
                 ${'\u001b'}[32m✔ VALID${'\u001b'}[0m
@@ -127,6 +161,22 @@ class LogicTest : FunSpec({
                   ${'\u001b'}[32m✔ VALID${'\u001b'}[0m
                 • someEnum:
                   ${'\u001b'}[32m✔ VALID${'\u001b'}[0m
+
+                Outputs:
+                None.
+
+
+                For action with manifest at 'some/directory/action.yaml':
+                Result:
+                ${'\u001b'}[31m❌ INVALID: Input/output mismatch detected. Please fix it first, then rerun to see other possible violations.${'\u001b'}[0m
+
+                Inputs:
+                • verbose:
+                  ${'\u001b'}[32m✔ VALID${'\u001b'}[0m
+                • someEnum:
+                  ${'\u001b'}[31m❌ INVALID: This input doesn't exist in the types manifest.${'\u001b'}[0m
+                • someInt:
+                  ${'\u001b'}[31m❌ INVALID: This input doesn't exist in the action manifest.${'\u001b'}[0m
 
                 Outputs:
                 None.
@@ -144,8 +194,26 @@ class LogicTest : FunSpec({
 
         // Then
         assertSoftly {
-            isValid shouldBe false
-            report shouldBe "No action manifest (action.yml or action.yaml) found!"
+            isValid shouldBe true
+            report shouldBe """
+                Overall result:
+                [32m✔ VALID[0m
+
+                For action with manifest at 'some/directory/action.yaml':
+                Result:
+                ${'\u001b'}[32m✔ VALID${'\u001b'}[0m
+
+                Inputs:
+                • verbose:
+                  ${'\u001b'}[32m✔ VALID${'\u001b'}[0m
+                • someEnum:
+                  ${'\u001b'}[32m✔ VALID${'\u001b'}[0m
+
+                Outputs:
+                None.
+
+
+            """.trimIndent()
         }
     }
 
@@ -158,7 +226,27 @@ class LogicTest : FunSpec({
         // Then
         assertSoftly {
             isValid shouldBe false
-            report shouldBe "No action manifest (action.yml or action.yaml) found!"
+            report shouldBe """
+                Overall result:
+                ${'\u001b'}[31m❌ INVALID${'\u001b'}[0m
+
+                For action with manifest at 'some/directory/action.yaml':
+                Result:
+                ${'\u001b'}[31m❌ INVALID: Input/output mismatch detected. Please fix it first, then rerun to see other possible violations.${'\u001b'}[0m
+
+                Inputs:
+                • verbose:
+                  ${'\u001b'}[32m✔ VALID${'\u001b'}[0m
+                • someEnum:
+                  ${'\u001b'}[31m❌ INVALID: This input doesn't exist in the types manifest.${'\u001b'}[0m
+                • someInt:
+                  ${'\u001b'}[31m❌ INVALID: This input doesn't exist in the action manifest.${'\u001b'}[0m
+
+                Outputs:
+                None.
+
+
+            """.trimIndent()
         }
     }
 
@@ -171,7 +259,11 @@ class LogicTest : FunSpec({
         // Then
         assertSoftly {
             isValid shouldBe false
-            report shouldBe "No action manifest (action.yml or action.yaml) found!"
+            report shouldBe """
+                Overall result:
+                ${'\u001b'}[31m❌ INVALID: No action manifest (action.yml or action.yaml) found!${'\u001b'}[0m
+
+            """.trimIndent()
         }
     }
 })

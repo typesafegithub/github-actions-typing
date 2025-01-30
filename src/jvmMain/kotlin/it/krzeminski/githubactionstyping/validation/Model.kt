@@ -15,5 +15,5 @@ data class ActionValidationResult(
 
 sealed interface ItemValidationResult {
     data object Valid : ItemValidationResult
-    data class Invalid(val message: String) : ItemValidationResult
+    data class Invalid(val message: String?) : ItemValidationResult
 }

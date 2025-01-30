@@ -34,12 +34,12 @@ fun RepoValidationResult.toPlaintextReport(): String = buildString {
     }
 }
 
-private fun ItemValidationResult.appendStatus(
+internal fun ItemValidationResult.appendStatus(
     stringBuilder: StringBuilder,
 ) {
     when (this) {
         ItemValidationResult.Valid -> stringBuilder.appendLine(green("✔ VALID"))
-        is ItemValidationResult.Invalid -> stringBuilder.appendLine(red("❌ INVALID: ${this.message}"))
+        is ItemValidationResult.Invalid -> stringBuilder.appendLine(red("❌ INVALID${this.message?.let{ ": $it" } ?: ""}"))
     }
 }
 
