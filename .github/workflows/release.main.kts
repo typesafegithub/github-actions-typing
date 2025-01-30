@@ -12,7 +12,6 @@ import io.github.typesafegithub.workflows.actions.actions.Checkout
 import io.github.typesafegithub.workflows.actions.gradle.ActionsSetupGradle
 import io.github.typesafegithub.workflows.annotations.ExperimentalKotlinLogicStep
 import io.github.typesafegithub.workflows.domain.RunnerType
-import io.github.typesafegithub.workflows.domain.triggers.Push
 import io.github.typesafegithub.workflows.domain.triggers.WorkflowDispatch
 import io.github.typesafegithub.workflows.dsl.JobBuilder
 import io.github.typesafegithub.workflows.dsl.expressions.expr
@@ -94,7 +93,7 @@ workflow(
 workflow(
     name = "Make branch runnable",
     on = listOf(
-        Push(),
+        WorkflowDispatch(),
     ),
     sourceFile = __FILE__,
     targetFileName = "make-branch-runnable.yaml",
