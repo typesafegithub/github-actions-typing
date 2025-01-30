@@ -212,6 +212,7 @@ class LogicTest : FunSpec({
                 Outputs:
                 None.
 
+
             """.trimIndent()
         }
     }
@@ -231,16 +232,19 @@ class LogicTest : FunSpec({
 
                 For action with manifest at 'some/directory/action.yaml':
                 Result:
-                ${'\u001b'}[31m❌ INVALID${'\u001b'}[0m
+                ${'\u001b'}[31m❌ INVALID: Input/output mismatch detected. Please fix it first, then rerun to see other possible violations.${'\u001b'}[0m
 
                 Inputs:
                 • verbose:
                   ${'\u001b'}[32m✔ VALID${'\u001b'}[0m
                 • someEnum:
-                  ${'\u001b'}[32m✔ VALID${'\u001b'}[0m
+                  ${'\u001b'}[31m❌ INVALID: This input doesn't exist in the types manifest.${'\u001b'}[0m
+                • someInt:
+                  ${'\u001b'}[31m❌ INVALID: This input doesn't exist in the action manifest.${'\u001b'}[0m
 
                 Outputs:
                 None.
+
 
             """.trimIndent()
         }
