@@ -1,0 +1,5 @@
+inputs:
+  verbose:
+    type: boolean
+  someInt:
+    type: integer
