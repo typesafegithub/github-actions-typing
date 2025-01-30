@@ -34,20 +34,14 @@ fun RepoValidationResult.toPlaintextReport(): String = buildString {
     }
 }
 
-private fun ItemValidationResult.appendStatus(
+internal fun ItemValidationResult.appendStatus(
     stringBuilder: StringBuilder,
 ) {
     when (this) {
         ItemValidationResult.Valid -> stringBuilder.appendLine(green("✔ VALID"))
-        is ItemValidationResult.Invalid -> stringBuilder.appendLine(red("❌ INVALID: ${this.message}"))
+        is ItemValidationResult.Invalid -> stringBuilder.appendLine(red("❌ INVALID${this.message?.let{ ": $it" } ?: ""}"))
     }
 }
-
-internal fun booleanStatusToText(status: Boolean): String =
-    when (status) {
-        true -> green("✔ VALID")
-        false -> red("❌ INVALID")
-    }
 
 private fun green(text: String) = "\u001b[32m$text\u001b[0m"
 private fun red(text: String) = "\u001b[31m$text\u001b[0m"

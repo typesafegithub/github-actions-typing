@@ -3,6 +3,7 @@ package it.krzeminski.githubactionstyping
 import it.krzeminski.githubactionstyping.parsing.TypesManifest
 import it.krzeminski.githubactionstyping.parsing.parseManifest
 import it.krzeminski.githubactionstyping.parsing.parseTypesManifest
+import it.krzeminski.githubactionstyping.reporting.appendStatus
 import it.krzeminski.githubactionstyping.reporting.toPlaintextReport
 import it.krzeminski.githubactionstyping.validation.ItemValidationResult
 import it.krzeminski.githubactionstyping.validation.buildInputOutputMismatchValidationResult
@@ -15,7 +16,13 @@ fun manifestsToReport(manifestAndPath: Pair<String, Path>?, typesManifest: Strin
     }
 
     if (typesManifest == null) {
-        return Pair(false, "No types manifest (action-types.yml or action-types.yaml) found!")
+        return Pair(false, buildString {
+            appendLine("For action with manifest at '${manifestAndPath.second}':")
+            appendLine("Result:")
+            val validationResult = ItemValidationResult.Invalid(
+                "No types manifest (action-types.yml or action-types.yaml) found!")
+            validationResult.appendStatus(this)
+        })
     }
 
     val parsedTypesManifest = if (typesManifest.isNotBlank()) {

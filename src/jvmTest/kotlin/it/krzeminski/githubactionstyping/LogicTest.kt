@@ -89,6 +89,7 @@ class LogicTest : FunSpec({
                 For action with manifest at 'action.yml':
                 Result:
                 ${'\u001b'}[31m❌ INVALID: No types manifest (action-types.yml or action-types.yaml) found!${'\u001b'}[0m
+
             """.trimIndent()
         }
     }

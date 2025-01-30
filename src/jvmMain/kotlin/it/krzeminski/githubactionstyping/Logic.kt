@@ -1,7 +1,8 @@
 package it.krzeminski.githubactionstyping
 
 import it.krzeminski.githubactionstyping.parsing.readYamlFile
-import it.krzeminski.githubactionstyping.reporting.booleanStatusToText
+import it.krzeminski.githubactionstyping.reporting.appendStatus
+import it.krzeminski.githubactionstyping.validation.ItemValidationResult
 import java.nio.file.Path
 import kotlin.io.path.exists
 import kotlin.io.path.name
@@ -23,12 +24,10 @@ fun validateTypings(repoRoot: Path = Path.of(".")): Pair<Boolean, String> {
         .sorted()
         .filter { it.name in setOf("action.yml", "action.yaml") }
         .map { manifestPath ->
-            val manifest = repoRoot.readYamlFile("action") ?:
-            return@map Pair(false, "Shouldn't happen - the file was already found by the action, and now is gone! Please report this issue to the action owners.")
-            val typesManifest = repoRoot.readYamlFile("action-types") ?:
-            return@map Pair(false, "No types manifest (action-types.yml or action-types.yaml) found!")
+            val manifest = repoRoot.readYamlFile("action")
+            val typesManifest = repoRoot.readYamlFile("action-types")
             manifestsToReport(
-                manifestAndPath = Pair(manifest, repoRoot.relativize(manifestPath)),
+                manifestAndPath = manifest?.let { Pair(it, repoRoot.relativize(manifestPath)) },
                 typesManifest = typesManifest,
             )
         }
@@ -38,7 +37,11 @@ fun validateTypings(repoRoot: Path = Path.of(".")): Pair<Boolean, String> {
         overallResult,
         buildString {
             appendLine("Overall result:")
-            appendLine(booleanStatusToText(overallResult))
+            val validationResult = when (overallResult) {
+                true -> ItemValidationResult.Valid
+                false -> ItemValidationResult.Invalid(message = null)
+            }
+            validationResult.appendStatus(this)
             appendLine()
             append(validationResultsForActions.joinToString("\n") { it.second })
         }
