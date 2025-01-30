@@ -6,6 +6,8 @@ import it.krzeminski.githubactionstyping.validation.ItemValidationResult
 import java.nio.file.Path
 import kotlin.io.path.exists
 import kotlin.io.path.name
+import kotlin.io.path.nameWithoutExtension
+import kotlin.io.path.pathString
 import kotlin.io.path.walk
 
 /**
@@ -24,8 +26,8 @@ fun validateTypings(repoRoot: Path = Path.of(".")): Pair<Boolean, String> {
         .sorted()
         .filter { it.name in setOf("action.yml", "action.yaml") }
         .map { manifestPath ->
-            val manifest = repoRoot.readYamlFile("action")
-            val typesManifest = repoRoot.readYamlFile("action-types")
+            val manifest = repoRoot.readYamlFile(manifestPath.parent.resolve("action").toString())
+            val typesManifest = repoRoot.readYamlFile(manifestPath.parent.resolve("action-types").toString())
             manifestsToReport(
                 manifestAndPath = manifest?.let { Pair(it, repoRoot.relativize(manifestPath)) },
                 typesManifest = typesManifest,
