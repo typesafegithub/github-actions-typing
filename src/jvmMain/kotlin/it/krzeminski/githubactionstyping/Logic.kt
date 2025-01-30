@@ -27,7 +27,10 @@ fun validateTypings(repoRoot: Path = Path.of(".")): Pair<Boolean, String> {
             return@map Pair(false, "Shouldn't happen - the file was already found by the action, and now is gone! Please report this issue to the action owners.")
             val typesManifest = repoRoot.readYamlFile("action-types") ?:
             return@map Pair(false, "No types manifest (action-types.yml or action-types.yaml) found!")
-            manifestsToReport(manifestPath = repoRoot.relativize(manifestPath), manifest, typesManifest)
+            manifestsToReport(
+                manifestAndPath = Pair(manifest, repoRoot.relativize(manifestPath)),
+                typesManifest = typesManifest,
+            )
         }
         .toList()
     val overallResult = validationResultsForActions.all { it.first }

@@ -37,7 +37,7 @@ class ManifestsToReportTest : FunSpec({
         """.trimIndent()
 
         // when
-        val (isValid, report) = manifestsToReport(Path("action.yml"), manifest, typesManifest)
+        val (isValid, report) = manifestsToReport(Pair(manifest, Path("action.yml")), typesManifest)
 
         // then
         assertSoftly {
@@ -97,7 +97,7 @@ class ManifestsToReportTest : FunSpec({
         """.trimIndent()
 
         // when
-        val (isValid, report) = manifestsToReport(Path("action.yml"), manifest, typesManifest)
+        val (isValid, report) = manifestsToReport(Pair(manifest, Path("action.yml")), typesManifest)
 
         // then
         assertSoftly {
@@ -136,7 +136,7 @@ class ManifestsToReportTest : FunSpec({
         val typesManifest = " "
 
         // when
-        val (isValid, report) = manifestsToReport(Path("action.yml"), manifest, typesManifest)
+        val (isValid, report) = manifestsToReport(Pair(manifest, Path("action.yml")), typesManifest)
 
         // then
         assertSoftly {
@@ -170,7 +170,7 @@ class ManifestsToReportTest : FunSpec({
         val typesManifest = "#"
 
         // when
-        val (isValid, report) = manifestsToReport(Path("action.yml"), manifest, typesManifest)
+        val (isValid, report) = manifestsToReport(Pair(manifest, Path("action.yml")), typesManifest)
 
         // then
         assertSoftly {
@@ -218,7 +218,7 @@ class ManifestsToReportTest : FunSpec({
         """.trimIndent()
 
         // when
-        val (isValid, report) = manifestsToReport(Path("action.yml"), manifest, typesManifest)
+        val (isValid, report) = manifestsToReport(Pair(manifest, Path("action.yml")), typesManifest)
 
         // then
         assertSoftly {
@@ -278,7 +278,7 @@ class ManifestsToReportTest : FunSpec({
         """.trimIndent()
 
         // when
-        val (isValid, report) = manifestsToReport(Path("action.yml"), manifest, typesManifest)
+        val (isValid, report) = manifestsToReport(Pair(manifest, Path("action.yml")), typesManifest)
 
         // then
         assertSoftly {
@@ -306,6 +306,74 @@ class ManifestsToReportTest : FunSpec({
 
 
             """.trimIndent()
+        }
+    }
+
+    test("no action manifest") {
+        // when
+        val typesManifest = """
+            inputs:
+              foo:
+                type: boolean
+              baz:
+                type: enum
+                allowed-values:
+                 - foo
+                 - bar
+            outputs:
+              goo:
+                type: boolean
+              boo:
+                type: enum
+        """.trimIndent()
+
+        // when
+        val (isValid, report) = manifestsToReport(null, typesManifest)
+
+        // then
+        assertSoftly {
+            isValid shouldBe false
+            report shouldBe "No action manifest (action.yml or action.yaml) found!"
+        }
+    }
+
+    test("no types manifest") {
+        // when
+        val manifest = """
+            name: GitHub Actions Typing
+            description: Bring type-safety to your GitHub actions' API!
+            author: Piotr Krzemiński
+            inputs:
+              verbose:
+                description: 'Set to true to display debug information helpful when troubleshooting issues with this action.'
+                required: false
+                default: 'false'
+              someEnum:
+                description: 'Testing enum'
+                required: false
+            runs:
+              using: 'docker'
+              image: 'Dockerfile'
+        """.trimIndent()
+
+        // when
+        val (isValid, report) = manifestsToReport(Pair(manifest, Path("action.yml")), null)
+
+        // then
+        assertSoftly {
+            isValid shouldBe false
+            report shouldBe "No types manifest (action-types.yml or action-types.yaml) found!"
+        }
+    }
+
+    test("no action manifest and types manifest") {
+        // when
+        val (isValid, report) = manifestsToReport(null, null)
+
+        // then
+        assertSoftly {
+            isValid shouldBe false
+            report shouldBe "No action manifest (action.yml or action.yaml) found!"
         }
     }
 })
