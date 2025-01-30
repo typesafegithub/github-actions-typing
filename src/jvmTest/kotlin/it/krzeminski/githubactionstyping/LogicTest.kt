@@ -80,6 +80,88 @@ class LogicTest : FunSpec({
         }
     }
 
+    test("repo with top-level action with valid typings, and nested action and all valid typings") {
+        // When
+        val (isValid, report) = validateTypings(
+            repoRoot = testRepos.resolve("repo-with-top-level-and-nested-action-and-valid-typings"),
+        )
+
+        // Then
+        assertSoftly {
+            isValid shouldBe true
+            report shouldBe """
+                For action with manifest at 'action.yml':
+                Result:
+                ${'\u001b'}[32m✔ VALID${'\u001b'}[0m
+
+                Inputs:
+                • verbose:
+                  ${'\u001b'}[32m✔ VALID${'\u001b'}[0m
+                • someEnum:
+                  ${'\u001b'}[32m✔ VALID${'\u001b'}[0m
+
+                Outputs:
+                None.
+
+
+            """.trimIndent()
+        }
+    }
+
+    test("repo with top-level action with valid typings, and nested action with invalid typings") {
+        // When
+        val (isValid, report) = validateTypings(
+            repoRoot = testRepos.resolve("repo-with-top-level-and-nested-action-and-invalid-typings"),
+        )
+
+        // Then
+        assertSoftly {
+            isValid shouldBe true
+            report shouldBe """
+                For action with manifest at 'action.yml':
+                Result:
+                ${'\u001b'}[32m✔ VALID${'\u001b'}[0m
+
+                Inputs:
+                • verbose:
+                  ${'\u001b'}[32m✔ VALID${'\u001b'}[0m
+                • someEnum:
+                  ${'\u001b'}[32m✔ VALID${'\u001b'}[0m
+
+                Outputs:
+                None.
+
+
+            """.trimIndent()
+        }
+    }
+
+    test("repo with no top-level action, but with nested action with valid typings") {
+        // When
+        val (isValid, report) = validateTypings(
+            repoRoot = testRepos.resolve("repo-with-no-top-level-and-just-nested-action-with-valid-typings"),
+        )
+
+        // Then
+        assertSoftly {
+            isValid shouldBe false
+            report shouldBe "No action manifest (action.yml or action.yaml) found!"
+        }
+    }
+
+    test("repo with no top-level action, but with nested action with invalid typings") {
+        // When
+        val (isValid, report) = validateTypings(
+            repoRoot = testRepos.resolve("repo-with-no-top-level-and-just-nested-action-with-invalid-typings"),
+        )
+
+        // Then
+        assertSoftly {
+            isValid shouldBe false
+            report shouldBe "No action manifest (action.yml or action.yaml) found!"
+        }
+    }
+
     test("repo with only top-level action and no top-level manifest") {
         // When
         val (isValid, report) = validateTypings(

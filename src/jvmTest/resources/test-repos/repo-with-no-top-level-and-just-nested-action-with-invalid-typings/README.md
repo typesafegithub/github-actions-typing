@@ -1,0 +1,1 @@
+I'm an action without a top-level "action.yml", but with an action that lives inside a directory and has valid typings.
