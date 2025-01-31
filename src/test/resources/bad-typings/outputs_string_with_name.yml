@@ -4,3 +4,17 @@ outputs:
   name:
     type: string
     name: AllowedValues
+
+# Expected validation error
+#
+#For action with manifest at 'outputs_string_with_name.yml':
+#Result:
+#\x1B[31m❌ INVALID: Some typing is invalid.\x1B[0m
+#
+#Inputs:
+#None.
+#
+#Outputs:
+#• name:
+#  \x1B[31m❌ INVALID: 'name' is not allowed for this type.\x1B[0m
+#

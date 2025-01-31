@@ -10,3 +10,17 @@ outputs:
       - user
       - admin
       - guest
+
+# Expected validation error
+#
+#For action with manifest at 'outputs_list_with_allowed_values.yml':
+#Result:
+#\x1B[31m❌ INVALID: Some typing is invalid.\x1B[0m
+#
+#Inputs:
+#None.
+#
+#Outputs:
+#• input-files:
+#  \x1B[31m❌ INVALID: 'allowed-values' is not allowed for this type.\x1B[0m
+#
