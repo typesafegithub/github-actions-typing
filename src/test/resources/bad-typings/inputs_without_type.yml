@@ -6,3 +6,17 @@ inputs:
       - user
       - admin
       - guest
+
+# Expected validation error
+#
+#For action with manifest at 'inputs_without_type.yml':
+#Result:
+#\x1B[31m❌ INVALID: Some typing is invalid.\x1B[0m
+#
+#Inputs:
+#• permissions:
+#  \x1B[31m❌ INVALID: Type must be specified. Use 'type' attribute.\x1B[0m
+#
+#Outputs:
+#None.
+#

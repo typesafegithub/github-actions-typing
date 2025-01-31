@@ -5,3 +5,17 @@ outputs:
     type: float
     list-item:
       type: boolean
+
+# Expected validation error
+#
+#For action with manifest at 'outputs_float_with_list_item.yml':
+#Result:
+#\x1B[31m❌ INVALID: Some typing is invalid.\x1B[0m
+#
+#Inputs:
+#None.
+#
+#Outputs:
+#• some-float:
+#  \x1B[31m❌ INVALID: 'list-item' is not allowed for this type.\x1B[0m
+#

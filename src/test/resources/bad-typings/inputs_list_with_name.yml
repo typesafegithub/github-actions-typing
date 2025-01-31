@@ -7,3 +7,17 @@ inputs:
     list-item:
       type: string
     name: AllowedValues
+
+# Expected validation error
+#
+#For action with manifest at 'inputs_list_with_name.yml':
+#Result:
+#\x1B[31m❌ INVALID: Some typing is invalid.\x1B[0m
+#
+#Inputs:
+#• input-files:
+#  \x1B[31m❌ INVALID: 'name' is not allowed for this type.\x1B[0m
+#
+#Outputs:
+#None.
+#

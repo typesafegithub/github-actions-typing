@@ -9,3 +9,17 @@ outputs:
       allowed-values:
         - read
         - write
+
+# Expected validation error
+#
+#For action with manifest at 'outputs_boolean_list_item_with_allowed_values.yml':
+#Result:
+#\x1B[31m❌ INVALID: Some typing is invalid.\x1B[0m
+#
+#Inputs:
+#None.
+#
+#Outputs:
+#• list-of-boolean:
+#  \x1B[31m❌ INVALID: List item type: 'allowed-values' is not allowed for this type.\x1B[0m
+#

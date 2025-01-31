@@ -6,3 +6,17 @@ outputs:
     separator: ','
     list-item:
       type: enum
+
+# Expected validation error
+#
+#For action with manifest at 'outputs_enum_list_item_without_allowed_values.yml':
+#Result:
+#\x1B[31m❌ INVALID: Some typing is invalid.\x1B[0m
+#
+#Inputs:
+#None.
+#
+#Outputs:
+#• granted-scopes:
+#  \x1B[31m❌ INVALID: List item type: Allowed values must be specified.\x1B[0m
+#
