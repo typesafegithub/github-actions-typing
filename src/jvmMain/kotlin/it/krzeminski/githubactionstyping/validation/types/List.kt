@@ -11,6 +11,9 @@ fun ApiItem.validateList(): ItemValidationResult {
     if (this.listItem == null) {
         return ItemValidationResult.Invalid("List item information must be specified.")
     }
+    if (this.listItem.name?.isBlank() == true) {
+        return ItemValidationResult.Invalid("List item type: Name must not be empty.")
+    }
     if (this.separator == null) {
         return ItemValidationResult.Invalid("Separator must be specified.")
     }
