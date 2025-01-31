@@ -1,12 +1,9 @@
 # yaml-language-server: $schema=../../../../github-actions-typing.schema.json
 # See https://github.com/typesafegithub/github-actions-typing
 outputs:
-  list-of-integer:
-    type: list
-    separator: ','
-    list-item:
-      type: integer
-      named-values: {}
+  retries:
+    type: integer
+    named-values: {}
 
 # Expected validation error
 #
@@ -18,6 +15,6 @@ outputs:
 #None.
 #
 #Outputs:
-#• list-of-integer:
-#  \x1B[31m❌ INVALID: List item type: There must be at least one named value.\x1B[0m
+#• retries:
+#  \x1B[31m❌ INVALID: There must be at least one named value.\x1B[0m
 #

@@ -1,14 +1,11 @@
 # yaml-language-server: $schema=../../../../github-actions-typing.schema.json
 # See https://github.com/typesafegithub/github-actions-typing
 inputs:
-  list-of-integer:
-    type: list
-    separator: ','
-    list-item:
-      type: integer
-      name: AllowedValues
-      named-values:
-        foo: '0'
+  retries:
+    type: integer
+    name: AllowedValues
+    named-values:
+      foo: '0'
 
 # Expected validation error
 #
@@ -17,8 +14,8 @@ inputs:
 #\x1B[31m❌ INVALID: Some typing is invalid.\x1B[0m
 #
 #Inputs:
-#• list-of-integer:
-#  \x1B[31m❌ INVALID: List item type: Named values must be integer.\x1B[0m
+#• retries:
+#  \x1B[31m❌ INVALID: Named values must be integer.\x1B[0m
 #
 #Outputs:
 #None.
