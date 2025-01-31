@@ -4,6 +4,9 @@ import it.krzeminski.githubactionstyping.parsing.ApiItem
 import it.krzeminski.githubactionstyping.validation.ItemValidationResult
 
 fun ApiItem.validateEnum(): ItemValidationResult {
+    if (this.name?.isBlank() == true) {
+        return ItemValidationResult.Invalid("Name must not be empty.")
+    }
     if (this.allowedValues == null) {
         return ItemValidationResult.Invalid("Allowed values must be specified.")
     }
@@ -18,6 +21,9 @@ fun ApiItem.validateEnum(): ItemValidationResult {
     }
     if (this.allowedValues.isEmpty()) {
         return ItemValidationResult.Invalid("There must be at least one allowed value.")
+    }
+    if (this.allowedValues.any { it.isBlank() }) {
+        return ItemValidationResult.Invalid("Allowed values must not be empty.")
     }
     return ItemValidationResult.Valid
 }
