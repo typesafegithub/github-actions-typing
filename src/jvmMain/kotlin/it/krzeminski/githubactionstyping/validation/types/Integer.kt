@@ -7,6 +7,12 @@ fun ApiItem.validateInteger(): ItemValidationResult {
     if ((this.namedValues == null) && (this.name != null)) {
         return ItemValidationResult.Invalid("'name' is only allowed for this type when also having 'named-values'.")
     }
+    if (this.namedValues?.isEmpty() == true) {
+        return ItemValidationResult.Invalid("There must be at least one named value.")
+    }
+    if (this.namedValues?.keys?.any { it.isBlank() } == true) {
+        return ItemValidationResult.Invalid("Named value names must not be empty.")
+    }
     if (this.allowedValues != null) {
         return ItemValidationResult.Invalid("'allowed-values' is not allowed for this type.")
     }
