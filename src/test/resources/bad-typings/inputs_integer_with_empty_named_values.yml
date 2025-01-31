@@ -1,10 +1,7 @@
 # yaml-language-server: $schema=../../../../github-actions-typing.schema.json
 # See https://github.com/typesafegithub/github-actions-typing
 inputs:
-  list-of-integer:
-    type: list
-    separator: ','
-    list-item:
-      type: integer
-      name: AllowedValues
-      named-values: {}
+  retries:
+    type: integer
+    name: AllowedValues
+    named-values: {}
