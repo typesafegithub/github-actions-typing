@@ -11,8 +11,8 @@ import it.krzeminski.githubactionstyping.validation.types.validateString
 import java.nio.file.Path
 
 fun TypesManifest.validate(manifestPath: Path): RepoValidationResult {
-    val inputValidationResults = this.inputs.mapValues { (_, value) -> value.validate() }
-    val outputValidationResults = this.outputs.mapValues { (_, value) -> value.validate() }
+    val inputValidationResults = this.inputs?.mapValues { (_, value) -> value.validate() } ?: emptyMap()
+    val outputValidationResults = this.outputs?.mapValues { (_, value) -> value.validate() } ?: emptyMap()
     val isSomethingInvalid = (inputValidationResults.values + outputValidationResults.values)
         .any { it != ItemValidationResult.Valid }
 
