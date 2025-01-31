@@ -313,9 +313,29 @@ class ManifestValidationTest : FunSpec({
 
             // then
             result shouldBe ActionValidationResult(
+                overallResult = ItemValidationResult.Valid,
+                inputs = mapOf(
+                    "enum-input" to ItemValidationResult.Valid,
+                ),
+            )
+        }
+
+        test("enum type with empty list of allowed value") {
+            // given
+            val manifest = TypesManifest(
+                inputs = mapOf(
+                    "enum-input" to ApiItem(type = "enum", allowedValues = emptyList()),
+                ),
+            )
+
+            // when
+            val result = manifest.validate(Path("action.yml")).pathToActionValidationResult[Path("action.yml")]
+
+            // then
+            result shouldBe ActionValidationResult(
                 overallResult = ItemValidationResult.Invalid("Some typing is invalid."),
                 inputs = mapOf(
-                    "enum-input" to ItemValidationResult.Invalid("There must be at least two allowed values."),
+                    "enum-input" to ItemValidationResult.Invalid("There must be at least one allowed value."),
                 ),
             )
         }

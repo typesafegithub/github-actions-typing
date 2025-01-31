@@ -32,10 +32,10 @@ fun manifestsToReport(manifestAndPath: Pair<String, Path>?, typesManifest: Strin
     }
     val parsedManifest = parseManifest(manifestAndPath.first)
 
-    val inputsInTypesManifest = parsedTypesManifest.inputs.keys
+    val inputsInTypesManifest = parsedTypesManifest.inputs?.keys ?: emptySet()
     val inputsInManifest = parsedManifest.inputs.keys
 
-    val outputsInTypesManifest = parsedTypesManifest.outputs.keys
+    val outputsInTypesManifest = parsedTypesManifest.outputs?.keys ?: emptySet()
     val outputsInManifest = parsedManifest.outputs.keys
 
     if (inputsInManifest != inputsInTypesManifest || outputsInManifest != outputsInTypesManifest) {

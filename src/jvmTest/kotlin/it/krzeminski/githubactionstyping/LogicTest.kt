@@ -121,7 +121,7 @@ class LogicTest : FunSpec({
                 None.
 
 
-                For action with manifest at 'some/directory/action.yaml':
+                For action with manifest at 'some${File.separatorChar}directory${File.separatorChar}action.yaml':
                 Result:
                 ${'\u001b'}[32m✔ VALID${'\u001b'}[0m
 
@@ -166,7 +166,7 @@ class LogicTest : FunSpec({
                 None.
 
 
-                For action with manifest at 'some/directory/action.yaml':
+                For action with manifest at 'some${File.separatorChar}directory${File.separatorChar}action.yaml':
                 Result:
                 ${'\u001b'}[31m❌ INVALID: Input/output mismatch detected. Please fix it first, then rerun to see other possible violations.${'\u001b'}[0m
 
@@ -199,7 +199,7 @@ class LogicTest : FunSpec({
                 Overall result:
                 [32m✔ VALID[0m
 
-                For action with manifest at 'some/directory/action.yaml':
+                For action with manifest at 'some${File.separatorChar}directory${File.separatorChar}action.yaml':
                 Result:
                 ${'\u001b'}[32m✔ VALID${'\u001b'}[0m
 
@@ -230,7 +230,7 @@ class LogicTest : FunSpec({
                 Overall result:
                 ${'\u001b'}[31m❌ INVALID${'\u001b'}[0m
 
-                For action with manifest at 'some/directory/action.yaml':
+                For action with manifest at 'some${File.separatorChar}directory${File.separatorChar}action.yaml':
                 Result:
                 ${'\u001b'}[31m❌ INVALID: Input/output mismatch detected. Please fix it first, then rerun to see other possible violations.${'\u001b'}[0m
 

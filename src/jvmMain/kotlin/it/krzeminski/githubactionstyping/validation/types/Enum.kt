@@ -16,8 +16,8 @@ fun ApiItem.validateEnum(): ItemValidationResult {
     if (this.namedValues != null) {
         return ItemValidationResult.Invalid("'named-values' are currently supported only for integers.")
     }
-    if (this.allowedValues.size < 2) {
-        return ItemValidationResult.Invalid("There must be at least two allowed values.")
+    if (this.allowedValues.isEmpty()) {
+        return ItemValidationResult.Invalid("There must be at least one allowed value.")
     }
     return ItemValidationResult.Valid
 }

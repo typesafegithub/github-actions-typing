@@ -9,8 +9,8 @@ import kotlinx.serialization.decodeFromString
 
 @Serializable
 data class TypesManifest(
-    val inputs: Map<String, ApiItem> = emptyMap(),
-    val outputs: Map<String, ApiItem> = emptyMap(),
+    val inputs: Map<String, ApiItem>? = null,
+    val outputs: Map<String, ApiItem>? = null,
 )
 
 @Serializable
