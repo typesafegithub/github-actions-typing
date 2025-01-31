@@ -1,12 +1,8 @@
 package it.krzeminski.githubactionstyping
 
 import io.github.optimumcode.json.schema.JsonSchema
-import io.kotest.core.spec.style.FunSpec
-import io.kotest.datatest.withData
 import io.kotest.matchers.Matcher
 import io.kotest.matchers.MatcherResult
-import io.kotest.matchers.file.shouldBeADirectory
-import io.kotest.matchers.file.shouldNotBeEmptyDirectory
 import io.kotest.matchers.should
 import io.kotest.matchers.shouldNot
 import io.kotest.mpp.sysprop
@@ -19,66 +15,31 @@ import kotlinx.serialization.json.JsonPrimitive
 import java.io.File
 
 private val schemaFile = File(sysprop("schemaFile")!!)
-private val catalogDir = File(sysprop("catalogDir")!!)
-private val externalDir = File(sysprop("externalDir")!!)
-private val goodDir = File(sysprop("goodDir")!!)
-private val badDir = File(sysprop("badDir")!!)
 
 private lateinit var schema: JsonSchema
 
 /**
  * Validate good and bad typings against the Json Schema Validator schema validator.
  */
-class JsonSchemaValidatorSchemaValidationTest : FunSpec({
-    beforeSpec {
-        catalogDir.shouldBeADirectory()
-        catalogDir.shouldNotBeEmptyDirectory()
-
-        schema = schemaFile
-            .inputStream()
-            .use {
-                JsonSchema.fromDefinition(it.reader().readText())
-            }
-    }
-
-    context("catalog typings") {
-        withData(
-            nameFn = { it.name },
-            catalogDir.listFiles()!!.asSequence()
-        ) {
-            it.shouldBeValid()
+class JsonSchemaValidatorSchemaValidationTest : UseCaseTest() {
+    init {
+        beforeSpec {
+            schema = schemaFile
+                .inputStream()
+                .use {
+                    JsonSchema.fromDefinition(it.reader().readText())
+                }
         }
     }
 
-    if (externalDir.isDirectory) {
-        context("external typings") {
-            withData(
-                nameFn = { it.name },
-                externalDir.listFiles()!!.asSequence()
-            ) {
-                it.shouldBeValid()
-            }
-        }
+    override suspend fun testValid(typing: File) {
+        typing.shouldBeValid()
     }
 
-    context("valid typings") {
-        withData(
-            nameFn = { it.name },
-            goodDir.listFiles()!!.asSequence()
-        ) {
-            it.shouldBeValid()
-        }
+    override suspend fun testInvalid(typing: File) {
+        typing.shouldNotBeValid()
     }
-
-    context("invalid typings") {
-        withData(
-            nameFn = { it.name },
-            badDir.listFiles()!!.asSequence()
-        ) {
-            it.shouldNotBeValid()
-        }
-    }
-})
+}
 
 private fun beValid(): Matcher<File> {
     return Matcher { dataFile ->

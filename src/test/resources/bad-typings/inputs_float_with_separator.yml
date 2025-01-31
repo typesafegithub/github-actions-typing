@@ -4,3 +4,17 @@ inputs:
   some-float:
     type: float
     separator: ','
+
+# Expected validation error
+#
+#For action with manifest at 'inputs_float_with_separator.yml':
+#Result:
+#\x1B[31m❌ INVALID: Some typing is invalid.\x1B[0m
+#
+#Inputs:
+#• some-float:
+#  \x1B[31m❌ INVALID: 'separator' is not allowed for this type.\x1B[0m
+#
+#Outputs:
+#None.
+#

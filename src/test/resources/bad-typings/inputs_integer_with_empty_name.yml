@@ -6,3 +6,17 @@ inputs:
     name: ''
     named-values:
       foo: 0
+
+# Expected validation error
+#
+#For action with manifest at 'inputs_integer_with_empty_name.yml':
+#Result:
+#\x1B[31m❌ INVALID: Some typing is invalid.\x1B[0m
+#
+#Inputs:
+#• retries:
+#  \x1B[31m❌ INVALID: Name must not be empty.\x1B[0m
+#
+#Outputs:
+#None.
+#

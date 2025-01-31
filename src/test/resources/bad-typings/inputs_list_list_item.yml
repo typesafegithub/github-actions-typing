@@ -9,3 +9,17 @@ inputs:
       separator: ','
       list-item:
         type: boolean
+
+# Expected validation error
+#
+#For action with manifest at 'inputs_list_list_item.yml':
+#Result:
+#\x1B[31m❌ INVALID: Some typing is invalid.\x1B[0m
+#
+#Inputs:
+#• input-files:
+#  \x1B[31m❌ INVALID: List item type: List can be parameterized only with a primitive or enum type.\x1B[0m
+#
+#Outputs:
+#None.
+#

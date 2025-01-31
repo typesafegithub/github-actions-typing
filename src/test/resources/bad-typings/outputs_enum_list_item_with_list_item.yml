@@ -11,3 +11,17 @@ outputs:
         - write
       list-item:
         type: integer
+
+# Expected validation error
+#
+#For action with manifest at 'outputs_enum_list_item_with_list_item.yml':
+#Result:
+#\x1B[31m❌ INVALID: Some typing is invalid.\x1B[0m
+#
+#Inputs:
+#None.
+#
+#Outputs:
+#• granted-scopes:
+#  \x1B[31m❌ INVALID: List item type: 'list-item' is not allowed for this type.\x1B[0m
+#

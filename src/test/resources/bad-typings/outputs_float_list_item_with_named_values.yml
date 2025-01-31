@@ -8,3 +8,17 @@ outputs:
       type: float
       named-values:
         infinite: 0
+
+# Expected validation error
+#
+#For action with manifest at 'outputs_float_list_item_with_named_values.yml':
+#Result:
+#\x1B[31m❌ INVALID: Some typing is invalid.\x1B[0m
+#
+#Inputs:
+#None.
+#
+#Outputs:
+#• list-of-float:
+#  \x1B[31m❌ INVALID: List item type: 'named-values' are currently supported only for integers.\x1B[0m
+#

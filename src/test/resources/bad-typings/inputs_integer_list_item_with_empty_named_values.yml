@@ -8,3 +8,17 @@ inputs:
       type: integer
       name: AllowedValues
       named-values: {}
+
+# Expected validation error
+#
+#For action with manifest at 'inputs_integer_list_item_with_empty_named_values.yml':
+#Result:
+#\x1B[31m❌ INVALID: Some typing is invalid.\x1B[0m
+#
+#Inputs:
+#• list-of-integer:
+#  \x1B[31m❌ INVALID: List item type: There must be at least one named value.\x1B[0m
+#
+#Outputs:
+#None.
+#

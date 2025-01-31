@@ -4,3 +4,17 @@ outputs:
   retries:
     type: integer
     named-values: {}
+
+# Expected validation error
+#
+#For action with manifest at 'outputs_integer_with_empty_named_values.yml':
+#Result:
+#\x1B[31m❌ INVALID: Some typing is invalid.\x1B[0m
+#
+#Inputs:
+#None.
+#
+#Outputs:
+#• retries:
+#  \x1B[31m❌ INVALID: There must be at least one named value.\x1B[0m
+#

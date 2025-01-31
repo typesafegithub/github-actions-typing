@@ -11,3 +11,17 @@ outputs:
         - write
       named-values:
         infinite: 0
+
+# Expected validation error
+#
+#For action with manifest at 'outputs_enum_list_item_with_named_values.yml':
+#Result:
+#\x1B[31m❌ INVALID: Some typing is invalid.\x1B[0m
+#
+#Inputs:
+#None.
+#
+#Outputs:
+#• granted-scopes:
+#  \x1B[31m❌ INVALID: List item type: 'named-values' are currently supported only for integers.\x1B[0m
+#

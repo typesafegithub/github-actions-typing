@@ -5,3 +5,17 @@ inputs:
     type: list
     list-item:
       type: string
+
+# Expected validation error
+#
+#For action with manifest at 'inputs_list_without_separator.yml':
+#Result:
+#\x1B[31m❌ INVALID: Some typing is invalid.\x1B[0m
+#
+#Inputs:
+#• input-files:
+#  \x1B[31m❌ INVALID: Separator must be specified.\x1B[0m
+#
+#Outputs:
+#None.
+#

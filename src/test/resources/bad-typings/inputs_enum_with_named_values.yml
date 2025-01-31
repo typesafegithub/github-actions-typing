@@ -9,3 +9,17 @@ inputs:
       - guest
     named-values:
       infinite: 0
+
+# Expected validation error
+#
+#For action with manifest at 'inputs_enum_with_named_values.yml':
+#Result:
+#\x1B[31m❌ INVALID: Some typing is invalid.\x1B[0m
+#
+#Inputs:
+#• permissions:
+#  \x1B[31m❌ INVALID: 'named-values' are currently supported only for integers.\x1B[0m
+#
+#Outputs:
+#None.
+#
