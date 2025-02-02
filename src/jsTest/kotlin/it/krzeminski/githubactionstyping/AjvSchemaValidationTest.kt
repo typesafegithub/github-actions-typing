@@ -100,24 +100,6 @@ private suspend fun String.shouldNotBeValid(): String {
     return this
 }
 
-private inline fun <R> Dir.use(block: (Dir) -> R): R {
-    var exception: Throwable? = null
-    try {
-        return block(this)
-    } catch (e: Throwable) {
-        exception = e
-        throw e
-    } finally {
-        this.closeFinally(exception)
-    }
-}
-
-private fun Dir.closeFinally(cause: Throwable?): Unit = when {
-    cause == null -> closeSync()
-    else ->
-        try {
-            closeSync()
-        } catch (closeException: Throwable) {
-            cause.addSuppressed(closeException)
-        }
-}
+private inline fun <R> Dir.use(block: (Dir) -> R): R =
+    AutoCloseable { closeSync() }
+        .use { block(this) }
