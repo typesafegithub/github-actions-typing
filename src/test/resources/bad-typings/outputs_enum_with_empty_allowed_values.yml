@@ -4,3 +4,17 @@ outputs:
   permissions:
     type: enum
     allowed-values: []
+
+# Expected validation error
+#
+#For action with manifest at 'outputs_enum_with_empty_allowed_values.yml':
+#Result:
+#\x1B[31m❌ INVALID: Some typing is invalid.\x1B[0m
+#
+#Inputs:
+#None.
+#
+#Outputs:
+#• permissions:
+#  \x1B[31m❌ INVALID: There must be at least one allowed value.\x1B[0m
+#

@@ -8,3 +8,17 @@ inputs:
       - admin
       - guest
     separator: ','
+
+# Expected validation error
+#
+#For action with manifest at 'inputs_enum_with_separator.yml':
+#Result:
+#\x1B[31m❌ INVALID: Some typing is invalid.\x1B[0m
+#
+#Inputs:
+#• permissions:
+#  \x1B[31m❌ INVALID: 'separator' is not allowed for this type.\x1B[0m
+#
+#Outputs:
+#None.
+#

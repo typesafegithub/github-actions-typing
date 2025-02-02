@@ -4,3 +4,17 @@ outputs:
   retries:
     type: integer
     name: AllowedValues
+
+# Expected validation error
+#
+#For action with manifest at 'outputs_integer_with_name.yml':
+#Result:
+#\x1B[31m❌ INVALID: Some typing is invalid.\x1B[0m
+#
+#Inputs:
+#None.
+#
+#Outputs:
+#• retries:
+#  \x1B[31m❌ INVALID: 'name' is only allowed for this type when also having 'named-values'.\x1B[0m
+#

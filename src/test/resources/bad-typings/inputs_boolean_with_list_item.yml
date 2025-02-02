@@ -5,3 +5,17 @@ inputs:
     type: boolean
     list-item:
       type: boolean
+
+# Expected validation error
+#
+#For action with manifest at 'inputs_boolean_with_list_item.yml':
+#Result:
+#\x1B[31m❌ INVALID: Some typing is invalid.\x1B[0m
+#
+#Inputs:
+#• verbose:
+#  \x1B[31m❌ INVALID: 'list-item' is not allowed for this type.\x1B[0m
+#
+#Outputs:
+#None.
+#
