@@ -21,7 +21,7 @@ data class ApiItem(
     val allowedValues: List<String>? = null,
     val separator: String? = null,
     @SerialName("named-values")
-    val namedValues: Map<String, Int>? = null,
+    val namedValues: Map<String, String>? = null,
     @SerialName("list-item")
     val listItem: ApiItem? = null,
 )
