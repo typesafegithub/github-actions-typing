@@ -8,4 +8,4 @@ inputs:
       type: integer
       name: AllowedValues
       named-values:
-        foo: '0'
+        foo: bar
