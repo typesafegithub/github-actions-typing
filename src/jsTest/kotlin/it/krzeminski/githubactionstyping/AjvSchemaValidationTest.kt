@@ -13,6 +13,7 @@ import io.kotest.matchers.should
 import io.kotest.matchers.shouldNot
 import io.kotest.mpp.env
 import node.buffer.BufferEncoding.Companion.utf8
+import node.fs.Dir
 import node.fs.exists
 import node.fs.existsSync
 import node.fs.opendir
@@ -38,7 +39,7 @@ class AjvSchemaValidationTest : FunSpec({
         withClue("catalogDir should be a non-empty directory") {
             exists(catalogDir).shouldBeTrue()
             stat(catalogDir).isDirectory().shouldBeTrue()
-            opendir(catalogDir).read().await().shouldNotBeNull()
+            opendir(catalogDir).use { it.read().await().shouldNotBeNull() }
         }
 
         validate = Ajv(AjvOptions(strict = true)).compile(
@@ -98,3 +99,7 @@ private suspend fun String.shouldNotBeValid(): String {
     readFile(path.join(badDir, this), utf8) shouldNot beValid()
     return this
 }
+
+private inline fun <R> Dir.use(block: (Dir) -> R): R =
+    AutoCloseable { closeSync() }
+        .use { block(this) }
