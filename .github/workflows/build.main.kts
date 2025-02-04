@@ -55,7 +55,19 @@ workflow(
         runsOn = RunnerType.UbuntuLatest,
     ) {
         uses(action = Checkout())
-        uses(action = GithubActionsTyping())
+        uses(action = GithubActionsTyping(
+            ignoredActionFiles = listOf(
+                "src/jvmTest/resources/test-repos/repo-with-top-level-and-nested-action-and-valid-typings/some/directory/action.yaml",
+                "src/jvmTest/resources/test-repos/repo-with-top-level-and-nested-action-and-valid-typings/action.yml",
+                "src/jvmTest/resources/test-repos/repo-with-top-level-and-nested-action-and-invalid-typings/some/directory/action.yaml",
+                "src/jvmTest/resources/test-repos/repo-with-top-level-and-nested-action-and-invalid-typings/action.yml",
+                "src/jvmTest/resources/test-repos/repo-with-no-top-level-and-just-nested-action-with-invalid-typings/some/directory/action.yaml",
+                "src/jvmTest/resources/test-repos/repo-with-only-top-level-action-and-invalid-typings/action.yml",
+                "src/jvmTest/resources/test-repos/repo-with-no-top-level-and-just-nested-action-with-valid-typings/some/directory/action.yaml",
+                "src/jvmTest/resources/test-repos/repo-with-only-top-level-action-and-no-typings/action.yml",
+                "src/jvmTest/resources/test-repos/repo-with-only-top-level-action-and-valid-typings/action.yml",
+            ),
+        ))
     }
 
     job(

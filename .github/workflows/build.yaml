@@ -52,6 +52,17 @@ jobs:
       uses: 'actions/checkout@v4'
     - id: 'step-1'
       uses: 'typesafegithub/github-actions-typing@allow-ignoring-certain-actions'
+      with:
+        ignored-action-files: |-
+          src/jvmTest/resources/test-repos/repo-with-top-level-and-nested-action-and-valid-typings/some/directory/action.yaml
+          src/jvmTest/resources/test-repos/repo-with-top-level-and-nested-action-and-valid-typings/action.yml
+          src/jvmTest/resources/test-repos/repo-with-top-level-and-nested-action-and-invalid-typings/some/directory/action.yaml
+          src/jvmTest/resources/test-repos/repo-with-top-level-and-nested-action-and-invalid-typings/action.yml
+          src/jvmTest/resources/test-repos/repo-with-no-top-level-and-just-nested-action-with-invalid-typings/some/directory/action.yaml
+          src/jvmTest/resources/test-repos/repo-with-only-top-level-action-and-invalid-typings/action.yml
+          src/jvmTest/resources/test-repos/repo-with-no-top-level-and-just-nested-action-with-valid-typings/some/directory/action.yaml
+          src/jvmTest/resources/test-repos/repo-with-only-top-level-action-and-no-typings/action.yml
+          src/jvmTest/resources/test-repos/repo-with-only-top-level-action-and-valid-typings/action.yml
   workflows_consistency_check:
     name: 'Run consistency check on all GitHub workflows'
     runs-on: 'ubuntu-latest'
