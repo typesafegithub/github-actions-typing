@@ -51,7 +51,7 @@ jobs:
     - id: 'step-0'
       uses: 'actions/checkout@v4'
     - id: 'step-1'
-      uses: 'typesafegithub/github-actions-typing@allow-ignoring-certain-actions'
+      uses: 'typesafegithub/github-actions-typing@v2'
       with:
         ignored-action-files: |-
           src/jvmTest/resources/test-repos/repo-with-top-level-and-nested-action-and-valid-typings/some/directory/action.yaml
