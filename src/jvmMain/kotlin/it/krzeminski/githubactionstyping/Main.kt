@@ -14,4 +14,4 @@ fun main() {
 }
 
 private fun readIgnoredActionFiles(): List<String> =
-    System.getenv("INPUT_ignored-action-files")?.split("\n") ?: emptyList()
+    System.getenv("INPUT_IGNORED-ACTION-FILES")?.split("\n") ?: emptyList()
