@@ -56,7 +56,10 @@ workflow(
 
         val MAJOR_VERSION_OUTPUT_NAME = "majorVersion"
 
-        val extractMajorVersion = run {
+        val extractMajorVersion = run(
+            name = "Extract major version",
+            workingDirectory = "github-actions-typing",
+        ) {
             // There should be a way to access the inputs using the DSL.
             // TODO: https://github.com/typesafegithub/github-workflows-kt/issues/1685
             val githubContextJson = System.getenv("GHWKT_GITHUB_CONTEXT_JSON")!!
