@@ -6,7 +6,7 @@
 @file:DependsOn("actions:checkout:v4")
 @file:DependsOn("actions:setup-java:v4")
 @file:DependsOn("gradle:gradle-build-action:v3")
-@file:DependsOn("typesafegithub:github-actions-typing:allow-ignoring-certain-actions")
+@file:DependsOn("typesafegithub:github-actions-typing:v2")
 
 import io.github.typesafegithub.workflows.actions.actions.Checkout
 import io.github.typesafegithub.workflows.actions.actions.SetupJava
