@@ -7,3 +7,9 @@ branding:
 runs:
   using: 'docker'
   image: 'Dockerfile'
+inputs:
+  ignored-action-files:
+    description: >
+      Paths to 'action.y(a)ml' files that shouldn't be validated against their typings.
+      The separator character is '/', regardless of the operating system.
+    required: false

@@ -5,26 +5,31 @@ import it.krzeminski.githubactionstyping.reporting.appendStatus
 import it.krzeminski.githubactionstyping.validation.ItemValidationResult
 import java.nio.file.Path
 import kotlin.io.path.exists
+import kotlin.io.path.invariantSeparatorsPathString
 import kotlin.io.path.name
-import kotlin.io.path.nameWithoutExtension
-import kotlin.io.path.pathString
 import kotlin.io.path.walk
 
 /**
  * Runs validation for a given action, with its manifest files present in the current directory.
  *
+ * @param ignoredActionFiles: Paths to 'action.y(a)ml' files that shouldn't be validated against their typings.
+ *        The separator character is '/', regardless of the operating system.
  * @param repoRoot: Allows customizing which path should be taken as repo root for action(-types).y(a)ml file discovery.
  *
  * @return a pair where:
  * - the boolean means if the typings are valid
  * - the string is a printable report, with details about all inputs and outputs
  */
-fun validateTypings(repoRoot: Path = Path.of(".")): Pair<Boolean, String> {
+fun validateTypings(
+    ignoredActionFiles: List<String> = emptyList(),
+    repoRoot: Path = Path.of("."),
+): Pair<Boolean, String> {
     require(repoRoot.exists()) { "The given repo root leads to non-existent dir: $repoRoot" }
 
     val validationResultsForActions = repoRoot.walk()
         .sorted()
         .filter { it.name in setOf("action.yml", "action.yaml") }
+        .filter { repoRoot.relativize(it).invariantSeparatorsPathString !in ignoredActionFiles }
         .map { manifestPath ->
             val manifest = repoRoot.readYamlFile(manifestPath.parent.resolve("action").toString())
             val typesManifest = repoRoot.readYamlFile(manifestPath.parent.resolve("action-types").toString())
