@@ -1,0 +1,6 @@
+inputs:
+  ignored-action-files:
+    type: list
+    separator: "\n"
+    list-item:
+      type: string

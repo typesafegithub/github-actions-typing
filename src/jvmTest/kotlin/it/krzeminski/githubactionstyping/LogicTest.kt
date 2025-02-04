@@ -250,6 +250,38 @@ class LogicTest : FunSpec({
         }
     }
 
+    test("repo with top-level action with valid typings, and nested action with invalid typings that are ignored") {
+        // When
+        val (isValid, report) = validateTypings(
+            repoRoot = testRepos.resolve("repo-with-top-level-and-nested-action-and-invalid-typings"),
+            ignoredActionFiles = listOf("some/directory/action.yaml"),
+        )
+
+        // Then
+        assertSoftly {
+            isValid shouldBe true
+            report shouldBe """
+                Overall result:
+                [32m✔ VALID[0m
+
+                For action with manifest at 'action.yml':
+                Result:
+                ${'\u001b'}[32m✔ VALID${'\u001b'}[0m
+
+                Inputs:
+                • verbose:
+                  ${'\u001b'}[32m✔ VALID${'\u001b'}[0m
+                • someEnum:
+                  ${'\u001b'}[32m✔ VALID${'\u001b'}[0m
+
+                Outputs:
+                None.
+
+
+            """.trimIndent()
+        }
+    }
+
     test("repo with only top-level action and no top-level manifest") {
         // When
         val (isValid, report) = validateTypings(
