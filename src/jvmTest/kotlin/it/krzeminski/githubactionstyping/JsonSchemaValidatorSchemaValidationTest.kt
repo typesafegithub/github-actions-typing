@@ -51,6 +51,9 @@ private fun beValid(): Matcher<File> {
                 schema.validate(dataFile.inputStream().use {
                     Load(
                         // work-around for https://github.com/krzema12/snakeyaml-engine-kmp/pull/390
+                        // Per https://yaml.org/spec/1.2.2/#recommended-schemas, the Core Schema is
+                        // the recommended default schema that YAML processor should use unless
+                        // instructed otherwise.
                         LoadSettings.builder().setSchema(CoreSchema()).build()
                     ).loadOne(it)
                 }.toJsonElement()) {
