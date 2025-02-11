@@ -93,7 +93,7 @@ kotlin {
                 implementation("io.kotest:kotest-framework-datatest")
                 implementation("io.kotest:kotest-assertions-core")
 
-                implementation("it.krzeminski:snakeyaml-engine-kmp:3.1.0")
+                implementation("it.krzeminski:snakeyaml-engine-kmp:3.1.1")
                 implementation("io.github.optimumcode:json-schema-validator:0.4.0")
             }
         }
