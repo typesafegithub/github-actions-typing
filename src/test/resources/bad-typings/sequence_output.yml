@@ -5,5 +5,5 @@ outputs:
 
 # Expected validation error
 #
-#Value for 'outputs' is invalid: Value for 'foo' is invalid: Expected an object, but got a list
+#foo must be a mapping.
 #
