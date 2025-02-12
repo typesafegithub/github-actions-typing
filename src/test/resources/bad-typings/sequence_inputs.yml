@@ -4,5 +4,5 @@ inputs: []
 
 # Expected validation error
 #
-#Value for 'inputs' is invalid: Expected a map, but got a list
+#inputs must be a mapping.
 #
