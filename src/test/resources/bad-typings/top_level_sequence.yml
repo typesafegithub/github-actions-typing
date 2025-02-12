@@ -4,5 +4,5 @@
 
 # Expected validation error
 #
-#Expected an object, but got a list
+#Types file must be a mapping.
 #

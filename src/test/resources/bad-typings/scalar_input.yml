@@ -5,5 +5,5 @@ inputs:
 
 # Expected validation error
 #
-#Value for 'inputs' is invalid: Value for 'foo' is invalid: Expected an object, but got a scalar value
+#foo must be a mapping.
 #
