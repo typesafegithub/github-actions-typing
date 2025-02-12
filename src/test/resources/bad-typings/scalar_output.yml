@@ -1,0 +1,9 @@
+# yaml-language-server: $schema=../../../../github-actions-typing.schema.json
+# See https://github.com/typesafegithub/github-actions-typing
+outputs:
+  foo: bar
+
+# Expected validation error
+#
+#Value for 'outputs' is invalid: Value for 'foo' is invalid: Expected an object, but got a scalar value
+#

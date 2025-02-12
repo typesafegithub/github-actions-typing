@@ -1,5 +1,7 @@
 package it.krzeminski.githubactionstyping
 
+import com.charleskorn.kaml.IncorrectTypeException
+import com.charleskorn.kaml.InvalidPropertyValueException
 import io.kotest.assertions.assertSoftly
 import io.kotest.assertions.withClue
 import io.kotest.matchers.should
@@ -29,14 +31,23 @@ class LogicConsistencyTest : UseCaseTest() {
             .trimMargin("#")
             .trim()
 
-        val validationResult = parseTypesManifest(typesManifest).validate(typing.toPath().fileName)
-        assertSoftly {
-            validationResult.overallResult should beOfType<ItemValidationResult.Invalid>()
-            validationResult
-                .toPlaintextReport()
-                .trim()
-                .replace("\u001B", "\\x1B")
-                .shouldBe(expectedValidationError)
+        val parsedTypesManifest = runCatching {
+            parseTypesManifest(typesManifest).validate(typing.toPath().fileName)
+        }
+        if (parsedTypesManifest.isFailure &&
+            ((parsedTypesManifest.exceptionOrNull() is InvalidPropertyValueException) || (parsedTypesManifest.exceptionOrNull() is IncorrectTypeException))
+        ) {
+            parsedTypesManifest.exceptionOrNull()!!.message shouldBe expectedValidationError
+        } else {
+            val validationResult = parsedTypesManifest.getOrThrow()
+            assertSoftly {
+                validationResult.overallResult should beOfType<ItemValidationResult.Invalid>()
+                validationResult
+                    .toPlaintextReport()
+                    .trim()
+                    .replace("\u001B", "\\x1B")
+                    .shouldBe(expectedValidationError)
+            }
         }
     }
 }
