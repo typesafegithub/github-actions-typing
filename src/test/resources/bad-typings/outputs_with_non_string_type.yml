@@ -1,0 +1,20 @@
+# yaml-language-server: $schema=../../../../github-actions-typing.schema.json
+# See https://github.com/typesafegithub/github-actions-typing
+outputs:
+  permissions:
+    type: 0x0
+
+# Expected validation error
+#
+#For action with manifest at 'outputs_with_non_string_type.yml':
+#Result:
+#\x1B[31m❌ INVALID: Some typing is invalid.\x1B[0m
+#
+#Inputs:
+#None.
+#
+#Outputs:
+#• permissions:
+#  \x1B[31m❌ INVALID: Unknown type: '0x0'.\x1B[0m
+#
+#

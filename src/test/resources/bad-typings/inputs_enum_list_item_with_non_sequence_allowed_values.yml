@@ -1,0 +1,14 @@
+# yaml-language-server: $schema=../../../../github-actions-typing.schema.json
+# See https://github.com/typesafegithub/github-actions-typing
+inputs:
+  granted-scopes:
+    type: list
+    separator: ','
+    list-item:
+      type: enum
+      allowed-values: foo
+
+# Expected validation error
+#
+#Value for 'inputs' is invalid: Value for 'granted-scopes' is invalid: Value for 'list-item' is invalid: Value for 'allowed-values' is invalid: Expected a list, but got a scalar value
+#

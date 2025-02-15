@@ -1,0 +1,14 @@
+# yaml-language-server: $schema=../../../../github-actions-typing.schema.json
+# See https://github.com/typesafegithub/github-actions-typing
+outputs:
+  list-of-integer:
+    type: list
+    separator: ','
+    list-item:
+      type: integer
+      named-values: []
+
+# Expected validation error
+#
+#Value for 'outputs' is invalid: Value for 'list-of-integer' is invalid: Value for 'list-item' is invalid: Value for 'named-values' is invalid: Expected a map, but got a list
+#

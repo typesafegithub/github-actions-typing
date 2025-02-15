@@ -1,0 +1,11 @@
+# yaml-language-server: $schema=../../../../github-actions-typing.schema.json
+# See https://github.com/typesafegithub/github-actions-typing
+outputs:
+  retries:
+    type: integer
+    named-values: []
+
+# Expected validation error
+#
+#Value for 'outputs' is invalid: Value for 'retries' is invalid: Value for 'named-values' is invalid: Expected a map, but got a list
+#

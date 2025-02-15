@@ -1,0 +1,11 @@
+# yaml-language-server: $schema=../../../../github-actions-typing.schema.json
+# See https://github.com/typesafegithub/github-actions-typing
+outputs:
+  permissions:
+    type: enum
+    allowed-values: foo
+
+# Expected validation error
+#
+#Value for 'outputs' is invalid: Value for 'permissions' is invalid: Value for 'allowed-values' is invalid: Expected a list, but got a scalar value
+#
