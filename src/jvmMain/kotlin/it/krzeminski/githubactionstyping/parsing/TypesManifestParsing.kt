@@ -29,6 +29,10 @@ fun parseTypesManifest(manifestString: String): Result<TypesManifest> =
             null -> TypesManifest()
 
             is Map<*, *> -> {
+                val excessKeys = loadedTypesManifest.keys - listOf("inputs", "outputs")
+                if (excessKeys.isNotEmpty()) {
+                    throw ValidationException(excessKeys.joinToString(prefix = "Excess keys: ", postfix = "."))
+                }
                 TypesManifest(
                     inputs = loadedTypesManifest.toInputsOrOutputs("inputs"),
                     outputs = loadedTypesManifest.toInputsOrOutputs("outputs"),
@@ -55,19 +59,40 @@ private fun Any?.toApiItem(key: String): ApiItem =
         null -> ApiItem()
 
         is Map<*, *> -> {
+            val excessKeys = keys - listOf(
+                "type",
+                "name",
+                "allowed-values",
+                "separator",
+                "named-values",
+                "list-item",
+            )
+            if (excessKeys.isNotEmpty()) {
+                throw ValidationException(excessKeys.joinToString(prefix = "Excess keys: ", postfix = "."))
+            }
+
             ApiItem(
                 type = get("type")?.let {
-                    "$it"
+                    if (it !is String) {
+                        throw ValidationException("type must be a string.")
+                    }
+                    it
                 },
                 name = get("name")?.let {
-                    "$it"
+                    if (it !is String) {
+                        throw ValidationException("name must be a string.")
+                    }
+                    it
                 },
                 allowedValues = get("allowed-values")?.let {
                     if (it !is List<*>) {
                         throw ValidationException("allowed-values must be a sequence.")
                     }
                     it.map {
-                        "$it"
+                        if (it !is String) {
+                            throw ValidationException("Allowed Value must be string.")
+                        }
+                        it
                     }
                 },
                 separator = get("separator")?.let {
