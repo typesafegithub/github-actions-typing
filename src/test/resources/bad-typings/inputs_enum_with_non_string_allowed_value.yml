@@ -2,9 +2,11 @@
 # See https://github.com/typesafegithub/github-actions-typing
 inputs:
   permissions:
-    type: 0x0
+    type: enum
+    allowed-values:
+      - 0o0
 
 # Expected validation error
 #
-#type must be a string.
+#Allowed Value must be string.
 #

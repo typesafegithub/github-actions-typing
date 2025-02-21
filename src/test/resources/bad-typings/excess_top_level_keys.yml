@@ -1,10 +1,9 @@
 # yaml-language-server: $schema=../../../../github-actions-typing.schema.json
 # See https://github.com/typesafegithub/github-actions-typing
-inputs:
-  permissions:
-    type: 0x0
+foo:
+bar:
 
 # Expected validation error
 #
-#type must be a string.
+#Excess keys: foo, bar.
 #
