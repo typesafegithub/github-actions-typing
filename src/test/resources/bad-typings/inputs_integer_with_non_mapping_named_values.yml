@@ -8,5 +8,5 @@ inputs:
 
 # Expected validation error
 #
-#Value for 'inputs' is invalid: Value for 'retries' is invalid: Value for 'named-values' is invalid: Expected a map, but got a list
+#named-values must be a mapping.
 #
