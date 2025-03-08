@@ -4,5 +4,5 @@ foo
 
 # Expected validation error
 #
-#Expected an object, but got a scalar value
+#Types file must be a mapping.
 #

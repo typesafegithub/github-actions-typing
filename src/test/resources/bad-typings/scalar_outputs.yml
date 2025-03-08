@@ -4,5 +4,5 @@ outputs: foo
 
 # Expected validation error
 #
-#Value for 'outputs' is invalid: Expected a map, but got a scalar value
+#outputs must be a mapping.
 #
