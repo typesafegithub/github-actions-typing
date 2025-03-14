@@ -15,6 +15,5 @@ outputs:
 #
 #Outputs:
 #• permissions:
-#  \x1B[31m❌ INVALID: Unknown type: '0x0'.\x1B[0m
-#
+#  \x1B[31m❌ INVALID: Unknown type: '0'.\x1B[0m
 #
