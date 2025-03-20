@@ -130,7 +130,7 @@ kotlin {
     sourceSets {
         jvmMain {
             dependencies {
-                implementation("com.charleskorn.kaml:kaml:0.72.0")
+                implementation("com.charleskorn.kaml:kaml:0.73.0")
             }
         }
 
