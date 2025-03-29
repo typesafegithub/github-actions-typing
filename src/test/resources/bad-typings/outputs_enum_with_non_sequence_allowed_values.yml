@@ -7,5 +7,5 @@ outputs:
 
 # Expected validation error
 #
-#Value for 'outputs' is invalid: Value for 'permissions' is invalid: Value for 'allowed-values' is invalid: Expected a list, but got a scalar value
+#allowed-values must be a sequence.
 #

@@ -4,5 +4,5 @@ outputs: []
 
 # Expected validation error
 #
-#Value for 'outputs' is invalid: Expected a map, but got a list
+#outputs must be a mapping.
 #

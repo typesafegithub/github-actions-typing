@@ -10,5 +10,5 @@ inputs:
 
 # Expected validation error
 #
-#Value for 'inputs' is invalid: Value for 'granted-scopes' is invalid: Value for 'list-item' is invalid: Value for 'allowed-values' is invalid: Expected a list, but got a scalar value
+#allowed-values must be a sequence.
 #

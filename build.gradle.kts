@@ -131,6 +131,7 @@ kotlin {
         jvmMain {
             dependencies {
                 implementation("com.charleskorn.kaml:kaml:0.73.0")
+                implementation("it.krzeminski:snakeyaml-engine-kmp:3.1.1")
             }
         }
 
