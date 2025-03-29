@@ -3,8 +3,8 @@ import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootPlugin.Companion.
 import org.jetbrains.kotlin.gradle.targets.js.yarn.yarn
 
 plugins {
-    kotlin("multiplatform") version "2.1.10"
-    kotlin("plugin.serialization") version "2.1.10"
+    kotlin("multiplatform") version "2.1.20"
+    kotlin("plugin.serialization") version "2.1.20"
     id("io.kotest.multiplatform") version "6.0.0.M2"
     distribution
 }
@@ -130,7 +130,7 @@ kotlin {
     sourceSets {
         jvmMain {
             dependencies {
-                implementation("com.charleskorn.kaml:kaml:0.72.0")
+                implementation("com.charleskorn.kaml:kaml:0.73.0")
                 implementation("it.krzeminski:snakeyaml-engine-kmp:3.1.1")
             }
         }
@@ -145,7 +145,7 @@ kotlin {
                 implementation("io.kotest:kotest-assertions-core")
 
                 implementation("it.krzeminski:snakeyaml-engine-kmp:3.1.1")
-                implementation("io.github.optimumcode:json-schema-validator:0.4.0")
+                implementation("io.github.optimumcode:json-schema-validator:0.5.1")
             }
         }
 
