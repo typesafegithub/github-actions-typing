@@ -4,7 +4,7 @@
     "config:base"
   ],
   "automerge": true,
-  "schedule": ["every week on Saturday"],
+  "schedule": ["every 1 week on saturday"],
   "packageRules": [
     {
       "matchPackageNames": ["io.kotest.multiplatform"],
