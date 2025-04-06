@@ -5,7 +5,7 @@ import org.jetbrains.kotlin.gradle.targets.js.yarn.yarn
 plugins {
     kotlin("multiplatform") version "2.1.20"
     kotlin("plugin.serialization") version "2.1.20"
-    id("io.kotest.multiplatform") version "6.0.0.M2"
+    id("io.kotest.multiplatform") version "6.0.0.M3"
     distribution
 }
 
