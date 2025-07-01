@@ -1,6 +1,5 @@
 import org.gradle.api.tasks.PathSensitivity.NAME_ONLY
 import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsEnvSpec
-import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsPlugin.Companion.kotlinNodeJsEnvSpec
 import org.jetbrains.kotlin.gradle.targets.js.yarn.YarnRootEnvSpec
 
 plugins {
@@ -168,17 +167,16 @@ kotlin {
     }
 }
 
-kotlinNodeJsEnvSpec.version = "20.18.1"
-
 // disable the KMP plugin adding custom repositories which is bad practice
 // and promotes supply chain attacks
 // instead we define the repositories ourselves in the settings script
-listOf(
-    the<NodeJsEnvSpec>(),
-    the<YarnRootEnvSpec>(),
-).forEach {
-    it.download = false
-    it.downloadBaseUrl = null
+configure<NodeJsEnvSpec> {
+    version.set("20.18.1")
+    downloadBaseUrl.set(provider { null })
+}
+
+configure<YarnRootEnvSpec> {
+    downloadBaseUrl.set(provider { null })
 }
 
 distributions {
