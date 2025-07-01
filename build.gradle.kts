@@ -1,6 +1,6 @@
 import org.gradle.api.tasks.PathSensitivity.NAME_ONLY
-import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootPlugin.Companion.kotlinNodeJsRootExtension
-import org.jetbrains.kotlin.gradle.targets.js.yarn.yarn
+import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsEnvSpec
+import org.jetbrains.kotlin.gradle.targets.js.yarn.YarnRootEnvSpec
 
 plugins {
     kotlin("multiplatform") version "2.1.21"
@@ -167,13 +167,17 @@ kotlin {
     }
 }
 
-kotlinNodeJsRootExtension.version = "20.18.1"
-
 // disable the KMP plugin adding custom repositories which is bad practice
 // and promotes supply chain attacks
 // instead we define the repositories ourselves in the settings script
-kotlinNodeJsRootExtension.downloadBaseUrl = null
-yarn.downloadBaseUrl = null
+configure<NodeJsEnvSpec> {
+    version.set("20.18.1")
+    downloadBaseUrl.set(provider { null })
+}
+
+configure<YarnRootEnvSpec> {
+    downloadBaseUrl.set(provider { null })
+}
 
 distributions {
     main {
