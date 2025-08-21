@@ -6,6 +6,7 @@ plugins {
     kotlin("multiplatform") version "2.1.21"
     kotlin("plugin.serialization") version "2.1.21"
     id("io.kotest") version "6.0.0"
+    id("com.google.devtools.ksp") version "2.1.21-2.0.2"
     distribution
 }
 
