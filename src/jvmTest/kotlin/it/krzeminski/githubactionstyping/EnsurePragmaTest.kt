@@ -1,9 +1,9 @@
 package it.krzeminski.githubactionstyping
 
+import io.kotest.common.sysprop
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.datatest.withData
 import io.kotest.matchers.shouldBe
-import io.kotest.mpp.sysprop
 import java.io.File
 
 private val schemaFile = File(sysprop("schemaFile")!!)

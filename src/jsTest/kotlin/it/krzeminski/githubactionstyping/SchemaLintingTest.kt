@@ -1,7 +1,7 @@
 package it.krzeminski.githubactionstyping
 
+import io.kotest.common.env
 import io.kotest.core.spec.style.FunSpec
-import io.kotest.mpp.env
 import prantlf.jsonlint.ParseOptions
 import prantlf.jsonlint.parse
 import node.buffer.BufferEncoding.Companion.utf8

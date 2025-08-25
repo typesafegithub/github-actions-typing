@@ -1,11 +1,11 @@
 package it.krzeminski.githubactionstyping
 
 import io.github.optimumcode.json.schema.JsonSchema
+import io.kotest.common.sysprop
 import io.kotest.matchers.Matcher
 import io.kotest.matchers.MatcherResult
 import io.kotest.matchers.should
 import io.kotest.matchers.shouldNot
-import io.kotest.mpp.sysprop
 import it.krzeminski.snakeyaml.engine.kmp.api.Load
 import it.krzeminski.snakeyaml.engine.kmp.api.LoadSettings
 import it.krzeminski.snakeyaml.engine.kmp.schema.CoreSchema

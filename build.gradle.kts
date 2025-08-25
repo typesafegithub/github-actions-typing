@@ -3,9 +3,10 @@ import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsEnvSpec
 import org.jetbrains.kotlin.gradle.targets.js.yarn.YarnRootEnvSpec
 
 plugins {
-    kotlin("multiplatform") version "2.1.21"
-    kotlin("plugin.serialization") version "2.1.21"
-    id("io.kotest.multiplatform") version "6.0.0.M3"
+    kotlin("multiplatform") version "2.2.0"
+    kotlin("plugin.serialization") version "2.2.0"
+    id("io.kotest") version "6.0.0"
+    id("com.google.devtools.ksp") version "2.2.0-2.0.2"
     distribution
 }
 
@@ -138,11 +139,11 @@ kotlin {
         jvmTest {
             dependencies {
                 runtimeOnly("org.junit.platform:junit-platform-launcher")
-                implementation(dependencies.platform("io.kotest:kotest-bom:5.9.1"))
+                implementation(dependencies.platform("io.kotest:kotest-bom:6.0.0"))
                 runtimeOnly("io.kotest:kotest-runner-junit5")
-                implementation("io.kotest:kotest-framework-api")
-                implementation("io.kotest:kotest-framework-datatest")
+                implementation("io.kotest:kotest-framework-engine")
                 implementation("io.kotest:kotest-assertions-core")
+                implementation("io.kotest:kotest-common")
 
                 implementation("it.krzeminski:snakeyaml-engine-kmp:3.2.0")
                 implementation("io.github.optimumcode:json-schema-validator:0.5.2")
@@ -151,10 +152,8 @@ kotlin {
 
         jsTest {
             dependencies {
-                implementation(dependencies.platform("io.kotest:kotest-bom:5.9.1"))
+                implementation(dependencies.platform("io.kotest:kotest-bom:6.0.0"))
                 implementation("io.kotest:kotest-framework-engine")
-                implementation("io.kotest:kotest-framework-api")
-                implementation("io.kotest:kotest-framework-datatest")
                 implementation("io.kotest:kotest-assertions-core")
 
                 implementation(kotlinWrappers.js)
