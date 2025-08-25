@@ -31,12 +31,12 @@ jobs:
     steps:
     - id: 'step-0'
       name: 'Checkout github-actions-typing'
-      uses: 'actions/checkout@v4'
+      uses: 'actions/checkout@v5'
       with:
         path: 'github-actions-typing'
     - id: 'step-1'
       name: 'Checkout github-actions-typing-catalog'
-      uses: 'actions/checkout@v4'
+      uses: 'actions/checkout@v5'
       with:
         repository: 'typesafegithub/github-actions-typing-catalog'
         path: 'github-actions-typing-catalog'
