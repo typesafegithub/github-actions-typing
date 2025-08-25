@@ -131,8 +131,8 @@ kotlin {
     sourceSets {
         jvmMain {
             dependencies {
-                implementation("com.charleskorn.kaml:kaml:0.83.0")
-                implementation("it.krzeminski:snakeyaml-engine-kmp:3.1.1")
+                implementation("com.charleskorn.kaml:kaml:0.92.0")
+                implementation("it.krzeminski:snakeyaml-engine-kmp:3.2.0")
             }
         }
 
@@ -145,7 +145,7 @@ kotlin {
                 implementation("io.kotest:kotest-framework-datatest")
                 implementation("io.kotest:kotest-assertions-core")
 
-                implementation("it.krzeminski:snakeyaml-engine-kmp:3.1.1")
+                implementation("it.krzeminski:snakeyaml-engine-kmp:3.2.0")
                 implementation("io.github.optimumcode:json-schema-validator:0.5.2")
             }
         }
