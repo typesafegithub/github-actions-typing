@@ -12,6 +12,7 @@ import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.nulls.shouldNotBeNull
 import io.kotest.matchers.should
 import io.kotest.matchers.shouldNot
+import js.promise.await
 import node.buffer.BufferEncoding.Companion.utf8
 import node.fs.Dir
 import node.fs.exists
@@ -39,7 +40,7 @@ class AjvSchemaValidationTest : FunSpec({
         withClue("catalogDir should be a non-empty directory") {
             exists(catalogDir).shouldBeTrue()
             stat(catalogDir).isDirectory().shouldBeTrue()
-            opendir(catalogDir).use { it.read().await().shouldNotBeNull() }
+            opendir(catalogDir).use { it.readAsync().await().shouldNotBeNull() }
         }
 
         validate = Ajv(AjvOptions(strict = true)).compile(
