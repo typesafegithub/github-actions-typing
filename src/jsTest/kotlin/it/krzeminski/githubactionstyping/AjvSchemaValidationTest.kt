@@ -3,6 +3,7 @@ package it.krzeminski.githubactionstyping
 import ajv.Ajv
 import ajv.ValidateFunction
 import io.kotest.assertions.withClue
+import io.kotest.common.env
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.datatest.withData
 import io.kotest.matchers.Matcher
@@ -11,7 +12,6 @@ import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.nulls.shouldNotBeNull
 import io.kotest.matchers.should
 import io.kotest.matchers.shouldNot
-import io.kotest.mpp.env
 import node.buffer.BufferEncoding.Companion.utf8
 import node.fs.Dir
 import node.fs.exists
