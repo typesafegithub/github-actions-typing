@@ -5,7 +5,7 @@ import org.jetbrains.kotlin.gradle.targets.js.yarn.YarnRootEnvSpec
 plugins {
     kotlin("multiplatform") version "2.2.10"
     kotlin("plugin.serialization") version "2.2.10"
-    id("io.kotest") version "6.0.1"
+    id("io.kotest") version "6.0.3"
     id("com.google.devtools.ksp") version "2.2.20-2.0.3"
     distribution
 }
