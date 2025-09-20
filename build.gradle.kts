@@ -139,7 +139,7 @@ kotlin {
         jvmTest {
             dependencies {
                 runtimeOnly("org.junit.platform:junit-platform-launcher")
-                implementation(dependencies.platform("io.kotest:kotest-bom:6.0.1"))
+                implementation(dependencies.platform("io.kotest:kotest-bom:6.0.3"))
                 runtimeOnly("io.kotest:kotest-runner-junit5")
                 implementation("io.kotest:kotest-framework-engine")
                 implementation("io.kotest:kotest-assertions-core")
@@ -152,7 +152,7 @@ kotlin {
 
         jsTest {
             dependencies {
-                implementation(dependencies.platform("io.kotest:kotest-bom:6.0.1"))
+                implementation(dependencies.platform("io.kotest:kotest-bom:6.0.3"))
                 implementation("io.kotest:kotest-framework-engine")
                 implementation("io.kotest:kotest-assertions-core")
 
