@@ -41,7 +41,7 @@ jobs:
         repository: 'typesafegithub/github-actions-typing-catalog'
         path: 'github-actions-typing-catalog'
     - id: 'step-2'
-      uses: 'gradle/actions/setup-gradle@v4'
+      uses: 'gradle/actions/setup-gradle@v5'
     - id: 'step-3'
       working-directory: 'github-actions-typing'
       run: './gradlew build'
