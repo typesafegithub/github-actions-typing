@@ -5,7 +5,7 @@
 
 @file:Repository("https://bindings.krzeminski.it")
 @file:DependsOn("actions:checkout:v5")
-@file:DependsOn("gradle:actions__setup-gradle:v4")
+@file:DependsOn("gradle:actions__setup-gradle:v5")
 @file:OptIn(ExperimentalKotlinLogicStep::class)
 
 import io.github.typesafegithub.workflows.actions.actions.Checkout
