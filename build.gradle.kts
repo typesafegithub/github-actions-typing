@@ -132,7 +132,7 @@ kotlin {
         jvmMain {
             dependencies {
                 implementation("com.charleskorn.kaml:kaml:0.98.0")
-                implementation("it.krzeminski:snakeyaml-engine-kmp:3.2.1")
+                implementation("it.krzeminski:snakeyaml-engine-kmp:4.0.1")
             }
         }
 
@@ -145,7 +145,7 @@ kotlin {
                 implementation("io.kotest:kotest-assertions-core")
                 implementation("io.kotest:kotest-common")
 
-                implementation("it.krzeminski:snakeyaml-engine-kmp:3.2.1")
+                implementation("it.krzeminski:snakeyaml-engine-kmp:4.0.1")
                 implementation("io.github.optimumcode:json-schema-validator:0.5.2")
             }
         }
