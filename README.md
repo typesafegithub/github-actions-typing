@@ -68,7 +68,7 @@ jobs:
     runs-on: "ubuntu-latest"
     steps:
       - uses: actions/checkout@v4
-      - uses: typesafegithub/github-actions-typing@v1
+      - uses: typesafegithub/github-actions-typing@v2
 ```
 
 ## Available types
