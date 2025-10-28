@@ -20,10 +20,8 @@ data class ApiItem(
 
 fun parseTypesManifest(manifestString: String): Result<TypesManifest> =
     runCatching {
-        val loadedTypesManifest = Load(
-            // work-around for https://github.com/krzema12/snakeyaml-engine-kmp/pull/390
-            LoadSettings.builder().setSchema(CoreSchema()).build()
-        ).loadOne(manifestString)
+        val loadedTypesManifest = Load(LoadSettings(schema = CoreSchema()))
+            .loadOne(manifestString)
 
         when (loadedTypesManifest) {
             null -> TypesManifest()
