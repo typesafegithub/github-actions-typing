@@ -131,7 +131,7 @@ kotlin {
     sourceSets {
         jvmMain {
             dependencies {
-                implementation("com.charleskorn.kaml:kaml:0.102.0")
+                implementation("com.charleskorn.kaml:kaml:0.103.0")
                 implementation("it.krzeminski:snakeyaml-engine-kmp:4.0.1")
             }
         }
