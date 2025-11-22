@@ -37,7 +37,7 @@ dependencyResolutionManagement {
 
     versionCatalogs {
         val kotlinWrappers by registering {
-            from("org.jetbrains.kotlin-wrappers:kotlin-wrappers-catalog:2025.11.8")
+            from("org.jetbrains.kotlin-wrappers:kotlin-wrappers-catalog:2025.11.11")
         }
     }
 }
