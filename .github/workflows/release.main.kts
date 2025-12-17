@@ -1,6 +1,9 @@
 #!/usr/bin/env kotlin
+// TODO: stop using the snapshot once 'checkoutActionVersion' feature is released
+@file:Repository("https://central.sonatype.com/repository/maven-snapshots/")
+@file:DependsOn("io.github.typesafegithub:github-workflows-kt:3.6.1-SNAPSHOT")
+
 @file:Repository("https://repo1.maven.org/maven2/")
-@file:DependsOn("io.github.typesafegithub:github-workflows-kt:3.6.0")
 @file:DependsOn("org.jetbrains.kotlinx:kotlinx-serialization-json:1.9.0")
 
 @file:Repository("https://bindings.krzeminski.it")
@@ -16,6 +19,8 @@ import io.github.typesafegithub.workflows.domain.triggers.WorkflowDispatch
 import io.github.typesafegithub.workflows.dsl.JobBuilder
 import io.github.typesafegithub.workflows.dsl.expressions.expr
 import io.github.typesafegithub.workflows.dsl.workflow
+import io.github.typesafegithub.workflows.yaml.CheckoutActionVersionSource
+import io.github.typesafegithub.workflows.yaml.DEFAULT_CONSISTENCY_CHECK_JOB_CONFIG
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.contentOrNull
 import kotlinx.serialization.json.jsonObject
@@ -33,6 +38,9 @@ workflow(
                 )
             ),
         ),
+    ),
+    consistencyCheckJobConfig = DEFAULT_CONSISTENCY_CHECK_JOB_CONFIG.copy(
+        checkoutActionVersion = CheckoutActionVersionSource.InferredFromClasspath,
     ),
     sourceFile = __FILE__,
 ) {
