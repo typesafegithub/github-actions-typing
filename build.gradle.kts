@@ -42,7 +42,6 @@ val collectExternalTypings by tasks.registering(Sync::class) {
         // work-around for https://github.com/Datagon-AI-GmbH/splunk-github-action/pull/1
         //"Datagon-AI-GmbH_splunk-github-action_main.yml" to "Datagon-AI-GmbH/splunk-github-action/refs/heads/main/action-types.yml",
         "egym_android-emulator-runner_main.yml" to "egym/android-emulator-runner/refs/heads/main/action-types.yml",
-        "embrace-io_android-emulator-runner_main.yml" to "embrace-io/android-emulator-runner/refs/heads/main/action-types.yml",
         "entrostat_git-secret-action_main.yml" to "entrostat/git-secret-action/refs/heads/main/action-types.yml",
         "ericcornelissen_git-tag-annotation-action_main.yml" to "ericcornelissen/git-tag-annotation-action/refs/heads/main/action-types.yml",
         "fwilhe2_setup-kotlin_main.yml" to "fwilhe2/setup-kotlin/refs/heads/main/action-types.yml",
