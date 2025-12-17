@@ -1,6 +1,7 @@
 #!/usr/bin/env kotlin
-@file:Repository("https://repo1.maven.org/maven2/")
-@file:DependsOn("io.github.typesafegithub:github-workflows-kt:3.6.0")
+// TODO: stop using the snapshot once 'checkoutActionVersion' feature is released
+@file:Repository("https://central.sonatype.com/repository/maven-snapshots/")
+@file:DependsOn("io.github.typesafegithub:github-workflows-kt:3.6.1-SNAPSHOT")
 
 @file:Repository("https://bindings.krzeminski.it")
 @file:DependsOn("actions:checkout:v6")
@@ -16,12 +17,17 @@ import io.github.typesafegithub.workflows.domain.RunnerType
 import io.github.typesafegithub.workflows.domain.triggers.PullRequest
 import io.github.typesafegithub.workflows.domain.triggers.Push
 import io.github.typesafegithub.workflows.dsl.workflow
+import io.github.typesafegithub.workflows.yaml.CheckoutActionVersionSource
+import io.github.typesafegithub.workflows.yaml.DEFAULT_CONSISTENCY_CHECK_JOB_CONFIG
 
 workflow(
     name = "Build",
     on = listOf(
         Push(branches = listOf("main")),
         PullRequest(),
+    ),
+    consistencyCheckJobConfig = DEFAULT_CONSISTENCY_CHECK_JOB_CONFIG.copy(
+        checkoutActionVersion = CheckoutActionVersionSource.InferredFromClasspath,
     ),
     sourceFile = __FILE__,
 ) {
