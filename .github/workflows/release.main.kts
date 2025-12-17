@@ -106,6 +106,9 @@ workflow(
     on = listOf(
         WorkflowDispatch(),
     ),
+    consistencyCheckJobConfig = DEFAULT_CONSISTENCY_CHECK_JOB_CONFIG.copy(
+        checkoutActionVersion = CheckoutActionVersionSource.InferredFromClasspath,
+    ),
     sourceFile = __FILE__,
     targetFileName = "make-branch-runnable.yaml",
 ) {
