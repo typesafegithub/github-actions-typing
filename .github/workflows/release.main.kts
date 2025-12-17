@@ -1,9 +1,6 @@
 #!/usr/bin/env kotlin
-// TODO: stop using the snapshot once 'checkoutActionVersion' feature is released
-@file:Repository("https://central.sonatype.com/repository/maven-snapshots/")
-@file:DependsOn("io.github.typesafegithub:github-workflows-kt:3.6.1-SNAPSHOT")
-
 @file:Repository("https://repo1.maven.org/maven2/")
+@file:DependsOn("io.github.typesafegithub:github-workflows-kt:3.7.0")
 @file:DependsOn("org.jetbrains.kotlinx:kotlinx-serialization-json:1.9.0")
 
 @file:Repository("https://bindings.krzeminski.it")
@@ -40,7 +37,7 @@ workflow(
         ),
     ),
     consistencyCheckJobConfig = DEFAULT_CONSISTENCY_CHECK_JOB_CONFIG.copy(
-        checkoutActionVersion = CheckoutActionVersionSource.InferredFromClasspath,
+        checkoutActionVersion = CheckoutActionVersionSource.InferFromClasspath(),
     ),
     sourceFile = __FILE__,
 ) {
@@ -107,7 +104,7 @@ workflow(
         WorkflowDispatch(),
     ),
     consistencyCheckJobConfig = DEFAULT_CONSISTENCY_CHECK_JOB_CONFIG.copy(
-        checkoutActionVersion = CheckoutActionVersionSource.InferredFromClasspath,
+        checkoutActionVersion = CheckoutActionVersionSource.InferFromClasspath(),
     ),
     sourceFile = __FILE__,
     targetFileName = "make-branch-runnable.yaml",
