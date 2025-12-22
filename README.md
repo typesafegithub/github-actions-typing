@@ -7,6 +7,8 @@ outputs have types set according to a certain specification.
 It aims to be a standardized way to present your actions' API, both to human users and any kind of automation (e. g. generating action bindings for [this Kotlin DSL](https://github.com/typesafegithub/github-workflows-kt)).
 Similar to typings for TypeScript or type hints for Python.
 
+Typings for all inputs and outputs have to be specified.
+
 It supports YAML anchors and aliases to reduce duplication.
 
 To see which actions already provide typings using this schema, click [here](https://github.com/typesafegithub/github-actions-typing/network/dependents).
