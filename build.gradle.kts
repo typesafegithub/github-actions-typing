@@ -3,7 +3,7 @@ import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsEnvSpec
 import org.jetbrains.kotlin.gradle.targets.js.yarn.YarnRootEnvSpec
 
 plugins {
-    kotlin("multiplatform") version "2.3.0"
+    kotlin("multiplatform") version "2.3.10"
     kotlin("plugin.serialization") version "2.3.0"
     id("io.kotest") version "6.0.7"
     id("com.google.devtools.ksp") version "2.3.6"
