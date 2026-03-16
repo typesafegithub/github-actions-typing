@@ -1,0 +1,30 @@
+# This file was generated using Kotlin DSL (.github/workflows/regenerate-yarn-lock.main.kts).
+# If you want to modify the workflow, please change the Kotlin file and regenerate this YAML file.
+# Generated with https://github.com/typesafegithub/github-workflows-kt
+
+name: 'Build'
+on:
+  issue_comment: {}
+jobs:
+  check_yaml_consistency:
+    name: 'Check YAML consistency'
+    runs-on: 'ubuntu-latest'
+    steps:
+    - id: 'step-0'
+      name: 'Check out'
+      uses: 'actions/checkout@v6'
+    - id: 'step-1'
+      name: 'Execute script'
+      run: 'rm ''.github/workflows/regenerate-yarn-lock.yaml'' && ''.github/workflows/regenerate-yarn-lock.main.kts'''
+    - id: 'step-2'
+      name: 'Consistency check'
+      run: 'git diff --exit-code ''.github/workflows/regenerate-yarn-lock.yaml'''
+  regenerate-yarn-lock:
+    runs-on: 'ubuntu-latest'
+    needs:
+    - 'check_yaml_consistency'
+    if: '${{ !github.event.issue.pull_request }}'
+    steps:
+    - id: 'step-0'
+      name: 'Run command'
+      run: 'echo ${{ github.event.issue_comment }}'
