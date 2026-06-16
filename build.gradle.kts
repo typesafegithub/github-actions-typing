@@ -38,7 +38,6 @@ val collectExternalTypings by tasks.registering(Sync::class) {
         "burrunan_gradle-cache-action_main.yml" to "burrunan/gradle-cache-action/refs/heads/main/action-types.yml",
         "c2corg_browserslist-update-action_main.yml" to "c2corg/browserslist-update-action/refs/heads/main/action-types.yml",
         "c2corg_transifex-pull-request-action_master.yml" to "c2corg/transifex-pull-request-action/refs/heads/master/action-types.yml",
-        "CrypteGuy_cryptesetup-wsl_master.yml" to "CrypteGuy/cryptesetup-wsl/refs/heads/master/action-types.yml",
         // work-around for https://github.com/Datagon-AI-GmbH/splunk-github-action/pull/1
         //"Datagon-AI-GmbH_splunk-github-action_main.yml" to "Datagon-AI-GmbH/splunk-github-action/refs/heads/main/action-types.yml",
         "egym_android-emulator-runner_main.yml" to "egym/android-emulator-runner/refs/heads/main/action-types.yml",
