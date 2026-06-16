@@ -167,7 +167,7 @@ kotlin {
 // and promotes supply chain attacks
 // instead we define the repositories ourselves in the settings script
 configure<NodeJsEnvSpec> {
-    version.set("20.18.1")
+    version.set(libs.versions.nodejs.get())
     downloadBaseUrl.set(provider { null })
 }
 

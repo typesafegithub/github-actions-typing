@@ -5,8 +5,7 @@ ksp = "2.3.9"
 kaml = "0.104.0"
 snakeyaml-engine-kmp = "4.0.1"
 json-schema-validator = "0.5.5"
-foojay-resolver-convention = "1.0.0"
-kotlin-wrappers-catalog = "2026.2.5"
+nodejs = "20.18.1"
 
 [libraries]
 kaml = { module = "com.charleskorn.kaml:kaml", version.ref = "kaml" }
@@ -24,4 +23,3 @@ kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref 
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 kotest = { id = "io.kotest", version.ref = "kotest" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
-foojay-resolver-convention = { id = "org.gradle.toolchains.foojay-resolver-convention", version.ref = "foojay-resolver-convention" }
