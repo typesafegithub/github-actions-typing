@@ -39,6 +39,7 @@ workflow(
         run(
             name = "Checkout PR branch",
             command = "gh pr checkout ${expr("github.event.issue.pull_request.number")}",
+            env = mapOf("GH_TOKEN" to expr("github.token")),
             `if` = expr("github.event.comment.body == 'regenerate-lock'"),
         )
         run(

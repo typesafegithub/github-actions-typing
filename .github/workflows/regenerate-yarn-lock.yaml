@@ -33,6 +33,8 @@ jobs:
       if: '${{ github.event.comment.body == ''regenerate-lock'' }}'
     - id: 'step-2'
       name: 'Checkout PR branch'
+      env:
+        GH_TOKEN: '${{ github.token }}'
       run: 'gh pr checkout ${{ github.event.issue.pull_request.number }}'
       if: '${{ github.event.comment.body == ''regenerate-lock'' }}'
     - id: 'step-3'
