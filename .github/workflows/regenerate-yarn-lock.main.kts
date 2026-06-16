@@ -11,6 +11,7 @@ import io.github.typesafegithub.workflows.dsl.expressions.expr
 import io.github.typesafegithub.workflows.dsl.workflow
 import io.github.typesafegithub.workflows.yaml.CheckoutActionVersionSource
 import io.github.typesafegithub.workflows.yaml.DEFAULT_CONSISTENCY_CHECK_JOB_CONFIG
+import io.github.typesafegithub.workflows.actions.actions.Checkout
 
 workflow(
     name = "Regenerate yarn.lock",
@@ -30,6 +31,36 @@ workflow(
         run(
             name = "Print comment",
             command = "echo \"Comment: '${expr("github.event.comment.body")}'\"",
+        )
+        uses(
+            name = "Checkout PR branch",
+            action = Checkout(
+                ref = expr("github.event.issue.pull_request.head.ref"),
+                token = expr("secrets.GITHUB_TOKEN"),
+            ),
+            `if` = expr("github.event.comment.body == 'regenerate-lock'"),
+        )
+        run(
+            name = "Regenerate yarn.lock",
+            command = "./gradlew kotlinUpgradeYarnLock",
+            `if` = expr("github.event.comment.body == 'regenerate-lock'"),
+        )
+        run(
+            name = "Configure git",
+            command = """
+                git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+                git config user.name "github-actions[bot]"
+            """.trimIndent(),
+            `if` = expr("github.event.comment.body == 'regenerate-lock'"),
+        )
+        run(
+            name = "Commit and push yarn.lock",
+            command = """
+                git add yarn.lock kotlin-js-store/yarn.lock
+                git diff --cached --exit-code || git commit -m "Regenerate yarn.lock"
+                git push
+            """.trimIndent(),
+            `if` = expr("github.event.comment.body == 'regenerate-lock'"),
         )
     }
 }
