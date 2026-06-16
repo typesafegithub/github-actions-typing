@@ -29,7 +29,7 @@ workflow(
     ) {
         run(
             name = "Run command",
-            command = "echo ${expr("github.event.issue_comment")}",
+            command = "echo '${expr("toJSON(github.event)")}'",
         )
     }
 }

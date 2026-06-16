@@ -27,4 +27,4 @@ jobs:
     steps:
     - id: 'step-0'
       name: 'Run command'
-      run: 'echo ${{ github.event.issue_comment }}'
+      run: 'echo ''${{ toJSON(github.event) }}'''
