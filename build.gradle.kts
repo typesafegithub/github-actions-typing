@@ -143,7 +143,7 @@ kotlin {
                 implementation("io.kotest:kotest-common")
 
                 implementation("it.krzeminski:snakeyaml-engine-kmp:4.0.1")
-                implementation("io.github.optimumcode:json-schema-validator:0.5.4")
+                implementation("io.github.optimumcode:json-schema-validator:0.5.5")
             }
         }
 
