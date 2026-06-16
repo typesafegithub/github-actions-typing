@@ -3,10 +3,10 @@ import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsEnvSpec
 import org.jetbrains.kotlin.gradle.targets.js.yarn.YarnRootEnvSpec
 
 plugins {
-    kotlin("multiplatform") version "2.4.0"
-    kotlin("plugin.serialization") version "2.4.0"
-    id("io.kotest") version "6.0.7"
-    id("com.google.devtools.ksp") version "2.3.9"
+    alias(libs.plugins.kotlin.multiplatform)
+    alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.kotest)
+    alias(libs.plugins.ksp)
     distribution
 }
 
@@ -128,30 +128,30 @@ kotlin {
     sourceSets {
         jvmMain {
             dependencies {
-                implementation("com.charleskorn.kaml:kaml:0.104.0")
-                implementation("it.krzeminski:snakeyaml-engine-kmp:4.0.1")
+                implementation(libs.kaml)
+                implementation(libs.snakeyaml.engine.kmp)
             }
         }
 
         jvmTest {
             dependencies {
-                runtimeOnly("org.junit.platform:junit-platform-launcher")
-                implementation(dependencies.platform("io.kotest:kotest-bom:6.0.7"))
-                runtimeOnly("io.kotest:kotest-runner-junit5")
-                implementation("io.kotest:kotest-framework-engine")
-                implementation("io.kotest:kotest-assertions-core")
-                implementation("io.kotest:kotest-common")
+                runtimeOnly(libs.junit.platform.launcher)
+                implementation(dependencies.platform(libs.kotest.bom))
+                runtimeOnly(libs.kotest.runner.junit5)
+                implementation(libs.kotest.framework.engine)
+                implementation(libs.kotest.assertions.core)
+                implementation(libs.kotest.common)
 
-                implementation("it.krzeminski:snakeyaml-engine-kmp:4.0.1")
-                implementation("io.github.optimumcode:json-schema-validator:0.5.5")
+                implementation(libs.snakeyaml.engine.kmp)
+                implementation(libs.json.schema.validator)
             }
         }
 
         jsTest {
             dependencies {
-                implementation(dependencies.platform("io.kotest:kotest-bom:6.0.7"))
-                implementation("io.kotest:kotest-framework-engine")
-                implementation("io.kotest:kotest-assertions-core")
+                implementation(dependencies.platform(libs.kotest.bom))
+                implementation(libs.kotest.framework.engine)
+                implementation(libs.kotest.assertions.core)
 
                 implementation(kotlinWrappers.js)
                 implementation(kotlinWrappers.node)

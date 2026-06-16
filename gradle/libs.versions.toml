@@ -1,0 +1,27 @@
+[versions]
+kotlin = "2.4.0"
+kotest = "6.0.7"
+ksp = "2.3.9"
+kaml = "0.104.0"
+snakeyaml-engine-kmp = "4.0.1"
+json-schema-validator = "0.5.5"
+foojay-resolver-convention = "1.0.0"
+kotlin-wrappers-catalog = "2026.2.5"
+
+[libraries]
+kaml = { module = "com.charleskorn.kaml:kaml", version.ref = "kaml" }
+snakeyaml-engine-kmp = { module = "it.krzeminski:snakeyaml-engine-kmp", version.ref = "snakeyaml-engine-kmp" }
+kotest-bom = { module = "io.kotest:kotest-bom", version.ref = "kotest" }
+kotest-runner-junit5 = { module = "io.kotest:kotest-runner-junit5" }
+kotest-framework-engine = { module = "io.kotest:kotest-framework-engine" }
+kotest-assertions-core = { module = "io.kotest:kotest-assertions-core" }
+kotest-common = { module = "io.kotest:kotest-common" }
+junit-platform-launcher = { module = "org.junit.platform:junit-platform-launcher" }
+json-schema-validator = { module = "io.github.optimumcode:json-schema-validator", version.ref = "json-schema-validator" }
+
+[plugins]
+kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
+kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+kotest = { id = "io.kotest", version.ref = "kotest" }
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+foojay-resolver-convention = { id = "org.gradle.toolchains.foojay-resolver-convention", version.ref = "foojay-resolver-convention" }
