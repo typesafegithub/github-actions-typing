@@ -13,7 +13,7 @@ import io.github.typesafegithub.workflows.yaml.CheckoutActionVersionSource
 import io.github.typesafegithub.workflows.yaml.DEFAULT_CONSISTENCY_CHECK_JOB_CONFIG
 
 workflow(
-    name = "Build",
+    name = "Regenerate yarn.lock",
     on = listOf(
         IssueComment()
     ),
