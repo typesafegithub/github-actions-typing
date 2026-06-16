@@ -26,5 +26,5 @@ jobs:
     if: '${{ github.event.issue.pull_request }}'
     steps:
     - id: 'step-0'
-      name: 'Run command'
-      run: 'echo ''${{ toJSON(github.event) }}'''
+      name: 'Print comment'
+      run: 'echo "Comment: ''${{ github.event.comment.body }}''"'

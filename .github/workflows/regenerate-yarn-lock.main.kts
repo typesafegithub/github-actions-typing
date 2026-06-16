@@ -28,8 +28,8 @@ workflow(
         `if` = expr("github.event.issue.pull_request")
     ) {
         run(
-            name = "Run command",
-            command = "echo '${expr("toJSON(github.event)")}'",
+            name = "Print comment",
+            command = "echo \"Comment: '${expr("github.event.comment.body")}'\"",
         )
     }
 }
