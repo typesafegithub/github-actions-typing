@@ -29,26 +29,26 @@ jobs:
       name: 'Print comment'
       run: 'echo "Comment: ''${{ github.event.comment.body }}''"'
     - id: 'step-1'
-      name: 'Checkout PR branch'
       uses: 'actions/checkout@v6'
-      with:
-        ref: '${{ github.event.issue.pull_request.head.ref }}'
-        token: '${{ secrets.GITHUB_TOKEN }}'
       if: '${{ github.event.comment.body == ''regenerate-lock'' }}'
     - id: 'step-2'
+      name: 'Checkout PR branch'
+      run: 'gh pr checkout ${{ github.event.issue.pull_request.number }}'
+      if: '${{ github.event.comment.body == ''regenerate-lock'' }}'
+    - id: 'step-3'
       name: 'Regenerate yarn.lock'
       run: './gradlew kotlinUpgradeYarnLock'
       if: '${{ github.event.comment.body == ''regenerate-lock'' }}'
-    - id: 'step-3'
+    - id: 'step-4'
       name: 'Configure git'
       run: |-
         git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
         git config user.name "github-actions[bot]"
       if: '${{ github.event.comment.body == ''regenerate-lock'' }}'
-    - id: 'step-4'
+    - id: 'step-5'
       name: 'Commit and push yarn.lock'
       run: |-
-        git add yarn.lock kotlin-js-store/yarn.lock
+        git add kotlin-js-store/yarn.lock
         git diff --cached --exit-code || git commit -m "Regenerate yarn.lock"
         git push
       if: '${{ github.event.comment.body == ''regenerate-lock'' }}'

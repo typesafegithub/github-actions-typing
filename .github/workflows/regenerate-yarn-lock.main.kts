@@ -33,11 +33,12 @@ workflow(
             command = "echo \"Comment: '${expr("github.event.comment.body")}'\"",
         )
         uses(
+            action = Checkout(),
+            `if` = expr("github.event.comment.body == 'regenerate-lock'"),
+        )
+        run(
             name = "Checkout PR branch",
-            action = Checkout(
-                ref = expr("github.event.issue.pull_request.head.ref"),
-                token = expr("secrets.GITHUB_TOKEN"),
-            ),
+            command = "gh pr checkout ${expr("github.event.issue.pull_request.number")}",
             `if` = expr("github.event.comment.body == 'regenerate-lock'"),
         )
         run(
@@ -56,7 +57,7 @@ workflow(
         run(
             name = "Commit and push yarn.lock",
             command = """
-                git add yarn.lock kotlin-js-store/yarn.lock
+                git add kotlin-js-store/yarn.lock
                 git diff --cached --exit-code || git commit -m "Regenerate yarn.lock"
                 git push
             """.trimIndent(),
