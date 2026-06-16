@@ -25,7 +25,7 @@ workflow(
     job(
         id = "regenerate-yarn-lock",
         runsOn = RunnerType.UbuntuLatest,
-        `if` = expr("!github.event.issue.pull_request")
+        `if` = expr("github.event.issue.pull_request")
     ) {
         run(
             name = "Run command",

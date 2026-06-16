@@ -23,7 +23,7 @@ jobs:
     runs-on: 'ubuntu-latest'
     needs:
     - 'check_yaml_consistency'
-    if: '${{ !github.event.issue.pull_request }}'
+    if: '${{ github.event.issue.pull_request }}'
     steps:
     - id: 'step-0'
       name: 'Run command'
