@@ -9,6 +9,13 @@
     {
       "matchPackageNames": ["io.kotest.multiplatform"],
       "allowedVersions": "!/LOCAL$/"
+    },
+    {
+      "groupName": "gradle-actions",
+      "matchPackageNames": [
+        "gradle/actions",
+        "/^gradle:actions__.*$/"
+      ]
     }
   ]
 }
