@@ -4,7 +4,7 @@
 @file:DependsOn("org.jetbrains.kotlinx:kotlinx-serialization-json:1.11.0")
 
 @file:Repository("https://bindings.krzeminski.it")
-@file:DependsOn("actions:checkout:v6")
+@file:DependsOn("actions:checkout:v7")
 @file:DependsOn("gradle:actions__setup-gradle:v5")
 @file:OptIn(ExperimentalKotlinLogicStep::class)
 
