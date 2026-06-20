@@ -3,7 +3,7 @@
 @file:DependsOn("io.github.typesafegithub:github-workflows-kt:3.7.0")
 
 @file:Repository("https://bindings.krzeminski.it")
-@file:DependsOn("actions:checkout:v6")
+@file:DependsOn("actions:checkout:v7")
 
 import io.github.typesafegithub.workflows.domain.RunnerType
 import io.github.typesafegithub.workflows.domain.triggers.IssueComment
