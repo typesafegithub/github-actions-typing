@@ -29,7 +29,7 @@ workflow(
         WorkflowDispatch(
             inputs = mapOf(
                 "version" to WorkflowDispatch.Input(
-                    type = WorkflowDispatch.Type.String,
+                    type = WorkflowDispatch.Input.Type.String,
                     required = true,
                     description = "Used for the tag and the version name. E.g. v1.2.3.",
                 )
