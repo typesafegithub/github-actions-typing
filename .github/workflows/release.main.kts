@@ -1,6 +1,6 @@
 #!/usr/bin/env kotlin
 @file:Repository("https://repo1.maven.org/maven2/")
-@file:DependsOn("io.github.typesafegithub:github-workflows-kt:3.7.0")
+@file:DependsOn("io.github.typesafegithub:github-workflows-kt:4.0.0")
 @file:DependsOn("org.jetbrains.kotlinx:kotlinx-serialization-json:1.11.0")
 
 @file:Repository("https://bindings.krzeminski.it")
@@ -29,7 +29,7 @@ workflow(
         WorkflowDispatch(
             inputs = mapOf(
                 "version" to WorkflowDispatch.Input(
-                    type = WorkflowDispatch.Type.String,
+                    type = WorkflowDispatch.Input.Type.String,
                     required = true,
                     description = "Used for the tag and the version name. E.g. v1.2.3.",
                 )
