@@ -4,7 +4,7 @@
 
 @file:Repository("https://bindings.krzeminski.it")
 @file:DependsOn("actions:checkout:v7")
-@file:DependsOn("actions:setup-java:v5")
+@file:DependsOn("actions:setup-java:v6")
 @file:DependsOn("gradle:gradle-build-action:v3")
 @file:DependsOn("typesafegithub:github-actions-typing:v2")
 
