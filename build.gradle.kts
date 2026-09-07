@@ -70,7 +70,6 @@ val collectExternalTypings by tasks.registering(Sync::class) {
         "telia-actions_android-emulator-runner_main.yml" to "telia-actions/android-emulator-runner/refs/heads/main/action-types.yml",
         "telia-actions_kover-report_main.yml" to "telia-actions/kover-report/refs/heads/main/action-types.yml",
         "telia-actions_semver-utils_main.yml" to "telia-actions/semver-utils/refs/heads/main/action-types.yml",
-        "Tritura_mongodb-github-action_main.yml" to "Tritura/mongodb-github-action/refs/heads/main/action-types.yml",
         "typesafegithub_github-actions-typing_main.yml" to "typesafegithub/github-actions-typing/refs/heads/main/action-types.yml",
         "typesafegithub_github-actions-typing_v1.yml" to "typesafegithub/github-actions-typing/refs/heads/v1/action-types.yml",
         "Vampire_setup-wsl_master.yml" to "Vampire/setup-wsl/refs/heads/master/action-types.yml",
