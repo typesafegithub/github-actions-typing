@@ -1,6 +1,6 @@
 [versions]
 kotlin = "2.4.10"
-kotest = "6.2.3"
+kotest = "6.2.4"
 ksp = "2.3.11"
 kaml = "0.104.0"
 snakeyaml-engine-kmp = "4.0.1"
