@@ -1,4 +1,4 @@
-FROM eclipse-temurin:25.0.3_9-jre
+FROM eclipse-temurin:25.0.4_7-jre
 RUN mkdir /app
 COPY dist/github-actions-typing/lib/*.jar /app/
 WORKDIR /app
