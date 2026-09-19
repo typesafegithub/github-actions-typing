@@ -1,5 +1,5 @@
 [versions]
-kotlin = "2.4.10"
+kotlin = "2.4.20"
 kotest = "6.2.5"
 ksp = "2.3.12"
 kaml = "0.104.0"
