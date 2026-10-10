@@ -3,7 +3,7 @@ kotlin = "2.4.10"
 kotest = "6.2.5"
 ksp = "2.3.12"
 kaml = "0.104.0"
-snakeyaml-engine-kmp = "4.0.1"
+snakeyaml-engine-kmp = "5.0.0"
 json-schema-validator = "0.5.5"
 nodejs = "20.18.1"
 
